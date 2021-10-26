@@ -5,6 +5,10 @@ package registration.constants;
  */
 public class RegistrationPortletKeys {
 
-	public static final String Registration = "registration";
+	private RegistrationPortletKeys() {
+		throw new IllegalStateException("Utility class");
+	}
+
+	public static final String REGISTRATION = "registration";
 
 }
