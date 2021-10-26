@@ -14,7 +14,7 @@ export default function BirthdaySelector() {
             placeholder="YYYY-MM-DD"
             value={value}
             onChange={handleChange}
-            spritemap="http://localhost:8080/documents/37341/0/icons.svg"
+            spritemap={`${Liferay.ThemeDisplay.getCDNBaseURL()}/documents/37341/0/icons.svg`}
             years={{
                 end: 2024,
                 start: 1997
