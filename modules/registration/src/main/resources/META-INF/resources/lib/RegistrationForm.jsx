@@ -13,21 +13,27 @@ export default function RegistrationForm() {
             <FormSection heading="Basic Info">
                 <TwoColGroup>
                     <label htmlFor="firstName">First Name</label>
-                    <ClayInput id="firstName" placeholder="FirstName" type="text"></ClayInput>
+                    <ClayInput id="firstName" placeholder="first name" type="text"></ClayInput>
                     <label htmlFor="lastName">Last Name</label>
-                    <ClayInput id="lastName" placeholder="LastName" type="text"></ClayInput>
+                    <ClayInput id="lastName" placeholder="last name" type="text"></ClayInput>
                 </TwoColGroup>
                 <TwoColGroup>
                     <label htmlFor="email">Email</label>
-                    <ClayInput id="email" placeholder="Email" type="email"></ClayInput>
+                    <ClayInput id="email" placeholder="email" type="email"></ClayInput>
                     <label htmlFor="username">Username</label>
-                    <ClayInput id="username" placeholder="Username" type="text"></ClayInput>
+                    <ClayInput id="username" placeholder="username" type="text"></ClayInput>
                 </TwoColGroup>
                 <TwoColGroup>
                     <label htmlFor="genderSelect">Gender</label>
                     <GenderSelect id="genderSelect" />
                     <label htmlFor="birthday">Birthday</label>
                     <BirthdaySelector />
+                </TwoColGroup>
+                <TwoColGroup>
+                    <label htmlFor="password">Password</label>
+                    <ClayInput id="password" placeholder="password" type="password"></ClayInput>
+                    <label htmlFor="confirmPassword">Confirm password</label>
+                    <ClayInput id="confirmPassword" placeholder="confirm your password" type="password"></ClayInput>
                 </TwoColGroup>
             </FormSection>
         </div>
