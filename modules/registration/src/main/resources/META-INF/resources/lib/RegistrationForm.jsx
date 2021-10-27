@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useState } from "react";
 
 import FormSection from "./components/FormSection";
 import TwoColGroup from "./components/TwoColGroup";
@@ -7,29 +7,16 @@ import Datepicker from "./components/Datepicker";
 import Input from "./components/Input";
 import ClayButton from "@clayui/button";
 
-export default function RegistrationForm() {
-  const genderOptions = [
-    { label: "Male", value: "male" },
-    { label: "Female", value: "female" },
-  ];
-  const firstNameRef = useRef(null);
-  const lastNameRef = useRef(null);
-  const emailRef = useRef(null);
-  const usernameRef = useRef(null);
-  const birthdayRef = useRef(null);
-  const genderRef = useRef(null);
-  const passwordRef = useRef(null);
-  const confrimPasswordRef = useRef(null);
+import RegistrationFormInputs from "./domain/RegistrationFormInputs";
+import { genderOptions } from "./domain/genderOptions";
+import { genChangeHandlers } from "./utils/utils";
 
-  const handleClick = () => {
-    console.log(firstNameRef.current.value);
-    console.log(lastNameRef.current.value);
-    console.log(emailRef.current.value);
-    console.log(usernameRef.current.value);
-    console.log(birthdayRef.current.value);
-    console.log(genderRef.current.value);
-    console.log(passwordRef.current.value);
-    console.log(confrimPasswordRef.current.value);
+export default function RegistrationForm() {
+  const [formValues, setFormValues] = useState(new RegistrationFormInputs());
+  const handlers = genChangeHandlers(formValues, setFormValues);
+
+  const handleSubmit = () => {
+    console.log(formValues);
   };
 
   return (
@@ -37,31 +24,59 @@ export default function RegistrationForm() {
       <h2>User Registration</h2>
       <FormSection heading="Basic Info">
         <TwoColGroup>
-          <Input label="First Name" reference={firstNameRef} />
-          <Input label="Last Name" reference={lastNameRef} />
+          <Input
+            label="First Name"
+            value={formValues.firstName}
+            handleChange={handlers.handleFirstNameChange}
+          />
+          <Input
+            label="Last Name"
+            value={formValues.lastName}
+            handleChange={handlers.handleLastNameChange}
+          />
         </TwoColGroup>
         <TwoColGroup>
-          <Input label="Email" reference={emailRef} type="email" />
-          <Input label="Username" reference={usernameRef} />
+          <Input
+            label="Email"
+            value={formValues.emailAddress}
+            handleChange={handlers.handleEmailAddressChange}
+            type="email"
+          />
+          <Input
+            label="Username"
+            value={formValues.screenName}
+            handleChange={handlers.handleScreenNameChange}
+          />
         </TwoColGroup>
         <TwoColGroup>
           <Select
             label="Gender"
+            value={formValues.gender}
+            handleChange={handlers.handleGenderChange}
             options={genderOptions}
-            reference={genderRef}
           />
-          <Datepicker label="Birthday" reference={birthdayRef} />
+          <Datepicker
+            label="Birthday"
+            value={formValues.birthday}
+            handleChange={handlers.handleBirthdayChange}
+          />
         </TwoColGroup>
         <TwoColGroup>
-          <Input label="Password" reference={passwordRef} type="password" />
+          <Input
+            label="Password"
+            value={formValues.password1}
+            handleChange={handlers.handlePassword1Change}
+            type="password"
+          />
           <Input
             label="Confirm Password"
-            reference={confrimPasswordRef}
+            value={formValues.password2}
+            handleChange={handlers.handlePassword2Change}
             type="password"
           />
         </TwoColGroup>
       </FormSection>
-      <ClayButton onClick={handleClick} displayType="primary">
+      <ClayButton onClick={handleSubmit} displayType="primary">
         Submit
       </ClayButton>
     </div>
