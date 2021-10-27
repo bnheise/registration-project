@@ -8,10 +8,12 @@ const firstOrElse = (firstCallback, secondCallback) => (item, index) =>
 
 const camelMap = firstOrElse(toLowerCase, capitalize);
 
-const genChangeHandler =
-  (stateSetter, stateObject, currentKey) =>
-  ({ target: value }) =>
-    stateSetter({ ...stateObject, [currentKey]: value });
+const genChangeHandler = (stateSetter, stateObject, currentKey) => (event) => {
+  stateSetter({
+    ...stateObject,
+    [currentKey]: event.target ? event.target.value : event,
+  });
+};
 
 export const genChangeHandlers = (stateObject, stateSetter) =>
   Object.keys(stateObject).reduce((allHandlers, currentKey) => {
