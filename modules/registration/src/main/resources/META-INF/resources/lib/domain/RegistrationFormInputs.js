@@ -14,7 +14,7 @@ export default class RegistrationFormInputs {
     this.firstName = firstName || "";
     this.lastName = lastName || "";
     this.gender = gender || "male";
-    this.birthday = birthday;
+    this.birthday = birthday || "";
     this.password1 = password || "";
     this.password2 = passwordConfirmation || "";
   }
