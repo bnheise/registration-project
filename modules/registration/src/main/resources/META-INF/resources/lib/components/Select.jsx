@@ -3,12 +3,17 @@ import PropTypes from "prop-types";
 import { ClaySelect } from "@clayui/form";
 import { toCamel } from "../utils/utils";
 
-const Select = ({ label, options, reference }) => {
+const Select = ({ label, options, value, handleChange }) => {
   const camelLabel = toCamel(label);
   return (
     <div>
       <label htmlFor={camelLabel}>{label}</label>
-      <ClaySelect ref={reference} id={camelLabel} aria-label="Select Label">
+      <ClaySelect
+        value={value}
+        onChange={handleChange}
+        id={camelLabel}
+        aria-label="Select Label"
+      >
         {options.map((item) => (
           <ClaySelect.Option
             key={item.value}
@@ -23,16 +28,14 @@ const Select = ({ label, options, reference }) => {
 
 Select.propTypes = {
   label: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
   options: PropTypes.arrayOf(
     PropTypes.shape({
       label: PropTypes.string,
-      value: PropTypes.string,
+      value: PropTypes.string.isRequired,
     })
   ).isRequired,
-  reference: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
-  ]).isRequired,
+  handleChange: PropTypes.func.isRequired,
 };
 
 export default Select;

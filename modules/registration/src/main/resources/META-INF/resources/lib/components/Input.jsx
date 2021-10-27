@@ -3,14 +3,15 @@ import PropTypes from "prop-types";
 import { ClayInput } from "@clayui/form";
 import { toCamel } from "../utils/utils";
 
-const Input = ({ label, reference, type = "text" }) => {
+const Input = ({ label, value, handleChange, type = "text" }) => {
   const camelLabel = toCamel(label);
   return (
     <div>
       <label htmlFor={camelLabel}>{label}</label>
       <ClayInput
         id={camelLabel}
-        ref={reference}
+        value={value}
+        onChange={handleChange}
         placeholder={label.toLowerCase()}
         type={type}
       />
@@ -20,10 +21,8 @@ const Input = ({ label, reference, type = "text" }) => {
 
 Input.propTypes = {
   label: PropTypes.string.isRequired,
-  reference: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
-  ]).isRequired,
+  value: PropTypes.string.isRequired,
+  handleChange: PropTypes.func.isRequired,
   type: PropTypes.oneOf(["text", "password", "email"]),
 };
 
