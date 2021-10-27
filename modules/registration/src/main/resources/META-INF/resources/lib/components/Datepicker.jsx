@@ -14,7 +14,6 @@ const DatePicker = ({ label, value, handleChange }) => {
         onValueChange={handleChange}
         placeholder="YYYY-MM-DD"
         value={value}
-        onChange={handleChange}
         spritemap={`${Liferay.ThemeDisplay.getCDNBaseURL()}/documents/37341/0/icons.svg`}
         years={{
           end: 2024,
