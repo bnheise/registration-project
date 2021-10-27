@@ -10,13 +10,21 @@ import ClayButton from "@clayui/button";
 import RegistrationFormInputs from "./domain/RegistrationFormInputs";
 import { genderOptions } from "./domain/genderOptions";
 import { genChangeHandlers } from "./utils/utils";
+import UserDTO from "./domain/UserDTO";
 
 export default function RegistrationForm() {
   const [formValues, setFormValues] = useState(new RegistrationFormInputs());
   const handlers = genChangeHandlers(formValues, setFormValues);
 
   const handleSubmit = () => {
-    console.log(formValues);
+    Liferay.Service(
+      "/user/add-user",
+      new UserDTO(formValues),
+      (obj) => {
+        console.log(obj);
+      },
+      (error) => console.log(error)
+    );
   };
 
   return (
