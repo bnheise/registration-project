@@ -9,7 +9,7 @@ const Select = ({ label, options, value, handleChange }) => {
     <div>
       <label htmlFor={camelLabel}>{label}</label>
       <ClaySelect
-        value={value}
+        value={value || options[0].value}
         onChange={handleChange}
         id={camelLabel}
         aria-label="Select Label"
