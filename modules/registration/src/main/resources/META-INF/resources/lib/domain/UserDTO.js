@@ -27,12 +27,12 @@ export default class UserDTO {
     this.firstName = firstName;
     this.lastName = lastName;
     this.male = isMale;
-    this.birthdayMonth = parsedBirthday.getMonth();
-    this.birthdayDay = parsedBirthday.getDate();
-    this.birthdayYear = parsedBirthday.getFullYear();
+    this.birthdayMonth = parsedBirthday.getMonth() || -1;
+    this.birthdayDay = parsedBirthday.getDate() || -1;
+    this.birthdayYear = parsedBirthday.getFullYear() || -1;
     this.password1 = password1;
     this.password2 = password2;
-    this.companyId = Number(Liferay.ThemeDisplay.getCompanyId());
+    this.companyId = Number(Liferay.ThemeDisplay.getCompanyId()) || -1;
     this.autoPassword = false;
     this.autoScreenName = false;
     this.locale = Liferay.ThemeDisplay.getLanguageId();
