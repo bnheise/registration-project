@@ -1,6 +1,6 @@
 import React from "react";
 import RegistrationForm from "./pages/RegistrationForm";
-import AlreadyLoggedIn from "./components/AlreadyLoggedIn";
+import AlreadyLoggedIn from "./pages/AlreadyLoggedIn";
 
 const RegistrationPortlet = () => {
   return (
