@@ -29,7 +29,10 @@ export default function RegistrationForm() {
           new AgreedToTermsDTO({ userId, agreedToTermsOfUse })
         );
       },
-      (error) => console.log(error)
+      (error) => {
+        console.log(typeof error);
+        console.log(error);
+      }
     );
   };
 
@@ -41,11 +44,13 @@ export default function RegistrationForm() {
             label="First Name"
             value={formValues.firstName}
             handleChange={handlers.handleFirstNameChange}
+            isRequired={true}
           />
           <Input
             label="Last Name"
             value={formValues.lastName}
             handleChange={handlers.handleLastNameChange}
+            isRequired={true}
           />
         </TwoColGroup>
         <TwoColGroup>
@@ -54,11 +59,13 @@ export default function RegistrationForm() {
             value={formValues.emailAddress}
             handleChange={handlers.handleEmailAddressChange}
             type="email"
+            isRequired={true}
           />
           <Input
             label="Username"
             value={formValues.screenName}
             handleChange={handlers.handleScreenNameChange}
+            isRequired={true}
           />
         </TwoColGroup>
         <TwoColGroup>
@@ -67,11 +74,13 @@ export default function RegistrationForm() {
             value={formValues.gender}
             handleChange={handlers.handleGenderChange}
             options={genderOptions}
+            isRequired={true}
           />
           <Datepicker
             label="Birthday"
             value={formValues.birthday}
             handleChange={handlers.handleBirthdayChange}
+            isRequired={true}
           />
         </TwoColGroup>
         <TwoColGroup>
@@ -80,12 +89,14 @@ export default function RegistrationForm() {
             value={formValues.password1}
             handleChange={handlers.handlePassword1Change}
             type="password"
+            isRequired={true}
           />
           <Input
             label="Confirm Password"
             value={formValues.password2}
             handleChange={handlers.handlePassword2Change}
             type="password"
+            isRequired={true}
           />
         </TwoColGroup>
       </FormSection>

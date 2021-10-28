@@ -1,13 +1,20 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { ClaySelect } from "@clayui/form";
+import Label from "./Label";
 import { toCamel } from "../utils/utils";
 
-const Select = ({ label, options, value, handleChange }) => {
+const Select = ({
+  label,
+  options,
+  value,
+  handleChange,
+  isRequired = false,
+}) => {
   const camelLabel = toCamel(label);
   return (
     <div>
-      <label htmlFor={camelLabel}>{label}</label>
+      <Label text={label} isRequired={isRequired} />
       <ClaySelect
         value={value || options[0].value}
         onChange={handleChange}
@@ -36,6 +43,7 @@ Select.propTypes = {
     })
   ).isRequired,
   handleChange: PropTypes.func.isRequired,
+  isRequired: PropTypes.bool,
 };
 
 export default Select;
