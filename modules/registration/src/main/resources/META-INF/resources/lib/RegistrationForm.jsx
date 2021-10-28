@@ -5,23 +5,29 @@ import TwoColGroup from "./components/TwoColGroup";
 import Select from "./components/Select";
 import Datepicker from "./components/Datepicker";
 import Input from "./components/Input";
+import Checkbox from "./components/Checkbox";
 import ClayButton from "@clayui/button";
 
 import RegistrationFormInputs from "./domain/RegistrationFormInputs";
 import { genderOptions } from "./domain/genderOptions";
 import { genChangeHandlers } from "./utils/utils";
 import UserDTO from "./domain/UserDTO";
+import AgreedToTermsDTO from "./domain/AgreedToTermsDTO";
 
 export default function RegistrationForm() {
   const [formValues, setFormValues] = useState(new RegistrationFormInputs());
   const handlers = genChangeHandlers(formValues, setFormValues);
+  const [agreedToTermsOfUse, setAgreedToTermsOfUse] = useState(false);
 
   const handleSubmit = () => {
     Liferay.Service(
       "/user/add-user",
       new UserDTO(formValues),
-      (obj) => {
-        console.log(obj);
+      ({ userId }) => {
+        Liferay.Service(
+          "/user/update-agreed-to-terms-of-use",
+          new AgreedToTermsDTO({ userId, agreedToTermsOfUse })
+        );
       },
       (error) => console.log(error)
     );
@@ -84,6 +90,11 @@ export default function RegistrationForm() {
           />
         </TwoColGroup>
       </FormSection>
+      <Checkbox
+        value={agreedToTermsOfUse}
+        handler={setAgreedToTermsOfUse}
+        label="I have read, understand, and agree with the Terms of Use governing my access to and use of the Acme Movie Fanatics web site."
+      />
       <ClayButton onClick={handleSubmit} displayType="primary">
         Submit
       </ClayButton>
