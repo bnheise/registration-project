@@ -1,8 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import RegistrationForm from "./RegistrationForm";
+import RegistrationPortlet from "./RegistrationPortlet";
 
 export default function (elementId) {
-  ReactDOM.render(<RegistrationForm />, document.getElementById(elementId));
+  ReactDOM.render(<RegistrationPortlet />, document.getElementById(elementId));
 }

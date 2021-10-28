@@ -1,18 +1,18 @@
 import React, { useState } from "react";
 
-import FormSection from "./components/FormSection";
-import TwoColGroup from "./components/TwoColGroup";
-import Select from "./components/Select";
-import Datepicker from "./components/Datepicker";
-import Input from "./components/Input";
-import Checkbox from "./components/Checkbox";
+import FormSection from "../components/FormSection";
+import TwoColGroup from "../components/TwoColGroup";
+import Select from "../components/Select";
+import Datepicker from "../components/Datepicker";
+import Input from "../components/Input";
+import Checkbox from "../components/Checkbox";
 import ClayButton from "@clayui/button";
 
-import RegistrationFormInputs from "./domain/RegistrationFormInputs";
-import { genderOptions } from "./domain/genderOptions";
-import { genChangeHandlers } from "./utils/utils";
-import UserDTO from "./domain/UserDTO";
-import AgreedToTermsDTO from "./domain/AgreedToTermsDTO";
+import RegistrationFormInputs from "../domain/RegistrationFormInputs";
+import { genderOptions } from "../domain/genderOptions";
+import { genChangeHandlers } from "../utils/utils";
+import UserDTO from "../domain/UserDTO";
+import AgreedToTermsDTO from "../domain/AgreedToTermsDTO";
 
 export default function RegistrationForm() {
   const [formValues, setFormValues] = useState(new RegistrationFormInputs());
@@ -35,7 +35,6 @@ export default function RegistrationForm() {
 
   return (
     <div>
-      <h2>User Registration</h2>
       <FormSection heading="Basic Info">
         <TwoColGroup>
           <Input
