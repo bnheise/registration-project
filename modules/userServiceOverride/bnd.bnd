@@ -1,0 +1,3 @@
+Bundle-Name: userServiceOverride
+Bundle-SymbolicName: com.amf.service.override.userservice
+Bundle-Version: 1.0.0
