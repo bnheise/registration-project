@@ -79,12 +79,14 @@ export default function RegistrationForm() {
             handleChange={handlers.handleGenderChange}
             options={genderOptions}
             isRequired={true}
+            errors={errors.gender}
           />
           <Datepicker
             label="Birthday"
             value={formValues.birthday}
             handleChange={handlers.handleBirthdayChange}
             isRequired={true}
+            errors={errors.birthday}
           />
         </TwoColGroup>
         <TwoColGroup>

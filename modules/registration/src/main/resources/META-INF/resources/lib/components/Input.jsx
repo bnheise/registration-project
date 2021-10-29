@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import ClayForm, { ClayInput } from "@clayui/form";
 import { toCamel } from "../utils/utils";
 import Label from "./Label";
+import useErrors from "../hooks/useError";
 
 const Input = ({
   label,
@@ -13,9 +14,9 @@ const Input = ({
   errors = "",
 }) => {
   const camelLabel = toCamel(label);
-  errors = typeof errors === "string" && errors.length > 0 ? [errors] : errors;
+  const [className, errorUI] = useErrors(errors);
   return (
-    <ClayForm.Group className={`${errors.length > 0 ? "has-error" : null}`}>
+    <ClayForm.Group className={className}>
       <Label text={label} isRequired={isRequired} />
       <ClayInput
         id={camelLabel}
@@ -24,13 +25,7 @@ const Input = ({
         placeholder={label.toLowerCase()}
         type={type}
       />
-      {errors.length > 0 ? (
-        <ClayForm.FeedbackGroup>
-          {errors.map((error, index) => (
-            <ClayForm.FeedbackItem key={index}>{error}</ClayForm.FeedbackItem>
-          ))}
-        </ClayForm.FeedbackGroup>
-      ) : null}
+      {errorUI}
     </ClayForm.Group>
   );
 };
