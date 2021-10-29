@@ -52,7 +52,7 @@ public class UserServiceOverride extends UserServiceWrapper {
 			throws PortalException {
 
 		userValidator.validate(password1, password2, screenName, emailAddress, firstName, lastName, male, birthdayMonth,
-				birthdayDay, birthdayYear);
+				birthdayDay, birthdayYear, companyId);
 
 		return super.addUser(
 				companyId, autoPassword, password1, password2, autoScreenName,
