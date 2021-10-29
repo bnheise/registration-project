@@ -12,10 +12,8 @@ const Input = ({
   isRequired = false,
   errors = "",
 }) => {
-  console.log(errors);
   const camelLabel = toCamel(label);
   errors = typeof errors === "string" && errors.length > 0 ? [errors] : errors;
-  console.log(errors.length);
   return (
     <ClayForm.Group className={`${errors.length > 0 ? "has-error" : null}`}>
       <Label text={label} isRequired={isRequired} />

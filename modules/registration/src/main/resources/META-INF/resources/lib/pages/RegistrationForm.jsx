@@ -19,7 +19,7 @@ export default function RegistrationForm() {
   const handlers = genChangeHandlers(formValues, setFormValues);
   const [agreedToTermsOfUse, setAgreedToTermsOfUse] = useState(false);
   const [errors, setErrors] = useState({});
-  console.log("password errors", errors.password);
+
   const handleSubmit = () => {
     Liferay.Service(
       "/user/add-user",
