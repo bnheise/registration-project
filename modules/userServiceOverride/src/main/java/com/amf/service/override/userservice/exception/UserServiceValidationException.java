@@ -21,7 +21,7 @@ public class UserServiceValidationException extends PortalException {
     }
 
     public UserServiceValidationException(List<String> errors) {
-        super("{\"errors\": [" + String.join(",", errors) + "]}");
+        super("{" + String.join(",", errors) + "}");
         this.errors = errors;
     }
 
