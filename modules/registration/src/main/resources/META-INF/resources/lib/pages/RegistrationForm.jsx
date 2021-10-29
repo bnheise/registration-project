@@ -18,7 +18,8 @@ export default function RegistrationForm() {
   const [formValues, setFormValues] = useState(new RegistrationFormInputs());
   const handlers = genChangeHandlers(formValues, setFormValues);
   const [agreedToTermsOfUse, setAgreedToTermsOfUse] = useState(false);
-
+  const [errors, setErrors] = useState({});
+  console.log("password errors", errors.password);
   const handleSubmit = () => {
     Liferay.Service(
       "/user/add-user",
@@ -30,8 +31,7 @@ export default function RegistrationForm() {
         );
       },
       (error) => {
-        console.log(typeof error);
-        console.log(error);
+        setErrors(JSON.parse(error));
       }
     );
   };
@@ -45,12 +45,14 @@ export default function RegistrationForm() {
             value={formValues.firstName}
             handleChange={handlers.handleFirstNameChange}
             isRequired={true}
+            errors={errors.firstName}
           />
           <Input
             label="Last Name"
             value={formValues.lastName}
             handleChange={handlers.handleLastNameChange}
             isRequired={true}
+            errors={errors.lastName}
           />
         </TwoColGroup>
         <TwoColGroup>
@@ -60,12 +62,14 @@ export default function RegistrationForm() {
             handleChange={handlers.handleEmailAddressChange}
             type="email"
             isRequired={true}
+            errors={errors.emailAddress}
           />
           <Input
             label="Username"
             value={formValues.screenName}
             handleChange={handlers.handleScreenNameChange}
             isRequired={true}
+            errors={errors.screenName}
           />
         </TwoColGroup>
         <TwoColGroup>
@@ -90,6 +94,7 @@ export default function RegistrationForm() {
             handleChange={handlers.handlePassword1Change}
             type="password"
             isRequired={true}
+            errors={errors.password}
           />
           <Input
             label="Confirm Password"
