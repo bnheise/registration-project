@@ -7,5 +7,6 @@ public interface UserValidator {
             String password2, String screenName,
             String emailAddress, String firstName,
             String lastName,
-            boolean male, int birthdayMonth, int birthdayDay, int birthdayYear) throws UserServiceValidationException;
+            boolean male, int birthdayMonth, int birthdayDay, int birthdayYear, long companyId)
+            throws UserServiceValidationException;
 }
