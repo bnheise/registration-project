@@ -1,0 +1,11 @@
+dependencies {
+	compile project(":modules:signup:signup-api")
+
+	compileOnly group: "com.liferay.portal", name: "release.dxp.api"
+}
+
+buildService {
+	apiDir = "../signup-api/src/main/java"
+}
+
+group = "com.amf.service.signup"
