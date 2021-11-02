@@ -1,5 +1,0 @@
-Bundle-Name: registration
-Bundle-SymbolicName: registration
-Bundle-Version: 1.0.0
-Export-Package: registration.constants
-Web-ContextPath: /registration
