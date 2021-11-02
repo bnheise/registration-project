@@ -90,9 +90,9 @@ public class SignupServiceImpl extends SignupServiceBaseImpl {
 		long[] userGroupIds = new long[0];
 		boolean sendEmail = false;
 
-		// signupValidator.validate(password1, password2, screenName, emailAddress,
-		// firstName, lastName, male,
-		// birthdayMonth, birthdayDay, birthdayYear, companyId);
+		signupValidator.validate(password1, password2, screenName, emailAddress,
+				firstName, lastName, male,
+				birthdayMonth, birthdayDay, birthdayYear, companyId);
 
 		try {
 			log.info("Attempting to create user.");
