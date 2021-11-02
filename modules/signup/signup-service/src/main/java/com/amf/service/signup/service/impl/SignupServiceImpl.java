@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Locale;
 
 import com.amf.service.signup.service.base.SignupServiceBaseImpl;
+import com.amf.service.signup.validator.SignupValidator;
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
@@ -28,6 +29,7 @@ import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.service.ServiceContext;
 
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * The implementation of the signup remote service.
@@ -88,6 +90,10 @@ public class SignupServiceImpl extends SignupServiceBaseImpl {
 		long[] userGroupIds = new long[0];
 		boolean sendEmail = false;
 
+		// signupValidator.validate(password1, password2, screenName, emailAddress,
+		// firstName, lastName, male,
+		// birthdayMonth, birthdayDay, birthdayYear, companyId);
+
 		try {
 			log.info("Attempting to create user.");
 			User user = userLocalService.addUser(creatorUserId, companyId, autoPassword, password1, password2,
@@ -104,4 +110,7 @@ public class SignupServiceImpl extends SignupServiceBaseImpl {
 			return false;
 		}
 	}
+
+	@Reference
+	SignupValidator signupValidator;
 }
