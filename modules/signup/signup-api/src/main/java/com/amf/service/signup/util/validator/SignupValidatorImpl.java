@@ -20,7 +20,7 @@ import com.liferay.portal.kernel.service.PasswordPolicyLocalService;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
-@Component(immediate = true, service = SignupValidatorImpl.class)
+@Component(immediate = true, service = SignupValidator.class)
 public class SignupValidatorImpl implements SignupValidator {
     private static final String PASSWORD = "password";
     private static final String SCREEN_NAME = "screenName";
