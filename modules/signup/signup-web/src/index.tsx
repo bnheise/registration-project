@@ -2,7 +2,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import AppComponent from './AppComponent';
+import RegistrationPortlet from './RegistrationPortlet';
 
 
 /**
@@ -14,15 +14,17 @@ import AppComponent from './AppComponent';
  * @param  {Object} params a hash with values of interest to the portlet
  * @return {void}
  */
-export default function main({portletNamespace, contextPath, portletElementId}) {
+
+interface IMainProps {
+    portletNamespace: string,
+    contextPath: string,
+    portletElementId: string
+}
+
+export default function main({portletNamespace, contextPath, portletElementId}: IMainProps) {
     
     ReactDOM.render(
-        <AppComponent 
-            portletNamespace={portletNamespace} 
-            contextPath={contextPath}
-            portletElementId={portletElementId}
-            
-            />, 
+        <RegistrationPortlet />, 
         document.getElementById(portletElementId)
     );
     
