@@ -12,14 +12,16 @@ import RegistrationFormInputs from "../domain/RegistrationFormInputs";
 import { genderOptions } from "../domain/genderOptions";
 import { genChangeHandlers } from "../utils/utils";
 import UserDTO, { IUserDTO } from "../domain/UserDTO";
-import { ValueChangeHandler } from '../utils/utils';
+import { ValueChangeHandler } from "../utils/utils";
 
 export interface IErrors {
-  [key: string | symbol]: string | undefined
+  [key: string | symbol]: string | undefined;
 }
 
 const RegistrationForm: FC = (): ReactElement => {
-  const [formValues, setFormValues] = useState<IUserDTO>(new RegistrationFormInputs({}));
+  const [formValues, setFormValues] = useState<IUserDTO>(
+    new RegistrationFormInputs({})
+  );
   const handlers = genChangeHandlers(formValues, setFormValues);
   const [agreedToTermsOfUse, setAgreedToTermsOfUse] = useState(false);
   const [errors, setErrors] = useState<IErrors>({});
@@ -30,8 +32,8 @@ const RegistrationForm: FC = (): ReactElement => {
       new UserDTO(formValues),
       (response) => {
         setErrors({});
-        console.log(response)
-        console.log("SUCCESS")
+        console.log(response);
+        console.log("SUCCESS");
       },
       (error) => {
         setErrors(JSON.parse(error));
@@ -46,7 +48,7 @@ const RegistrationForm: FC = (): ReactElement => {
           <Input
             label="First Name"
             value={formValues.firstName}
-            handleChange={handlers.handleFirstNameChange as ChangeEventHandler} 
+            handleChange={handlers.handleFirstNameChange as ChangeEventHandler}
             isRequired={true}
             errors={errors.firstName}
           />
@@ -62,7 +64,9 @@ const RegistrationForm: FC = (): ReactElement => {
           <Input
             label="Email"
             value={formValues.emailAddress}
-            handleChange={handlers.handleEmailAddressChange as ChangeEventHandler}
+            handleChange={
+              handlers.handleEmailAddressChange as ChangeEventHandler
+            }
             type="email"
             isRequired={true}
             errors={errors.emailAddress}
@@ -87,7 +91,9 @@ const RegistrationForm: FC = (): ReactElement => {
           <Datepicker
             label="Birthday"
             value={formValues.birthday}
-            handleValueChange={handlers.handleBirthdayChange as ValueChangeHandler}
+            handleValueChange={
+              handlers.handleBirthdayChange as ValueChangeHandler
+            }
             isRequired={true}
             errors={errors.birthday}
           />
@@ -110,6 +116,22 @@ const RegistrationForm: FC = (): ReactElement => {
           />
         </TwoColGroup>
       </FormSection>
+      <FormSection heading="Phone">
+        <TwoColGroup>
+          <Input
+            label="Home Phone"
+            value={formValues.homePhone}
+            handleChange={handlers.handleHomePhoneChange as ChangeEventHandler}
+          />
+          <Input
+            label="Mobile Phone"
+            value={formValues.mobilePhone}
+            handleChange={
+              handlers.handleMobilePhoneChange as ChangeEventHandler
+            }
+          />
+        </TwoColGroup>
+      </FormSection>
       <Checkbox
         value={agreedToTermsOfUse}
         handler={setAgreedToTermsOfUse}
@@ -120,6 +142,6 @@ const RegistrationForm: FC = (): ReactElement => {
       </ClayButton>
     </div>
   );
-}
+};
 
 export default RegistrationForm;

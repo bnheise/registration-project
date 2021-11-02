@@ -10,6 +10,8 @@ export interface IUserDTO {
   birthday: string;
   password1: string;
   password2: string;
+  homePhone?: string;
+  mobilePhone?: string;
 }
 
 export default class UserDTO {
@@ -24,7 +26,8 @@ export default class UserDTO {
   birthdayDay: number;
   birthdayYear: number;
   addresses: any[];
-  phones: any[];
+  homePhone?: string;
+  mobilePhone?: string;
 
   constructor({
     screenName,
@@ -35,6 +38,8 @@ export default class UserDTO {
     birthday,
     password1,
     password2,
+    homePhone,
+    mobilePhone,
   }: IUserDTO) {
     const isMale = gender === "male";
 
@@ -53,6 +58,7 @@ export default class UserDTO {
     this.password1 = password1;
     this.password2 = password2;
     this.addresses = [];
-    this.phones = [];
+    this.homePhone = homePhone;
+    this.mobilePhone = mobilePhone;
   }
 }

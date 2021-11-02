@@ -9,8 +9,8 @@ export interface IInputProps {
   value: string | number | undefined,
   handleChange?: ChangeEventHandler,
   type?: "text" | "password" | "email",
-  isRequired: boolean,
-  errors?: string | string[] | undefined
+  isRequired?: boolean,
+  errors?: string | string[]
 }
 
 const Input: FC<IInputProps> = ({
