@@ -14,9 +14,13 @@
 
 package com.amf.service.signup.service.http;
 
+import java.rmi.RemoteException;
+
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+
 /**
- * Provides the SOAP utility for the
- * <code>com.amf.service.signup.service.SignupServiceUtil</code> service
+ * Provides the SOAP utility for the <code>SignupServiceUtil</code> service
  * utility. The static methods of this class call the same methods of the
  * service utility. However, the signatures are different because it is
  * difficult for SOAP to support certain types.
@@ -45,4 +49,19 @@ package com.amf.service.signup.service.http;
  */
 @Deprecated
 public class SignupServiceSoap {
+
+	public static boolean signup(
+			String password1, String password2, String screenName,
+			String emailAddress, String firstName, String lastName,
+			boolean male, int birthdayMonth, int birthdayDay, int birthdayYear,
+			com.liferay.portal.kernel.model.AddressSoap[] addresses,
+			com.liferay.portal.kernel.model.PhoneSoap[] phones,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+			throws RemoteException {
+
+		throw new UnsupportedOperationException();
+	}
+
+	private static Log _log = LogFactoryUtil.getLog(SignupServiceSoap.class);
+
 }

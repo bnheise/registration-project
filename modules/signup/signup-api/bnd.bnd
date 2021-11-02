@@ -2,9 +2,6 @@ Bundle-Name: signup-api
 Bundle-SymbolicName: com.amf.service.signup.api
 Bundle-Version: 1.0.0
 Export-Package:\
-	com.amf.service.signup.exception,\
-	com.amf.service.signup.model,\
-	com.amf.service.signup.service,\
-	com.amf.service.signup.service.persistence
+	com.amf.service.signup.service,
 -check: EXPORTS
 -includeresource: META-INF/service.xml=../signup-service/service.xml

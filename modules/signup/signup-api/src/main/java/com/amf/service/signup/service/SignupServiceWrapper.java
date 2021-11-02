@@ -41,6 +41,22 @@ public class SignupServiceWrapper
 	}
 
 	@Override
+	public boolean signup(
+			String password1, String password2, String screenName,
+			String emailAddress, String firstName, String lastName,
+			boolean male, int birthdayMonth, int birthdayDay, int birthdayYear,
+			java.util.List<com.liferay.portal.kernel.model.Address> addresses,
+			java.util.List<com.liferay.portal.kernel.model.Phone> phones,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _signupService.signup(
+			password1, password2, screenName, emailAddress, firstName, lastName,
+			male, birthdayMonth, birthdayDay, birthdayYear, addresses, phones,
+			serviceContext);
+	}
+
+	@Override
 	public SignupService getWrappedService() {
 		return _signupService;
 	}

@@ -14,6 +14,10 @@
 
 package com.amf.service.signup.service;
 
+import com.liferay.portal.kernel.exception.PortalException;
+
+import java.util.List;
+
 /**
  * Provides the remote service utility for Signup. This utility wraps
  * <code>com.amf.service.signup.service.impl.SignupServiceImpl</code> and is an
@@ -39,8 +43,23 @@ public class SignupServiceUtil {
 	 *
 	 * @return the OSGi service identifier
 	 */
-	public static java.lang.String getOSGiServiceIdentifier() {
+	public static String getOSGiServiceIdentifier() {
 		return getService().getOSGiServiceIdentifier();
+	}
+
+	public static boolean signup(
+			String password1, String password2, String screenName,
+			String emailAddress, String firstName, String lastName,
+			boolean male, int birthdayMonth, int birthdayDay, int birthdayYear,
+			List<com.liferay.portal.kernel.model.Address> addresses,
+			List<com.liferay.portal.kernel.model.Phone> phones,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
+
+		return getService().signup(
+			password1, password2, screenName, emailAddress, firstName, lastName,
+			male, birthdayMonth, birthdayDay, birthdayYear, addresses, phones,
+			serviceContext);
 	}
 
 	public static SignupService getService() {
