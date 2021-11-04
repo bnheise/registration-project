@@ -47,19 +47,24 @@ public class SignupServiceUtil {
 		return getService().getOSGiServiceIdentifier();
 	}
 
+	public static List<com.liferay.portal.kernel.model.Region> getStates() {
+		return getService().getStates();
+	}
+
 	public static boolean signup(
 			String password1, String password2, String screenName,
 			String emailAddress, String firstName, String lastName,
 			boolean male, int birthdayMonth, int birthdayDay, int birthdayYear,
-			List<com.liferay.portal.kernel.model.Address> addresses,
-			List<com.liferay.portal.kernel.model.Phone> phones,
+			com.liferay.portal.kernel.model.Address billingAddress,
+			com.liferay.portal.kernel.model.Phone homePhone,
+			com.liferay.portal.kernel.model.Phone mobilePhone,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws PortalException {
 
 		return getService().signup(
 			password1, password2, screenName, emailAddress, firstName, lastName,
-			male, birthdayMonth, birthdayDay, birthdayYear, addresses, phones,
-			serviceContext);
+			male, birthdayMonth, birthdayDay, birthdayYear, billingAddress,
+			homePhone, mobilePhone, serviceContext);
 	}
 
 	public static SignupService getService() {

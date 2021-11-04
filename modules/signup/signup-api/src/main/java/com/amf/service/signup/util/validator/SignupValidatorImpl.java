@@ -13,7 +13,9 @@ import com.amf.service.signup.exception.SignupServiceValidationException;
 import com.amf.service.signup.validator.SignupValidator;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.model.Address;
 import com.liferay.portal.kernel.model.PasswordPolicy;
+import com.liferay.portal.kernel.model.Phone;
 import com.liferay.portal.kernel.security.auth.DefaultScreenNameValidator;
 import com.liferay.portal.kernel.service.PasswordPolicyLocalService;
 
@@ -28,22 +30,29 @@ public class SignupValidatorImpl implements SignupValidator {
     private static final String FIRST_NAME = "firstName";
     private static final String LAST_NAME = "lastName";
     private static final String BIRTHDAY = "birthday";
+    private static final String HOME_PHONE = "homePhone";
+    private static final String MOBILE_PHONE = "mobilePhone";
+    private static final String ADDRESS1 = "address1";
+    private static final String ADDRESS2 = "address2";
+    private static final String CITY = "city";
+    private static final String ZIP = "zip";
     private static final int MAX_NAME_LENGTH = 50;
     private static final int MAX_EMAIL_LENGTH = 255;
     private static final int MIN_SCREENNAME_LENGTH = 4;
+    private static final int MAX_ADDRESS_LINE_LENGTH = 255;
+
     private static final String SPECIAL_CHARS = "!\\\\\\\"#$%&\\\\\'()*+,-./:;<>=?@[]^_`{}|~";
     private static Log log = LogFactoryUtil.getLog(SignupValidatorImpl.class);
 
-    public void validate(String password1,
-            String password2, String screenName,
-            String emailAddress, String firstName,
-            String lastName,
-            boolean male, int birthdayMonth, int birthdayDay, int birthdayYear, long companyId)
+    public void validate(String password1, String password2, String screenName, String emailAddress, String firstName,
+            String lastName, boolean male, int birthdayMonth, int birthdayDay, int birthdayYear, long companyId,
+            Phone homePhone, Phone mobilePhone, Address billingAddress)
             throws SignupServiceValidationException {
         List<String> errors = new ArrayList<>();
 
         if (!isUserValid(password1, password2, screenName, emailAddress, firstName, lastName, male, birthdayMonth,
-                birthdayDay, birthdayYear, companyId, errors)) {
+                birthdayDay, birthdayYear, companyId, errors) || !isHomePhoneValid(homePhone, errors)
+                || !isMobilePhoneValid(mobilePhone, errors) || isAddressValid(billingAddress, errors)) {
             throw new SignupServiceValidationException(errors);
         }
     }
@@ -61,6 +70,111 @@ public class SignupValidatorImpl implements SignupValidator {
         result &= isBirthdayValid(birthdayYear, birthdayMonth, birthdayDay, errors);
         result &= isPasswordValid(password1, password2, companyId, errors);
         return result;
+    }
+
+    private boolean isAddressValid(Address address, List<String> errors) {
+        boolean result = true;
+        result &= isAddress1Valid(address.getStreet1(), errors);
+        result &= isAddressLineValid(address.getStreet2(), ADDRESS2, errors);
+        result &= isAddressLineValid(address.getCity(), CITY, errors);
+        result &= isZipValid(address.getZip(), errors);
+        return result;
+    }
+
+    private boolean isZipValid(String zip, List<String> errors) {
+        boolean result = true;
+        if (zip.isEmpty()) {
+            errors.add(makeError(ZIP, blankMessage(ZIP)));
+            result &= false;
+        }
+
+        if (!isValidNumber(zip)) {
+            errors.add(makeError(ZIP, ZIP + "must comprise of only numbers"));
+            result &= false;
+        }
+
+        if (zip.length() != 5) {
+            errors.add(makeError(ZIP, ZIP + "must be exactly 5 numbers long"));
+            result &= false;
+        }
+
+        return result;
+    }
+
+    private boolean isAddressLineValid(String street1, String fieldName, List<String> errors) {
+        boolean result = true;
+        if (!isAddressValidLength(street1)) {
+            result &= false;
+            errors.add(makeError(fieldName, tooLongMessage(fieldName, MAX_ADDRESS_LINE_LENGTH)));
+        }
+        if (!isAlphaNumeric(street1)) {
+            result &= false;
+            errors.add(makeError(fieldName, mustBeAlphanumericMessage(fieldName)));
+        }
+        return result;
+    }
+
+    private boolean isAddress1Valid(String street1, List<String> errors) {
+        boolean result = true;
+        result &= isAddressLineValid(street1, ADDRESS1, errors);
+        if (street1.isEmpty()) {
+            result &= false;
+            errors.add(makeError(ADDRESS1, blankMessage(ADDRESS1)));
+        }
+
+        return result;
+    }
+
+    private boolean isAddressValidLength(String addressLine) {
+        return addressLine.length() < MAX_ADDRESS_LINE_LENGTH;
+    }
+
+    private boolean isHomePhoneValid(Phone phone, List<String> errors) {
+        boolean result = true;
+        if (!phone.getNumber().isEmpty()) {
+            if (!isPhoneLengthValid(phone)) {
+                errors.add(makeError(HOME_PHONE, "Phone numbers must be exactly 10 characters long"));
+                result &= false;
+            }
+
+            if (!isValidNumber(phone.getNumber())) {
+                errors.add(makeError(MOBILE_PHONE, "Phone must be comprised of only numbers"));
+                result &= false;
+            }
+        }
+
+        return result;
+    }
+
+    private boolean isMobilePhoneValid(Phone phone, List<String> errors) {
+        boolean result = true;
+        if (!phone.getNumber().isEmpty()) {
+            if (!isPhoneLengthValid(phone)) {
+                errors.add(makeError(MOBILE_PHONE, "Phone numbers must be exactly 10 characters long"));
+                result &= false;
+            }
+
+            if (!isValidNumber(phone.getNumber())) {
+                errors.add(makeError(MOBILE_PHONE, "Phone must be comprised of only numbers"));
+                result &= false;
+            }
+        }
+
+        return result;
+    }
+
+    private boolean isValidNumber(String numberString) {
+        try {
+            Integer.parseInt(numberString);
+        } catch (NumberFormatException exception) {
+            return false;
+        }
+
+        return true;
+    }
+
+    private boolean isPhoneLengthValid(Phone phone) {
+        return phone.getNumber().length() == 10;
     }
 
     private boolean isFirstNameValid(final String firstName, List<String> errors) {
