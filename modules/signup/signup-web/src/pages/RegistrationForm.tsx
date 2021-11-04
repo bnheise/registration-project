@@ -11,7 +11,7 @@ import ClayButton from "@clayui/button";
 import RegistrationFormInputs, { IRegistrationFormInputs } from "../domain/RegistrationFormInputs";
 import { genderOptions } from "../domain/genderOptions";
 import { genChangeHandlers } from "../utils/utils";
-import UserDTO, { IUserDTO } from "../domain/UserDTO";
+import UserDTO from "../domain/UserDTO";
 import { ValueChangeHandler } from "../utils/utils";
 import ClayLayout from "@clayui/layout";
 import StatesDropdown from "../components/StatesDropdown";
@@ -25,7 +25,6 @@ const RegistrationForm: FC = (): ReactElement => {
     new RegistrationFormInputs({})
   );
   const handlers = genChangeHandlers(formValues, setFormValues);
-  const [agreedToTermsOfUse, setAgreedToTermsOfUse] = useState(false);
   const [errors, setErrors] = useState<IErrors>({});
 
   const handleSubmit = () => {
@@ -34,14 +33,12 @@ const RegistrationForm: FC = (): ReactElement => {
       new UserDTO(formValues),
       (response) => {
         setErrors({});
-        console.log(response);
-        console.log("SUCCESS");
       },
       (error) => {
         try {
           setErrors(JSON.parse(error));
         } catch (e) {
-          console.log(e);
+          console.error(e);
         }
       }
     );
@@ -147,11 +144,13 @@ const RegistrationForm: FC = (): ReactElement => {
             isRequired={true}
             value={formValues.address1}
             handleChange={handlers.handleAddress1Change as ChangeEventHandler}
+            errors={errors.address1}
           />
           <Input
             label="Address Line 2"
             value={formValues.address2}
             handleChange={handlers.handleAddress2Change as ChangeEventHandler}
+            errors={errors.address2}
           />
         </TwoColGroup>
         <TwoColGroup>
@@ -160,8 +159,9 @@ const RegistrationForm: FC = (): ReactElement => {
             isRequired={true}
             value={formValues.city}
             handleChange={handlers.handleCityChange as ChangeEventHandler}
+            errors={errors.city}
           />
-          <StatesDropdown value={formValues.state} handleChange={handlers.handleStateChange as ChangeEventHandler} />
+          <StatesDropdown errors={errors.state} value={formValues.state} handleChange={handlers.handleStateChange as ChangeEventHandler} />
         </TwoColGroup>
         <ClayLayout.Row justify="start">
           <ClayLayout.Col md={4} lg={4} sm={8} xs={12}>
@@ -170,14 +170,16 @@ const RegistrationForm: FC = (): ReactElement => {
               isRequired={true}
               value={formValues.zip}
               handleChange={handlers.handleZipChange as ChangeEventHandler}
+              errors={errors.zip}
             />
           </ClayLayout.Col>
         </ClayLayout.Row>
       </FormSection>
       <Checkbox
-        value={agreedToTermsOfUse}
-        handler={setAgreedToTermsOfUse}
+        value={formValues.agreedToTerms}
+        handleChange={handlers.handleAgreedToTermsChange as ChangeEventHandler}
         label="I have read, understand, and agree with the Terms of Use governing my access to and use of the Acme Movie Fanatics web site."
+        errors={errors.agreedToTerms}
       />
       <ClayButton onClick={handleSubmit} displayType="primary">
         Submit
