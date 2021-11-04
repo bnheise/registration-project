@@ -16,6 +16,7 @@ export interface IRegistrationFormInputs {
   city?: string;
   state?: number;
   zip?: number;
+  agreedToTerms?: boolean;
 }
 
 export default class RegistrationFormInputs implements IRegistrationFormInputs {
@@ -34,6 +35,7 @@ export default class RegistrationFormInputs implements IRegistrationFormInputs {
   city;
   state;
   zip;
+  agreedToTerms;
 
   constructor({
     screenName = "",
@@ -51,6 +53,7 @@ export default class RegistrationFormInputs implements IRegistrationFormInputs {
     city = "",
     state,
     zip,
+    agreedToTerms = false,
   }: IRegistrationFormInputs) {
     this.screenName = screenName;
     this.emailAddress = emailAddress;
@@ -67,5 +70,6 @@ export default class RegistrationFormInputs implements IRegistrationFormInputs {
     this.city = city;
     this.state = state;
     this.zip = zip;
+    this.agreedToTerms = agreedToTerms;
   }
 }
