@@ -9,33 +9,33 @@ export interface IUserDTO {
   emailAddress: string;
   firstName: string;
   lastName: string;
-  gender: TGenders;
-  birthday: string;
-  password1: string;
-  password2: string;
-  homePhone: string;
-  mobilePhone: string;
-  address1: string;
-  address2?: string;
-  city: string;
-  state: number;
-  zip: number;
-}
-
-export default class UserDTO {
-  password1: string;
-  password2: string;
-  screenName: string;
-  emailAddress: string;
-  firstName: string;
-  lastName: string;
   male: boolean;
   birthdayMonth: number;
   birthdayDay: number;
   birthdayYear: number;
-  homePhone?: PhoneDTO;
-  mobilePhone?: PhoneDTO;
+  password1: string;
+  password2: string;
+  homePhone: PhoneDTO;
+  mobilePhone: PhoneDTO;
   billingAddress: AddressDTO;
+  agreedToTerms: boolean;
+}
+
+export default class UserDTO implements IUserDTO {
+  password1;
+  password2;
+  screenName;
+  emailAddress;
+  firstName;
+  lastName;
+  male;
+  birthdayMonth;
+  birthdayDay;
+  birthdayYear;
+  homePhone;
+  mobilePhone;
+  billingAddress;
+  agreedToTerms;
 
   constructor({
     screenName = "",
@@ -53,6 +53,7 @@ export default class UserDTO {
     city = "",
     state = -1,
     zip = -1,
+    agreedToTerms = false,
   }: IRegistrationFormInputs) {
     const isMale = gender === "male";
 
@@ -79,5 +80,6 @@ export default class UserDTO {
       regionId: state,
       zip,
     });
+    this.agreedToTerms = agreedToTerms;
   }
 }
