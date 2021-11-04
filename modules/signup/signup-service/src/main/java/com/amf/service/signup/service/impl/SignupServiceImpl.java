@@ -20,17 +20,19 @@ import java.util.Locale;
 
 import com.amf.service.signup.service.base.SignupServiceBaseImpl;
 import com.amf.service.signup.validator.SignupValidator;
-import com.liferay.commerce.service.CommerceCountryLocalService;
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.model.Account;
 import com.liferay.portal.kernel.model.Address;
 import com.liferay.portal.kernel.model.Contact;
 import com.liferay.portal.kernel.model.Phone;
 import com.liferay.portal.kernel.model.Region;
 import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.service.AddressLocalService;
 import com.liferay.portal.kernel.service.CountryServiceUtil;
+import com.liferay.portal.kernel.service.ListTypeLocalService;
 import com.liferay.portal.kernel.service.PhoneLocalService;
 import com.liferay.portal.kernel.service.RegionServiceUtil;
 import com.liferay.portal.kernel.service.ServiceContext;
@@ -86,7 +88,8 @@ public class SignupServiceImpl extends SignupServiceBaseImpl {
 	@Override
 	public boolean signup(String password1, String password2, String screenName, String emailAddress, String firstName,
 			String lastName, boolean male, int birthdayMonth, int birthdayDay, int birthdayYear,
-			Address billingAddress, Phone homePhone, Phone mobilePhone, ServiceContext serviceContext)
+			Address billingAddress, Phone homePhone, Phone mobilePhone, boolean agreedToTerms,
+			ServiceContext serviceContext)
 			throws PortalException {
 		log.info("New user requesting signup with email " + emailAddress);
 
@@ -106,21 +109,47 @@ public class SignupServiceImpl extends SignupServiceBaseImpl {
 		boolean sendEmail = false;
 
 		signupValidator.validate(password1, password2, screenName, emailAddress, firstName, lastName, male,
-				birthdayMonth, birthdayDay, birthdayYear, companyId, homePhone, mobilePhone, billingAddress);
+				birthdayMonth, birthdayDay, birthdayYear, companyId, homePhone, mobilePhone, billingAddress,
+				agreedToTerms);
 		log.info("Attempting to create user.");
 		User user = userLocalService.addUser(creatorUserId, companyId, autoPassword, password1, password2,
 				autoScreenName, screenName, emailAddress, locale, firstName, middleName, lastName, prefixId,
 				suffixId, male, birthdayMonth, birthdayDay, birthdayYear, jobTitle, groupIds, organizationIds,
 				roleIds, userGroupIds, sendEmail, serviceContext);
+
+		userLocalService.updateAgreedToTermsOfUse(user.getUserId(), agreedToTerms);
+
 		log.info("User creation successful");
 		log.info("New user:" + user.toString());
 		log.info("BILLING  " + billingAddress.toString());
-		homePhone.setTypeId(HOME_PHONE_TYPE_ID);
+
+		homePhone.setTypeId(
+				listTypeLocalService.getListType("personal", Contact.class.getName() + ".phone").getListTypeId());
 		addPhone(homePhone, user, serviceContext);
-		mobilePhone.setTypeId(MOBILE_PHONE_TYPE_ID);
+		mobilePhone.setTypeId(
+				listTypeLocalService.getListType("mobile-phone", Contact.class.getName() + ".phone").getListTypeId());
 		addPhone(mobilePhone, user, serviceContext);
+		billingAddress.setUserId(user.getUserId());
+		billingAddress.setClassName(Address.class.getName());
+		billingAddress.setTypeId(
+				listTypeLocalService.getListType("billing", Account.class.getName() + ".address").getListTypeId());
+		addAddress(billingAddress, user, serviceContext);
 
 		return true;
+	}
+
+	private void addAddress(Address address, User user, ServiceContext serviceContext) {
+		try {
+			log.info("Attempting to add address");
+			addressLocalService.addAddress(user.getUserId(), User.class.getName(), 39627, address.getStreet1(),
+					address.getStreet2(), "", address.getCity(), address.getZip(), address.getRegionId(),
+					CountryServiceUtil.getCountryByName("united-states").getCountryId(),
+					address.getTypeId(), false,
+					false, serviceContext);
+		} catch (Exception exception) {
+			log.error(exception.toString());
+			deleteUser(user);
+		}
 	}
 
 	private void addPhone(Phone phone, User user, ServiceContext serviceContext) {
@@ -149,9 +178,6 @@ public class SignupServiceImpl extends SignupServiceBaseImpl {
 
 	}
 
-	private long HOME_PHONE_TYPE_ID = 11011;
-	private long MOBILE_PHONE_TYPE_ID = 11008;
-
 	@Reference
 	SignupValidator signupValidator;
 
@@ -159,8 +185,9 @@ public class SignupServiceImpl extends SignupServiceBaseImpl {
 	PhoneLocalService phoneLocalService;
 
 	@Reference
-	CommerceCountryLocalService commerceCountryLocalService;
+	AddressLocalService addressLocalService;
 
-	// @Reference
-	// static RegionServiceUtil regionServiceUtil;
+	@Reference
+	ListTypeLocalService listTypeLocalService;
+
 }
