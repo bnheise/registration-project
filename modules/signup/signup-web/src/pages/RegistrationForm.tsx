@@ -8,18 +8,20 @@ import Input from "../components/Input";
 import Checkbox from "../components/Checkbox";
 import ClayButton from "@clayui/button";
 
-import RegistrationFormInputs from "../domain/RegistrationFormInputs";
+import RegistrationFormInputs, { IRegistrationFormInputs } from "../domain/RegistrationFormInputs";
 import { genderOptions } from "../domain/genderOptions";
 import { genChangeHandlers } from "../utils/utils";
 import UserDTO, { IUserDTO } from "../domain/UserDTO";
 import { ValueChangeHandler } from "../utils/utils";
+import ClayLayout from "@clayui/layout";
+import StatesDropdown from "../components/StatesDropdown";
 
 export interface IErrors {
   [key: string | symbol]: string | undefined;
 }
 
 const RegistrationForm: FC = (): ReactElement => {
-  const [formValues, setFormValues] = useState<IUserDTO>(
+  const [formValues, setFormValues] = useState<IRegistrationFormInputs>(
     new RegistrationFormInputs({})
   );
   const handlers = genChangeHandlers(formValues, setFormValues);
@@ -36,7 +38,11 @@ const RegistrationForm: FC = (): ReactElement => {
         console.log("SUCCESS");
       },
       (error) => {
-        setErrors(JSON.parse(error));
+        try {
+          setErrors(JSON.parse(error));
+        } catch (e) {
+          console.log(e);
+        }
       }
     );
   };
@@ -122,6 +128,7 @@ const RegistrationForm: FC = (): ReactElement => {
             label="Home Phone"
             value={formValues.homePhone}
             handleChange={handlers.handleHomePhoneChange as ChangeEventHandler}
+            errors={errors.homePhone}
           />
           <Input
             label="Mobile Phone"
@@ -129,8 +136,43 @@ const RegistrationForm: FC = (): ReactElement => {
             handleChange={
               handlers.handleMobilePhoneChange as ChangeEventHandler
             }
+            errors={errors.mobilePhone}
           />
         </TwoColGroup>
+      </FormSection>
+      <FormSection heading="Billing Address">
+        <TwoColGroup>
+          <Input
+            label="Address Line 1"
+            isRequired={true}
+            value={formValues.address1}
+            handleChange={handlers.handleAddress1Change as ChangeEventHandler}
+          />
+          <Input
+            label="Address Line 2"
+            value={formValues.address2}
+            handleChange={handlers.handleAddress2Change as ChangeEventHandler}
+          />
+        </TwoColGroup>
+        <TwoColGroup>
+          <Input
+            label="City"
+            isRequired={true}
+            value={formValues.city}
+            handleChange={handlers.handleCityChange as ChangeEventHandler}
+          />
+          <StatesDropdown value={formValues.state} handleChange={handlers.handleStateChange as ChangeEventHandler} />
+        </TwoColGroup>
+        <ClayLayout.Row justify="start">
+          <ClayLayout.Col md={4} lg={4} sm={8} xs={12}>
+            <Input
+              label="Zip Code"
+              isRequired={true}
+              value={formValues.zip}
+              handleChange={handlers.handleZipChange as ChangeEventHandler}
+            />
+          </ClayLayout.Col>
+        </ClayLayout.Row>
       </FormSection>
       <Checkbox
         value={agreedToTermsOfUse}

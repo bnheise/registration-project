@@ -6,7 +6,7 @@ type TLiferay = {
   };
   Service: (
     endpoint: string,
-    data: {},
+    data?: {},
     successHandler?: (response: any) => any,
     errorHandler?: (error: any) => any
   ) => void;
