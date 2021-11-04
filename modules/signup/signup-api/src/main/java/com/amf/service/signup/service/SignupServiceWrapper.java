@@ -53,13 +53,14 @@ public class SignupServiceWrapper
 			com.liferay.portal.kernel.model.Address billingAddress,
 			com.liferay.portal.kernel.model.Phone homePhone,
 			com.liferay.portal.kernel.model.Phone mobilePhone,
+			boolean agreedToTerms,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _signupService.signup(
 			password1, password2, screenName, emailAddress, firstName, lastName,
 			male, birthdayMonth, birthdayDay, birthdayYear, billingAddress,
-			homePhone, mobilePhone, serviceContext);
+			homePhone, mobilePhone, agreedToTerms, serviceContext);
 	}
 
 	@Override

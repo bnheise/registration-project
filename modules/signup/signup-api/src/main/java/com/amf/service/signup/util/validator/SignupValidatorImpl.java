@@ -34,6 +34,8 @@ public class SignupValidatorImpl implements SignupValidator {
     private static final String MOBILE_PHONE = "mobilePhone";
     private static final String ADDRESS1 = "address1";
     private static final String ADDRESS2 = "address2";
+    private static final String AGREED_TO_TERMS = "agreedToTerms";
+    private static final String STATE = "state";
     private static final String CITY = "city";
     private static final String ZIP = "zip";
     private static final int MAX_NAME_LENGTH = 50;
@@ -46,13 +48,17 @@ public class SignupValidatorImpl implements SignupValidator {
 
     public void validate(String password1, String password2, String screenName, String emailAddress, String firstName,
             String lastName, boolean male, int birthdayMonth, int birthdayDay, int birthdayYear, long companyId,
-            Phone homePhone, Phone mobilePhone, Address billingAddress)
+            Phone homePhone, Phone mobilePhone, Address billingAddress, boolean agreedToTerms)
             throws SignupServiceValidationException {
         List<String> errors = new ArrayList<>();
+        boolean valid = true;
+        valid &= isUserValid(password1, password2, screenName, emailAddress, firstName, lastName, birthdayMonth,
+                birthdayDay, birthdayYear, companyId, agreedToTerms, errors);
+        valid &= isHomePhoneValid(homePhone, errors);
+        valid &= isMobilePhoneValid(mobilePhone, errors);
+        valid &= isAddressValid(billingAddress, errors);
 
-        if (!isUserValid(password1, password2, screenName, emailAddress, firstName, lastName, male, birthdayMonth,
-                birthdayDay, birthdayYear, companyId, errors) || !isHomePhoneValid(homePhone, errors)
-                || !isMobilePhoneValid(mobilePhone, errors) || isAddressValid(billingAddress, errors)) {
+        if (!valid) {
             throw new SignupServiceValidationException(errors);
         }
     }
@@ -61,7 +67,8 @@ public class SignupValidatorImpl implements SignupValidator {
             String password2, String screenName,
             String emailAddress, String firstName,
             String lastName,
-            boolean male, int birthdayMonth, int birthdayDay, int birthdayYear, long companyId, List<String> errors) {
+            int birthdayMonth, int birthdayDay, int birthdayYear, long companyId, boolean agreedToTerms,
+            List<String> errors) {
         boolean result = true;
         result &= isFirstNameValid(firstName, errors);
         result &= isLastNameValid(lastName, errors);
@@ -69,6 +76,10 @@ public class SignupValidatorImpl implements SignupValidator {
         result &= isScreenNameValid(screenName, companyId, errors);
         result &= isBirthdayValid(birthdayYear, birthdayMonth, birthdayDay, errors);
         result &= isPasswordValid(password1, password2, companyId, errors);
+        if (!agreedToTerms) {
+            result &= agreedToTerms;
+            errors.add(makeError(AGREED_TO_TERMS, "You must accept the terms and conditions to register"));
+        }
         return result;
     }
 
@@ -76,29 +87,55 @@ public class SignupValidatorImpl implements SignupValidator {
         boolean result = true;
         result &= isAddress1Valid(address.getStreet1(), errors);
         result &= isAddressLineValid(address.getStreet2(), ADDRESS2, errors);
-        result &= isAddressLineValid(address.getCity(), CITY, errors);
+        result &= isCityValid(address.getCity(), errors);
         result &= isZipValid(address.getZip(), errors);
+        result &= isStateValid(address.getRegionId(), errors);
+        return result;
+    }
+
+    private boolean isStateValid(long regionId, List<String> errors) {
+        if (regionId == -1) {
+            errors.add(makeError(STATE, "Please select a " + STATE));
+            return false;
+        }
+        return true;
+    }
+
+    private boolean isCityValid(String city, List<String> errors) {
+        boolean result = true;
+
+        if (city.isEmpty()) {
+            result &= false;
+            errors.add(makeError(CITY, blankMessage(CITY)));
+        }
+
+        if (!isAddressLineValid(city, CITY, errors)) {
+            result &= false;
+        }
+
         return result;
     }
 
     private boolean isZipValid(String zip, List<String> errors) {
-        boolean result = true;
+        List<String> zipErrors = new ArrayList<>();
         if (zip.isEmpty()) {
-            errors.add(makeError(ZIP, blankMessage(ZIP)));
-            result &= false;
+            zipErrors.add(blankMessage(ZIP));
         }
 
         if (!isValidNumber(zip)) {
-            errors.add(makeError(ZIP, ZIP + "must comprise of only numbers"));
-            result &= false;
+            zipErrors.add(toPrintFriendly(ZIP) + " must comprise of only numbers");
         }
 
         if (zip.length() != 5) {
-            errors.add(makeError(ZIP, ZIP + "must be exactly 5 numbers long"));
-            result &= false;
+            zipErrors.add(toPrintFriendly(ZIP) + " must be exactly 5 numbers long");
         }
 
-        return result;
+        if (zipErrors.isEmpty()) {
+            return true;
+        } else {
+            errors.add(makeError(ZIP, zipErrors));
+            return false;
+        }
     }
 
     private boolean isAddressLineValid(String street1, String fieldName, List<String> errors) {
@@ -138,7 +175,7 @@ public class SignupValidatorImpl implements SignupValidator {
             }
 
             if (!isValidNumber(phone.getNumber())) {
-                errors.add(makeError(MOBILE_PHONE, "Phone must be comprised of only numbers"));
+                errors.add(makeError(HOME_PHONE, "Phone must be comprised of only numbers"));
                 result &= false;
             }
         }
@@ -166,6 +203,7 @@ public class SignupValidatorImpl implements SignupValidator {
     private boolean isValidNumber(String numberString) {
         try {
             Integer.parseInt(numberString);
+            System.out.println("GOT HERE");
         } catch (NumberFormatException exception) {
             return false;
         }
@@ -348,7 +386,7 @@ public class SignupValidatorImpl implements SignupValidator {
     }
 
     public static boolean isAlphaNumeric(String input) {
-        return input != null && input.matches("^[a-zA-Z0-9]*$");
+        return input != null && input.matches("^[\\sa-zA-Z0-9]*$");
     }
 
     private String toPrintFriendly(String fieldName) {
