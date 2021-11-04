@@ -1,5 +1,8 @@
 import { isValidDate } from "../utils/utils";
+import AddressDTO from "./AddressDTO";
 import { TGenders } from "./genderOptions";
+import PhoneDTO from "./PhoneDTO";
+import { IRegistrationFormInputs } from "./RegistrationFormInputs";
 
 export interface IUserDTO {
   screenName: string;
@@ -10,8 +13,13 @@ export interface IUserDTO {
   birthday: string;
   password1: string;
   password2: string;
-  homePhone?: string;
-  mobilePhone?: string;
+  homePhone: string;
+  mobilePhone: string;
+  address1: string;
+  address2?: string;
+  city: string;
+  state: number;
+  zip: number;
 }
 
 export default class UserDTO {
@@ -25,25 +33,30 @@ export default class UserDTO {
   birthdayMonth: number;
   birthdayDay: number;
   birthdayYear: number;
-  addresses: any[];
-  homePhone?: string;
-  mobilePhone?: string;
+  homePhone?: PhoneDTO;
+  mobilePhone?: PhoneDTO;
+  billingAddress: AddressDTO;
 
   constructor({
-    screenName,
-    emailAddress,
-    firstName,
-    lastName,
+    screenName = "",
+    emailAddress = "",
+    firstName = "",
+    lastName = "",
     gender,
     birthday,
-    password1,
-    password2,
-    homePhone,
-    mobilePhone,
-  }: IUserDTO) {
+    password1 = "",
+    password2 = "",
+    homePhone = "",
+    mobilePhone = "",
+    address1 = "",
+    address2,
+    city = "",
+    state = -1,
+    zip = -1,
+  }: IRegistrationFormInputs) {
     const isMale = gender === "male";
 
-    const parsedBirthday = new Date(birthday);
+    const parsedBirthday = birthday ? new Date(birthday) : new Date();
     if (!isValidDate(parsedBirthday))
       throw new Error("Invalid date passed to User as birthday");
 
@@ -57,8 +70,14 @@ export default class UserDTO {
     this.birthdayYear = parsedBirthday.getFullYear() || -1;
     this.password1 = password1;
     this.password2 = password2;
-    this.addresses = [];
-    this.homePhone = homePhone;
-    this.mobilePhone = mobilePhone;
+    this.homePhone = new PhoneDTO({ number: homePhone });
+    this.mobilePhone = new PhoneDTO({ number: mobilePhone });
+    this.billingAddress = new AddressDTO({
+      street1: address1,
+      street2: address2,
+      city,
+      regionId: state,
+      zip,
+    });
   }
 }

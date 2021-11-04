@@ -1,5 +1,4 @@
 import { TGenders } from "./genderOptions";
-import { IUserDTO } from "./UserDTO";
 
 export interface IRegistrationFormInputs {
   screenName?: string;
@@ -12,9 +11,14 @@ export interface IRegistrationFormInputs {
   password2?: string;
   homePhone?: string;
   mobilePhone?: string;
+  address1?: string;
+  address2?: string;
+  city?: string;
+  state?: number;
+  zip?: number;
 }
 
-export default class RegistrationFormInputs implements IUserDTO {
+export default class RegistrationFormInputs implements IRegistrationFormInputs {
   screenName;
   emailAddress;
   firstName;
@@ -25,6 +29,11 @@ export default class RegistrationFormInputs implements IUserDTO {
   password2;
   homePhone;
   mobilePhone;
+  address1;
+  address2;
+  city;
+  state;
+  zip;
 
   constructor({
     screenName = "",
@@ -37,6 +46,11 @@ export default class RegistrationFormInputs implements IUserDTO {
     password2 = "",
     homePhone = "",
     mobilePhone = "",
+    address1 = "",
+    address2 = "",
+    city = "",
+    state,
+    zip,
   }: IRegistrationFormInputs) {
     this.screenName = screenName;
     this.emailAddress = emailAddress;
@@ -48,5 +62,10 @@ export default class RegistrationFormInputs implements IUserDTO {
     this.password2 = password2;
     this.homePhone = homePhone;
     this.mobilePhone = mobilePhone;
+    this.address1 = address1;
+    this.address2 = address2;
+    this.city = city;
+    this.state = state;
+    this.zip = zip;
   }
 }
