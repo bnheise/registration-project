@@ -54,8 +54,9 @@ public class SignupServiceSoap {
 			String password1, String password2, String screenName,
 			String emailAddress, String firstName, String lastName,
 			boolean male, int birthdayMonth, int birthdayDay, int birthdayYear,
-			com.liferay.portal.kernel.model.AddressSoap[] addresses,
-			com.liferay.portal.kernel.model.PhoneSoap[] phones,
+			com.liferay.portal.kernel.model.AddressSoap billingAddress,
+			com.liferay.portal.kernel.model.PhoneSoap homePhone,
+			com.liferay.portal.kernel.model.PhoneSoap mobilePhone,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 			throws RemoteException {
 

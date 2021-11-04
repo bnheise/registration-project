@@ -57,8 +57,9 @@ public class SignupServiceHttp {
 			String screenName, String emailAddress, String firstName,
 			String lastName, boolean male, int birthdayMonth, int birthdayDay,
 			int birthdayYear,
-			java.util.List<com.liferay.portal.kernel.model.Address> addresses,
-			java.util.List<com.liferay.portal.kernel.model.Phone> phones,
+			com.liferay.portal.kernel.model.Address billingAddress,
+			com.liferay.portal.kernel.model.Phone homePhone,
+			com.liferay.portal.kernel.model.Phone mobilePhone,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -69,7 +70,8 @@ public class SignupServiceHttp {
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, password1, password2, screenName, emailAddress,
 				firstName, lastName, male, birthdayMonth, birthdayDay,
-				birthdayYear, addresses, phones, serviceContext);
+				birthdayYear, billingAddress, homePhone, mobilePhone,
+				serviceContext);
 
 			Object returnObj = null;
 
@@ -104,7 +106,9 @@ public class SignupServiceHttp {
 	private static final Class<?>[] _signupParameterTypes0 = new Class[] {
 		String.class, String.class, String.class, String.class, String.class,
 		String.class, boolean.class, int.class, int.class, int.class,
-		java.util.List.class, java.util.List.class,
+		com.liferay.portal.kernel.model.Address.class,
+		com.liferay.portal.kernel.model.Phone.class,
+		com.liferay.portal.kernel.model.Phone.class,
 		com.liferay.portal.kernel.service.ServiceContext.class
 	};
 
