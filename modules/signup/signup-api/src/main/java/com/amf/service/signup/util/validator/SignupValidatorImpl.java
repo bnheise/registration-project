@@ -203,7 +203,6 @@ public class SignupValidatorImpl implements SignupValidator {
     private boolean isValidNumber(String numberString) {
         try {
             Integer.parseInt(numberString);
-            System.out.println("GOT HERE");
         } catch (NumberFormatException exception) {
             return false;
         }
