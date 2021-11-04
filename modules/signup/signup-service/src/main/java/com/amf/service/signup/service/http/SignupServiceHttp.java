@@ -52,6 +52,38 @@ import com.liferay.portal.kernel.util.MethodKey;
  */
 public class SignupServiceHttp {
 
+	public static java.util.List<com.liferay.portal.kernel.model.Region>
+		getStates(HttpPrincipal httpPrincipal) {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				SignupServiceUtil.class, "getStates",
+				_getStatesParameterTypes0);
+
+			MethodHandler methodHandler = new MethodHandler(methodKey);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (java.util.List<com.liferay.portal.kernel.model.Region>)
+				returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
 	public static boolean signup(
 			HttpPrincipal httpPrincipal, String password1, String password2,
 			String screenName, String emailAddress, String firstName,
@@ -65,7 +97,7 @@ public class SignupServiceHttp {
 
 		try {
 			MethodKey methodKey = new MethodKey(
-				SignupServiceUtil.class, "signup", _signupParameterTypes0);
+				SignupServiceUtil.class, "signup", _signupParameterTypes1);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, password1, password2, screenName, emailAddress,
@@ -103,7 +135,8 @@ public class SignupServiceHttp {
 
 	private static Log _log = LogFactoryUtil.getLog(SignupServiceHttp.class);
 
-	private static final Class<?>[] _signupParameterTypes0 = new Class[] {
+	private static final Class<?>[] _getStatesParameterTypes0 = new Class[] {};
+	private static final Class<?>[] _signupParameterTypes1 = new Class[] {
 		String.class, String.class, String.class, String.class, String.class,
 		String.class, boolean.class, int.class, int.class, int.class,
 		com.liferay.portal.kernel.model.Address.class,

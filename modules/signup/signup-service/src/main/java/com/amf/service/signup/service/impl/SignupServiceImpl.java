@@ -14,18 +14,25 @@
 
 package com.amf.service.signup.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import com.amf.service.signup.service.base.SignupServiceBaseImpl;
 import com.amf.service.signup.validator.SignupValidator;
+import com.liferay.commerce.service.CommerceCountryLocalService;
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Address;
+import com.liferay.portal.kernel.model.Contact;
 import com.liferay.portal.kernel.model.Phone;
+import com.liferay.portal.kernel.model.Region;
 import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.service.CountryServiceUtil;
 import com.liferay.portal.kernel.service.PhoneLocalService;
+import com.liferay.portal.kernel.service.RegionServiceUtil;
 import com.liferay.portal.kernel.service.ServiceContext;
 
 import org.osgi.service.component.annotations.Component;
@@ -65,6 +72,18 @@ public class SignupServiceImpl extends SignupServiceBaseImpl {
 	private static Log log = LogFactoryUtil.getLog(SignupServiceImpl.class);
 
 	@Override
+	public List<Region> getStates() {
+		List<Region> result = new ArrayList<>();
+		try {
+			long usCountryId = CountryServiceUtil.getCountryByName("united-states").getCountryId();
+			result = RegionServiceUtil.getRegions(usCountryId);
+			return result;
+		} catch (Exception exception) {
+		}
+		return result;
+	}
+
+	@Override
 	public boolean signup(String password1, String password2, String screenName, String emailAddress, String firstName,
 			String lastName, boolean male, int birthdayMonth, int birthdayDay, int birthdayYear,
 			Address billingAddress, Phone homePhone, Phone mobilePhone, ServiceContext serviceContext)
@@ -86,9 +105,8 @@ public class SignupServiceImpl extends SignupServiceBaseImpl {
 		long[] userGroupIds = new long[0];
 		boolean sendEmail = false;
 
-		signupValidator.validate(password1, password2, screenName, emailAddress,
-				firstName, lastName, male,
-				birthdayMonth, birthdayDay, birthdayYear, companyId);
+		signupValidator.validate(password1, password2, screenName, emailAddress, firstName, lastName, male,
+				birthdayMonth, birthdayDay, birthdayYear, companyId, homePhone, mobilePhone, billingAddress);
 		log.info("Attempting to create user.");
 		User user = userLocalService.addUser(creatorUserId, companyId, autoPassword, password1, password2,
 				autoScreenName, screenName, emailAddress, locale, firstName, middleName, lastName, prefixId,
@@ -96,8 +114,10 @@ public class SignupServiceImpl extends SignupServiceBaseImpl {
 				roleIds, userGroupIds, sendEmail, serviceContext);
 		log.info("User creation successful");
 		log.info("New user:" + user.toString());
-
+		log.info("BILLING  " + billingAddress.toString());
+		homePhone.setTypeId(HOME_PHONE_TYPE_ID);
 		addPhone(homePhone, user, serviceContext);
+		mobilePhone.setTypeId(MOBILE_PHONE_TYPE_ID);
 		addPhone(mobilePhone, user, serviceContext);
 
 		return true;
@@ -109,7 +129,7 @@ public class SignupServiceImpl extends SignupServiceBaseImpl {
 				log.info("Attempting to add home phone number");
 				log.info(phone.getNumber());
 				log.info(phone.getNumber().isBlank());
-				Phone newPhone = phoneLocalService.addPhone(user.getUserId(), Phone.class.getName(),
+				Phone newPhone = phoneLocalService.addPhone(user.getUserId(), Contact.class.getName(),
 						39627,
 						phone.getNumber(),
 						phone.getExtension(), phone.getTypeId(),
@@ -129,10 +149,18 @@ public class SignupServiceImpl extends SignupServiceBaseImpl {
 
 	}
 
+	private long HOME_PHONE_TYPE_ID = 11011;
+	private long MOBILE_PHONE_TYPE_ID = 11008;
+
 	@Reference
 	SignupValidator signupValidator;
 
 	@Reference
 	PhoneLocalService phoneLocalService;
 
+	@Reference
+	CommerceCountryLocalService commerceCountryLocalService;
+
+	// @Reference
+	// static RegionServiceUtil regionServiceUtil;
 }

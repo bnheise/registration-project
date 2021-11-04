@@ -16,6 +16,7 @@ package com.amf.service.signup.service.http;
 
 import java.rmi.RemoteException;
 
+import com.amf.service.signup.service.SignupServiceUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 
@@ -50,6 +51,21 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 @Deprecated
 public class SignupServiceSoap {
 
+	public static com.liferay.portal.kernel.model.Region[] getStates()
+			throws RemoteException {
+
+		try {
+			java.util.List<com.liferay.portal.kernel.model.Region> returnValue = SignupServiceUtil.getStates();
+
+			return returnValue.toArray(
+					new com.liferay.portal.kernel.model.Region[returnValue.size()]);
+		} catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
 	public static boolean signup(
 			String password1, String password2, String screenName,
 			String emailAddress, String firstName, String lastName,
@@ -60,7 +76,7 @@ public class SignupServiceSoap {
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 			throws RemoteException {
 
-		throw new UnsupportedOperationException();
+		return false;
 	}
 
 	private static Log _log = LogFactoryUtil.getLog(SignupServiceSoap.class);
