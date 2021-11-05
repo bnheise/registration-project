@@ -38,22 +38,25 @@ public class SignupValidatorImpl implements SignupValidator {
     private static final String STATE = "state";
     private static final String CITY = "city";
     private static final String ZIP = "zip";
+    private static final String SECURITY_QUESTION = "securityQuestion";
+    private static final String SECURITY_ANSWER = "securityAnswer";
     private static final int MAX_NAME_LENGTH = 50;
-    private static final int MAX_EMAIL_LENGTH = 255;
+    private static final int STANDARD_TEXT_FIELD_LENGTH = 255;
     private static final int MIN_SCREENNAME_LENGTH = 4;
-    private static final int MAX_ADDRESS_LINE_LENGTH = 255;
 
     private static final String SPECIAL_CHARS = "!\\\\\\\"#$%&\\\\\'()*+,-./:;<>=?@[]^_`{}|~";
     private static Log log = LogFactoryUtil.getLog(SignupValidatorImpl.class);
 
     public void validate(String password1, String password2, String screenName, String emailAddress, String firstName,
             String lastName, boolean male, int birthdayMonth, int birthdayDay, int birthdayYear, long companyId,
-            Phone homePhone, Phone mobilePhone, Address billingAddress, boolean agreedToTerms)
+            Phone homePhone, Phone mobilePhone, Address billingAddress, boolean agreedToTerms, String securityQuestion,
+            String securityAnswer)
             throws SignupServiceValidationException {
+
         List<String> errors = new ArrayList<>();
         boolean valid = true;
         valid &= isUserValid(password1, password2, screenName, emailAddress, firstName, lastName, birthdayMonth,
-                birthdayDay, birthdayYear, companyId, agreedToTerms, errors);
+                birthdayDay, birthdayYear, companyId, agreedToTerms, securityQuestion, securityAnswer, errors);
         valid &= isHomePhoneValid(homePhone, errors);
         valid &= isMobilePhoneValid(mobilePhone, errors);
         valid &= isAddressValid(billingAddress, errors);
@@ -63,12 +66,9 @@ public class SignupValidatorImpl implements SignupValidator {
         }
     }
 
-    private boolean isUserValid(String password1,
-            String password2, String screenName,
-            String emailAddress, String firstName,
-            String lastName,
-            int birthdayMonth, int birthdayDay, int birthdayYear, long companyId, boolean agreedToTerms,
-            List<String> errors) {
+    private boolean isUserValid(String password1, String password2, String screenName, String emailAddress,
+            String firstName, String lastName, int birthdayMonth, int birthdayDay, int birthdayYear, long companyId,
+            boolean agreedToTerms, String securityQuestion, String securityAnswer, List<String> errors) {
         boolean result = true;
         result &= isFirstNameValid(firstName, errors);
         result &= isLastNameValid(lastName, errors);
@@ -76,11 +76,44 @@ public class SignupValidatorImpl implements SignupValidator {
         result &= isScreenNameValid(screenName, companyId, errors);
         result &= isBirthdayValid(birthdayYear, birthdayMonth, birthdayDay, errors);
         result &= isPasswordValid(password1, password2, companyId, errors);
+        result &= isSecurityQuestionValid(securityQuestion, errors);
+        result &= isSecurityAnswerValid(securityAnswer, errors);
         if (!agreedToTerms) {
             result &= agreedToTerms;
             errors.add(makeError(AGREED_TO_TERMS, "You must accept the terms and conditions to register"));
         }
         return result;
+    }
+
+    private boolean isSecurityAnswerValid(String securityAnswer, List<String> errors) {
+        List<String> answerErrors = new ArrayList<>();
+        if (securityAnswer.isEmpty()) {
+            answerErrors.add(blankMessage(SECURITY_ANSWER));
+        }
+
+        if (!isAlphaNumeric(securityAnswer)) {
+            answerErrors.add(toPrintFriendly(SECURITY_ANSWER) + " must comprise of only numbers and letters");
+
+        }
+
+        if ((securityAnswer.length() > STANDARD_TEXT_FIELD_LENGTH)) {
+            answerErrors.add(tooLongMessage(SECURITY_ANSWER, STANDARD_TEXT_FIELD_LENGTH));
+        }
+
+        if (answerErrors.isEmpty()) {
+            return true;
+        } else {
+            errors.add(makeError(SECURITY_ANSWER, answerErrors));
+            return false;
+        }
+    }
+
+    private boolean isSecurityQuestionValid(String securityQuestion, List<String> errors) {
+        if (securityQuestion.isBlank()) {
+            errors.add(makeError(SECURITY_QUESTION, blankMessage(SECURITY_QUESTION)));
+            return false;
+        }
+        return true;
     }
 
     private boolean isAddressValid(Address address, List<String> errors) {
@@ -142,7 +175,7 @@ public class SignupValidatorImpl implements SignupValidator {
         boolean result = true;
         if (!isAddressValidLength(street1)) {
             result &= false;
-            errors.add(makeError(fieldName, tooLongMessage(fieldName, MAX_ADDRESS_LINE_LENGTH)));
+            errors.add(makeError(fieldName, tooLongMessage(fieldName, STANDARD_TEXT_FIELD_LENGTH)));
         }
         if (!isAlphaNumeric(street1)) {
             result &= false;
@@ -163,7 +196,7 @@ public class SignupValidatorImpl implements SignupValidator {
     }
 
     private boolean isAddressValidLength(String addressLine) {
-        return addressLine.length() < MAX_ADDRESS_LINE_LENGTH;
+        return addressLine.length() < STANDARD_TEXT_FIELD_LENGTH;
     }
 
     private boolean isHomePhoneValid(Phone phone, List<String> errors) {
@@ -228,8 +261,8 @@ public class SignupValidatorImpl implements SignupValidator {
             return false;
         }
 
-        if (!lengthLessThan(MAX_EMAIL_LENGTH, email)) {
-            errors.add(makeError(EMAIL_ADDRESS, tooLongMessage(EMAIL_ADDRESS, MAX_EMAIL_LENGTH)));
+        if (!lengthLessThan(STANDARD_TEXT_FIELD_LENGTH, email)) {
+            errors.add(makeError(EMAIL_ADDRESS, tooLongMessage(EMAIL_ADDRESS, STANDARD_TEXT_FIELD_LENGTH)));
         }
 
         return true;

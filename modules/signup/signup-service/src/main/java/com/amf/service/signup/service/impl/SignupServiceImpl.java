@@ -111,7 +111,7 @@ public class SignupServiceImpl extends SignupServiceBaseImpl {
 
 		signupValidator.validate(password1, password2, screenName, emailAddress, firstName, lastName, male,
 				birthdayMonth, birthdayDay, birthdayYear, companyId, homePhone, mobilePhone, billingAddress,
-				agreedToTerms);
+				agreedToTerms, securityQuestion, securityAnswer);
 		log.info("Attempting to create user.");
 		User user = userLocalService.addUser(creatorUserId, companyId, autoPassword, password1, password2,
 				autoScreenName, screenName, emailAddress, locale, firstName, middleName, lastName, prefixId,
