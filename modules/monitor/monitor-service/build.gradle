@@ -1,0 +1,11 @@
+dependencies {
+	compile project(":modules:monitor:monitor-api")
+
+	compileOnly group: "com.liferay.portal", name: "release.dxp.api"
+}
+
+buildService {
+	apiDir = "../monitor-api/src/main/java"
+}
+
+group = "com.amf.registration.monitor"
