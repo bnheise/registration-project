@@ -23,7 +23,13 @@ export interface IErrors {
   [key: string | symbol]: string | undefined;
 }
 
-const RegistrationForm: FC = (): ReactElement => {
+interface IRegistrationFormProps {
+  setRegistrationComplete: (registrationComplete: boolean) => void;
+}
+
+const RegistrationForm: FC<IRegistrationFormProps> = ({
+  setRegistrationComplete,
+}): ReactElement => {
   const [formValues, setFormValues] = useState<IRegistrationFormInputs>(
     new RegistrationFormInputs({})
   );
@@ -36,6 +42,7 @@ const RegistrationForm: FC = (): ReactElement => {
       new UserDTO(formValues),
       (response) => {
         setErrors({});
+        setRegistrationComplete(true);
       },
       (error) => {
         try {
@@ -184,7 +191,7 @@ const RegistrationForm: FC = (): ReactElement => {
       </FormSection>
       <FormSection heading="Misc.">
         <ClayLayout.Row justify="start">
-          <ClayLayout.Col md={8} lg={8} sm={8} xs={12}>
+          <ClayLayout.Col md={6} lg={6} sm={8} xs={12}>
             <Select
               label="Security Question"
               value={formValues.securityQuestion}
