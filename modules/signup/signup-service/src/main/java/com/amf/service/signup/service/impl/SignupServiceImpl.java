@@ -88,7 +88,8 @@ public class SignupServiceImpl extends SignupServiceBaseImpl {
 	@Override
 	public boolean signup(String password1, String password2, String screenName, String emailAddress, String firstName,
 			String lastName, boolean male, int birthdayMonth, int birthdayDay, int birthdayYear,
-			Address billingAddress, Phone homePhone, Phone mobilePhone, boolean agreedToTerms,
+			Address billingAddress, Phone homePhone, Phone mobilePhone, boolean agreedToTerms, String securityQuestion,
+			String securityAnswer,
 			ServiceContext serviceContext)
 			throws PortalException {
 		log.info("New user requesting signup with email " + emailAddress);

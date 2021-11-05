@@ -70,7 +70,8 @@ public interface SignupService extends BaseService {
 			String emailAddress, String firstName, String lastName,
 			boolean male, int birthdayMonth, int birthdayDay, int birthdayYear,
 			Address billingAddress, Phone homePhone, Phone mobilePhone,
-			boolean agreedToTerms, ServiceContext serviceContext)
+			boolean agreedToTerms, String securityQuestion,
+			String securityAnswer, ServiceContext serviceContext)
 		throws PortalException;
 
 }

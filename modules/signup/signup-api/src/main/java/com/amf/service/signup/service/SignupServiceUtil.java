@@ -58,14 +58,16 @@ public class SignupServiceUtil {
 			com.liferay.portal.kernel.model.Address billingAddress,
 			com.liferay.portal.kernel.model.Phone homePhone,
 			com.liferay.portal.kernel.model.Phone mobilePhone,
-			boolean agreedToTerms,
+			boolean agreedToTerms, String securityQuestion,
+			String securityAnswer,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws PortalException {
 
 		return getService().signup(
 			password1, password2, screenName, emailAddress, firstName, lastName,
 			male, birthdayMonth, birthdayDay, birthdayYear, billingAddress,
-			homePhone, mobilePhone, agreedToTerms, serviceContext);
+			homePhone, mobilePhone, agreedToTerms, securityQuestion,
+			securityAnswer, serviceContext);
 	}
 
 	public static SignupService getService() {

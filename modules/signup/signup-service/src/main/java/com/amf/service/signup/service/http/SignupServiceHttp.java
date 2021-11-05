@@ -92,7 +92,8 @@ public class SignupServiceHttp {
 			com.liferay.portal.kernel.model.Address billingAddress,
 			com.liferay.portal.kernel.model.Phone homePhone,
 			com.liferay.portal.kernel.model.Phone mobilePhone,
-			boolean agreedToTerms,
+			boolean agreedToTerms, String securityQuestion,
+			String securityAnswer,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -104,7 +105,8 @@ public class SignupServiceHttp {
 				methodKey, password1, password2, screenName, emailAddress,
 				firstName, lastName, male, birthdayMonth, birthdayDay,
 				birthdayYear, billingAddress, homePhone, mobilePhone,
-				agreedToTerms, serviceContext);
+				agreedToTerms, securityQuestion, securityAnswer,
+				serviceContext);
 
 			Object returnObj = null;
 
@@ -143,6 +145,7 @@ public class SignupServiceHttp {
 		com.liferay.portal.kernel.model.Address.class,
 		com.liferay.portal.kernel.model.Phone.class,
 		com.liferay.portal.kernel.model.Phone.class, boolean.class,
+		String.class, String.class,
 		com.liferay.portal.kernel.service.ServiceContext.class
 	};
 
