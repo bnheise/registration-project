@@ -183,21 +183,29 @@ const RegistrationForm: FC = (): ReactElement => {
         </ClayLayout.Row>
       </FormSection>
       <FormSection heading="Misc.">
-        <Select
-          label="Security Question"
-          value={formValues.securityQuestion}
-          options={securityQuestionOptions}
-          handleChange={handlers.handleSecurityQuestionChange as ChangeEventHandler}
-          isRequired={true}
-          errors={errors.securityQuestion}
-        />
-        <Input
-            label="Answer"
-            isRequired={true}
-            value={formValues.securityAnswer}
-            handleChange={handlers.handleSecurityAnswerChange as ChangeEventHandler}
-            errors={errors.securityAnswer}
-          />
+        <ClayLayout.Row justify="start">
+          <ClayLayout.Col md={8} lg={8} sm={8} xs={12}>
+            <Select
+              label="Security Question"
+              value={formValues.securityQuestion}
+              options={securityQuestionOptions}
+              handleChange={
+                handlers.handleSecurityQuestionChange as ChangeEventHandler
+              }
+              isRequired={true}
+              errors={errors.securityQuestion}
+            />
+            <Input
+              label="Answer"
+              isRequired={true}
+              value={formValues.securityAnswer}
+              handleChange={
+                handlers.handleSecurityAnswerChange as ChangeEventHandler
+              }
+              errors={errors.securityAnswer}
+            />
+          </ClayLayout.Col>
+        </ClayLayout.Row>
         <Checkbox
           value={formValues.agreedToTerms}
           handleChange={

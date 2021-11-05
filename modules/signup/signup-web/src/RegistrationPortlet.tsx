@@ -1,8 +1,8 @@
-import React from "react";
+import React, { FC, ReactElement } from "react";
 import RegistrationForm from "./pages/RegistrationForm";
 import AlreadyLoggedIn from "./pages/AlreadyLoggedIn";
 
-const RegistrationPortlet = () => {
+const RegistrationPortlet: FC = (): ReactElement => {
   return (
     <div>
       <h2>User Registration</h2>

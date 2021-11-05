@@ -12,6 +12,12 @@ const questionKeys: string[] = [
   "who-is-your-favorite-actor",
 ];
 
+const keyToLabel = (key: string): string => {
+  const split = key.split("-");
+  split[0] = [...split[0][0].toUpperCase(), ...split[0].slice(1)].join("");
+  return `${split.join(" ")}?`;
+};
+
 export const securityQuestionOptions: IOption<string>[] = questionKeys.map(
   (key) =>
     ({
@@ -19,12 +25,6 @@ export const securityQuestionOptions: IOption<string>[] = questionKeys.map(
       label: keyToLabel(key),
     } as IOption<string>)
 );
-
-const keyToLabel = (key: string): string => {
-  const split = key.split("-");
-  split[0] = split[0].toUpperCase();
-  return `${split.join(" ")}?`;
-};
 
 export class SecurityQuestionsDTO implements SecurityQuestion {
   securityQuestion;

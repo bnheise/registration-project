@@ -1,5 +1,5 @@
-import { TGenders } from "./genderOptions";
-import { SecurityQuestionsDTO } from "./SecurityQuestions";
+import { genderOptions, TGenders } from "./genderOptions";
+import { securityQuestionOptions } from "./SecurityQuestions";
 
 export interface IRegistrationFormInputs {
   screenName?: string;
@@ -47,7 +47,7 @@ export default class RegistrationFormInputs implements IRegistrationFormInputs {
     emailAddress = "",
     firstName = "",
     lastName = "",
-    gender = "male",
+    gender = genderOptions[0].value,
     birthday = "",
     password1 = "",
     password2 = "",
@@ -60,7 +60,7 @@ export default class RegistrationFormInputs implements IRegistrationFormInputs {
     zip,
     agreedToTerms = false,
     securityAnswer = "",
-    securityQuestion = "",
+    securityQuestion = securityQuestionOptions[0].value,
   }: IRegistrationFormInputs) {
     this.screenName = screenName;
     this.emailAddress = emailAddress;
