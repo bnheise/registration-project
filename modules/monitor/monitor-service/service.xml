@@ -4,7 +4,7 @@
 <service-builder dependency-injector="ds" package-path="com.amf.registration.monitor">
 	<namespace>Monitor</namespace>
 	<!--<entity data-source="sampleDataSource" local-service="true" name="Foo" remote-service="false" session-factory="sampleSessionFactory" table="foo" tx-manager="sampleTransactionManager uuid="true"">-->
-	<entity local-service="true" name="UserEvents" remote-service="true" uuid="true">
+	<entity local-service="true" name="UserEvent" remote-service="true" uuid="true">
 
 		<!-- PK fields -->
 

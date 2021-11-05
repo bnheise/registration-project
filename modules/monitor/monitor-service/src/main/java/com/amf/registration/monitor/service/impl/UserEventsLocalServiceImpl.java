@@ -24,24 +24,30 @@ import org.osgi.service.component.annotations.Component;
  * The implementation of the user events local service.
  *
  * <p>
- * All custom service methods should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy their definitions into the <code>com.amf.registration.monitor.service.UserEventsLocalService</code> interface.
+ * All custom service methods should be put in this class. Whenever methods are
+ * added, rerun ServiceBuilder to copy their definitions into the
+ * <code>com.amf.registration.monitor.service.UserEventsLocalService</code>
+ * interface.
  *
  * <p>
- * This is a local service. Methods of this service will not have security checks based on the propagated JAAS credentials because this service can only be accessed from within the same VM.
+ * This is a local service. Methods of this service will not have security
+ * checks based on the propagated JAAS credentials because this service can only
+ * be accessed from within the same VM.
  * </p>
  *
  * @author Brian Wing Shun Chan
  * @see UserEventsLocalServiceBaseImpl
  */
-@Component(
-	property = "model.class.name=com.amf.registration.monitor.model.UserEvents",
-	service = AopService.class
-)
+@Component(property = "model.class.name=com.amf.registration.monitor.model.UserEvents", service = AopService.class)
 public class UserEventsLocalServiceImpl extends UserEventsLocalServiceBaseImpl {
 
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never reference this class directly. Use <code>com.amf.registration.monitor.service.UserEventsLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.amf.registration.monitor.service.UserEventsLocalServiceUtil</code>.
+	 * Never reference this class directly. Use
+	 * <code>com.amf.registration.monitor.service.UserEventsLocalService</code> via
+	 * injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use
+	 * <code>com.amf.registration.monitor.service.UserEventsLocalServiceUtil</code>.
 	 */
+
 }

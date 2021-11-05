@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 
 <model-hints>
-	<model name="com.amf.registration.monitor.model.UserEvents">
+	<model name="com.amf.registration.monitor.model.UserEvent">
 		<field name="uuid" type="String" />
 		<field name="userEventId" type="long" />
 		<field name="groupId" type="long" />

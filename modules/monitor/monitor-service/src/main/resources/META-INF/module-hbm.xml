@@ -2,8 +2,8 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping auto-import="false" default-lazy="false">
-	<import class="com.amf.registration.monitor.model.UserEvents" />
-	<class name="com.amf.registration.monitor.model.impl.UserEventsImpl" table="Monitor_UserEvents">
+	<import class="com.amf.registration.monitor.model.UserEvent" />
+	<class name="com.amf.registration.monitor.model.impl.UserEventImpl" table="Monitor_UserEvent">
 		<id access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="userEventId" type="long">
 			<generator class="assigned" />
 		</id>
