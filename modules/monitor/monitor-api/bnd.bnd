@@ -1,0 +1,10 @@
+Bundle-Name: monitor-api
+Bundle-SymbolicName: com.amf.registration.monitor.api
+Bundle-Version: 1.0.0
+Export-Package:\
+	com.amf.registration.monitor.exception,\
+	com.amf.registration.monitor.model,\
+	com.amf.registration.monitor.service,\
+	com.amf.registration.monitor.service.persistence
+-check: EXPORTS
+-includeresource: META-INF/service.xml=../monitor-service/service.xml
