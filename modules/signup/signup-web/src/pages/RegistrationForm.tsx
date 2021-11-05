@@ -8,12 +8,14 @@ import Input from "../components/Input";
 import Checkbox from "../components/Checkbox";
 import ClayButton from "@clayui/button";
 
-import RegistrationFormInputs, { IRegistrationFormInputs } from "../domain/RegistrationFormInputs";
+import RegistrationFormInputs, {
+  IRegistrationFormInputs,
+} from "../domain/RegistrationFormInputs";
 import { genderOptions } from "../domain/genderOptions";
-import { genChangeHandlers } from "../utils/utils";
+import { genChangeHandlers, ValueChangeHandler } from "../utils/utils";
 import UserDTO from "../domain/UserDTO";
-import { ValueChangeHandler } from "../utils/utils";
 import ClayLayout from "@clayui/layout";
+import ClayLink from "@clayui/link";
 import StatesDropdown from "../components/StatesDropdown";
 
 export interface IErrors {
@@ -161,7 +163,11 @@ const RegistrationForm: FC = (): ReactElement => {
             handleChange={handlers.handleCityChange as ChangeEventHandler}
             errors={errors.city}
           />
-          <StatesDropdown errors={errors.state} value={formValues.state} handleChange={handlers.handleStateChange as ChangeEventHandler} />
+          <StatesDropdown
+            errors={errors.state}
+            value={formValues.state}
+            handleChange={handlers.handleStateChange as ChangeEventHandler}
+          />
         </TwoColGroup>
         <ClayLayout.Row justify="start">
           <ClayLayout.Col md={4} lg={4} sm={8} xs={12}>
@@ -178,7 +184,18 @@ const RegistrationForm: FC = (): ReactElement => {
       <Checkbox
         value={formValues.agreedToTerms}
         handleChange={handlers.handleAgreedToTermsChange as ChangeEventHandler}
-        label="I have read, understand, and agree with the Terms of Use governing my access to and use of the Acme Movie Fanatics web site."
+        label={
+          <div>
+            "I have read, understand, and agree with the{" "}
+            <ClayLink
+              target="_blank"
+              href={`${Liferay.ThemeDisplay.getCDNBaseURL()}/web/amf/terms-of-use`}
+            >
+              Terms of Use
+            </ClayLink>{" "}
+            governing my access to and use of the Acme Movie Fanatics web site."
+          </div>
+        }
         errors={errors.agreedToTerms}
       />
       <ClayButton onClick={handleSubmit} displayType="primary">

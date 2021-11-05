@@ -1,12 +1,11 @@
-import React, { FC, ReactChildren } from "react";
-import PropTypes from "prop-types";
+import React, { FC, ReactElement } from "react";
 import ClayForm from "@clayui/form";
 
 interface IFormSectionProps {
   heading: string,
 }
 
-const FormSection: FC<IFormSectionProps> = ({ heading, children }) => {
+const FormSection: FC<IFormSectionProps> = ({ heading, children }): ReactElement => {
   return (
     <div>
       <h3>{heading}</h3>
