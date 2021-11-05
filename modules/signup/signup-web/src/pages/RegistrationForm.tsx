@@ -17,6 +17,7 @@ import UserDTO from "../domain/UserDTO";
 import ClayLayout from "@clayui/layout";
 import ClayLink from "@clayui/link";
 import StatesDropdown from "../components/StatesDropdown";
+import { securityQuestionOptions } from "../domain/SecurityQuestions";
 
 export interface IErrors {
   [key: string | symbol]: string | undefined;
@@ -181,23 +182,43 @@ const RegistrationForm: FC = (): ReactElement => {
           </ClayLayout.Col>
         </ClayLayout.Row>
       </FormSection>
-      <Checkbox
-        value={formValues.agreedToTerms}
-        handleChange={handlers.handleAgreedToTermsChange as ChangeEventHandler}
-        label={
-          <div>
-            "I have read, understand, and agree with the{" "}
-            <ClayLink
-              target="_blank"
-              href={`${Liferay.ThemeDisplay.getCDNBaseURL()}/web/amf/terms-of-use`}
-            >
-              Terms of Use
-            </ClayLink>{" "}
-            governing my access to and use of the Acme Movie Fanatics web site."
-          </div>
-        }
-        errors={errors.agreedToTerms}
-      />
+      <FormSection heading="Misc.">
+        <Select
+          label="Security Question"
+          value={formValues.securityQuestion}
+          options={securityQuestionOptions}
+          handleChange={handlers.handleSecurityQuestionChange as ChangeEventHandler}
+          isRequired={true}
+          errors={errors.securityQuestion}
+        />
+        <Input
+            label="Answer"
+            isRequired={true}
+            value={formValues.securityAnswer}
+            handleChange={handlers.handleSecurityAnswerChange as ChangeEventHandler}
+            errors={errors.securityAnswer}
+          />
+        <Checkbox
+          value={formValues.agreedToTerms}
+          handleChange={
+            handlers.handleAgreedToTermsChange as ChangeEventHandler
+          }
+          label={
+            <div>
+              "I have read, understand, and agree with the{" "}
+              <ClayLink
+                target="_blank"
+                href={`${Liferay.ThemeDisplay.getCDNBaseURL()}/web/amf/terms-of-use`}
+              >
+                Terms of Use
+              </ClayLink>{" "}
+              governing my access to and use of the Acme Movie Fanatics web
+              site."
+            </div>
+          }
+          errors={errors.agreedToTerms}
+        />
+      </FormSection>
       <ClayButton onClick={handleSubmit} displayType="primary">
         Submit
       </ClayButton>

@@ -1,4 +1,5 @@
 import { TGenders } from "./genderOptions";
+import { SecurityQuestionsDTO } from "./SecurityQuestions";
 
 export interface IRegistrationFormInputs {
   screenName?: string;
@@ -17,6 +18,8 @@ export interface IRegistrationFormInputs {
   state?: number;
   zip?: number;
   agreedToTerms?: boolean;
+  securityQuestion?: string;
+  securityAnswer?: string;
 }
 
 export default class RegistrationFormInputs implements IRegistrationFormInputs {
@@ -36,6 +39,8 @@ export default class RegistrationFormInputs implements IRegistrationFormInputs {
   state;
   zip;
   agreedToTerms;
+  securityQuestion;
+  securityAnswer;
 
   constructor({
     screenName = "",
@@ -54,6 +59,8 @@ export default class RegistrationFormInputs implements IRegistrationFormInputs {
     state,
     zip,
     agreedToTerms = false,
+    securityAnswer = "",
+    securityQuestion = "",
   }: IRegistrationFormInputs) {
     this.screenName = screenName;
     this.emailAddress = emailAddress;
@@ -71,5 +78,7 @@ export default class RegistrationFormInputs implements IRegistrationFormInputs {
     this.state = state;
     this.zip = zip;
     this.agreedToTerms = agreedToTerms;
+    this.securityAnswer = securityAnswer;
+    this.securityQuestion = securityQuestion;
   }
 }

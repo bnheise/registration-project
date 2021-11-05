@@ -19,6 +19,8 @@ export interface IUserDTO {
   mobilePhone: PhoneDTO;
   billingAddress: AddressDTO;
   agreedToTerms: boolean;
+  securityQuestion: string;
+  securityAnswer: string;
 }
 
 export default class UserDTO implements IUserDTO {
@@ -36,6 +38,8 @@ export default class UserDTO implements IUserDTO {
   mobilePhone;
   billingAddress;
   agreedToTerms;
+  securityAnswer;
+  securityQuestion;
 
   constructor({
     screenName = "",
@@ -54,6 +58,8 @@ export default class UserDTO implements IUserDTO {
     state = -1,
     zip = -1,
     agreedToTerms = false,
+    securityAnswer = "",
+    securityQuestion = "",
   }: IRegistrationFormInputs) {
     const isMale = gender === "male";
 
@@ -81,5 +87,7 @@ export default class UserDTO implements IUserDTO {
       zip,
     });
     this.agreedToTerms = agreedToTerms;
+    this.securityAnswer = securityAnswer;
+    this.securityQuestion = securityQuestion;
   }
 }

@@ -4,10 +4,10 @@ import Label from "./Label";
 import { toCamel } from "../utils/utils";
 import useErrors from "../hooks/useError";
 import { IInputProps } from "./Input";
-import { IOption, TGenders } from '../domain/genderOptions';
+import { IOption } from '../domain/genderOptions';
 
 interface ISelectProps extends IInputProps {
-  options: IOption<TGenders>[]
+  options: IOption<any>[]
 }
 
 const Select: FC<ISelectProps> = ({
