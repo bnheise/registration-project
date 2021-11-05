@@ -1,0 +1,3 @@
+Bundle-Name: monitor-user-local-service-wrapper
+Bundle-SymbolicName: com.amf.registration.monitor
+Bundle-Version: 1.0.0
