@@ -119,6 +119,7 @@ public class SignupServiceImpl extends SignupServiceBaseImpl {
 				roleIds, userGroupIds, sendEmail, serviceContext);
 
 		userLocalService.updateAgreedToTermsOfUse(user.getUserId(), agreedToTerms);
+		userLocalService.updateReminderQuery(user.getUserId(), securityQuestion, securityAnswer);
 
 		log.info("User creation successful");
 		log.info("New user:" + user.toString());
