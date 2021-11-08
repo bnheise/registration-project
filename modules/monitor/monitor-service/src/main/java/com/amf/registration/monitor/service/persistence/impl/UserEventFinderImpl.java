@@ -25,41 +25,28 @@ public class UserEventFinderImpl extends UserEventFinderBaseImpl implements User
 
             session = openSession();
             String queryString = customSQL.get(getClass(), "findAll");
-            System.out.println("HERE1");
-            System.out.println(queryString);
+
             SQLQuery sqlQuery = session.createSQLQuery(queryString);
             sqlQuery.setCacheable(false);
-            System.out.println("HERE1.5");
-            // sqlQuery.addEntity("UserEvent", UserEventImpl.class);
-            // sqlQuery.addEntity("User_",
-            // PortalClassLoaderUtil.getClassLoader().loadClass("com.liferay.portal.model.impl.UserImpl"));
+
             QueryPos queryPos = QueryPos.getInstance(sqlQuery);
-            System.out.println("HERE2");
             queryPos.add(end - start);
             queryPos.add(start);
-            System.out.println(queryPos);
 
             List<Object[]> result = sqlQuery.list();
-            System.out.println("HERE2.5");
             List<HashMap<String, Object>> finalResult = new ArrayList<>();
             for (Object[] objects : result) {
                 HashMap<String, Object> event = new HashMap<>();
-                System.out.println("UUID " + (String) objects[0]);
-                event.put("uuid", objects[0]);
-                event.put("userEventId", Long.parseLong(String.valueOf(objects[1])));
-                event.put("groupId", Long.parseLong(String.valueOf(objects[2])));
-                event.put("companyId", Long.parseLong(String.valueOf(objects[3])));
-                event.put("userId", Long.parseLong(String.valueOf(objects[3])));
-                event.put("createDate", objects[5]);
-                event.put("modifiedDate", objects[6]);
-                event.put("ipAddress", objects[7]);
-                event.put("type", objects[8]);
-                event.put("screenName", objects[9]);
+
+                event.put("ipAddress", objects[0]);
+                event.put("type", objects[1]);
+                event.put("userId", Long.parseLong(String.valueOf(objects[2])));
+                event.put("userEventId", Long.parseLong(String.valueOf(objects[3])));
+                event.put("createDate", objects[4]);
+                event.put("screenName", objects[5]);
                 finalResult.add(event);
             }
-            System.out.println(finalResult);
-            System.out.println(result);
-            // System.out.println(result.get(0).getScreenName());
+
             return finalResult;
         } catch (
 

@@ -3,7 +3,11 @@
     <sql id="findAll">
         <![CDATA[
             SELECT
-                m.*,
+                m.ipaddress,
+                m.type_,
+                m.userid,
+                m.usereventid,
+                m.createdate,
                 u.screenname
             FROM monitor_userevent m
                 INNER JOIN user_ u
