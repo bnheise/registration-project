@@ -14,9 +14,14 @@
 
 package com.amf.registration.monitor.service.http;
 
+import java.rmi.RemoteException;
+
+import com.amf.registration.monitor.service.UserEventServiceUtil;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+
 /**
- * Provides the SOAP utility for the
- * <code>com.amf.registration.monitor.service.UserEventServiceUtil</code> service
+ * Provides the SOAP utility for the <code>UserEventServiceUtil</code> service
  * utility. The static methods of this class call the same methods of the
  * service utility. However, the signatures are different because it is
  * difficult for SOAP to support certain types.
@@ -25,11 +30,11 @@ package com.amf.registration.monitor.service.http;
  * ServiceBuilder follows certain rules in translating the methods. For example,
  * if the method in the service utility returns a <code>java.util.List</code>,
  * that is translated to an array of
- * <code>com.amf.registration.monitor.model.UserEventSoap</code>. If the method in the
- * service utility returns a
- * <code>com.amf.registration.monitor.model.UserEvent</code>, that is translated to a
- * <code>com.amf.registration.monitor.model.UserEventSoap</code>. Methods that SOAP
- * cannot safely wire are skipped.
+ * <code>com.amf.registration.monitor.model.UserEventSoap</code>. If the method
+ * in the service utility returns a
+ * <code>com.amf.registration.monitor.model.UserEvent</code>, that is translated
+ * to a <code>com.amf.registration.monitor.model.UserEventSoap</code>. Methods
+ * that SOAP cannot safely wire are skipped.
  * </p>
  *
  * <p>
@@ -56,4 +61,41 @@ package com.amf.registration.monitor.service.http;
  */
 @Deprecated
 public class UserEventServiceSoap {
+
+	public static com.amf.registration.monitor.model.UserEventSoap addUserEvent(
+			String type,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+			throws RemoteException {
+
+		try {
+			com.amf.registration.monitor.model.UserEvent returnValue = UserEventServiceUtil.addUserEvent(type,
+					serviceContext);
+
+			return com.amf.registration.monitor.model.UserEventSoap.toSoapModel(
+					returnValue);
+		} catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	// public static java.util.List<Object[]>[] Soap
+
+	// getUserEvents(int start, int end) throws RemoteException {
+	// try {
+	// java.util.List<java.util.List<Object[]>> returnValue =
+	// UserEventServiceUtil.getUserEvents(start, end);
+
+	// return (java.util.List < Object[]) > Soap.toSoapModels(returnValue);
+	// }
+	// catch (Exception exception) {
+	// _log.error(exception, exception);
+
+	// throw new RemoteException(exception.getMessage());
+	// }
+	// }
+
+	private static Log _log = LogFactoryUtil.getLog(UserEventServiceSoap.class);
+
 }

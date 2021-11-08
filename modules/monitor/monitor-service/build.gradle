@@ -2,6 +2,7 @@ dependencies {
 	compile project(":modules:monitor:monitor-api")
 
 	compileOnly group: "com.liferay.portal", name: "release.dxp.api"
+	compileOnly group: "com.liferay", name: "com.liferay.portal.dao.orm.custom.sql.api", version: "1.0.0"
 }
 
 buildService {
@@ -9,3 +10,11 @@ buildService {
 }
 
 group = "com.amf.registration.monitor"
+
+tasks.withType(JavaCompile) {
+
+	// Generated classes using Jodd library are unable to be read when compiled against JDK 11
+
+	sourceCompatibility = JavaVersion.VERSION_1_8
+	targetCompatibility = JavaVersion.VERSION_1_8
+}

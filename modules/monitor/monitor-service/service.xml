@@ -18,7 +18,6 @@
 
 		<column name="companyId" type="long" />
 		<column name="userId" type="long" />
-		<column name="userName" type="String" />
 		<column name="createDate" type="Date" />
 		<column name="modifiedDate" type="Date" />
 
@@ -26,7 +25,6 @@
 
 		<column name="ipAddress" type="String" />
 		<column name="type" type="String" />
-		<column name="screenName" type="String" />
 
 		<!-- Order -->
 

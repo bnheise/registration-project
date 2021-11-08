@@ -58,4 +58,9 @@ public interface UserEvent extends PersistedModel, UserEventModel {
 
 		};
 
+	@com.liferay.portal.kernel.json.JSON
+	public void setScreenName(String screenName);
+
+	public String getScreenName();
+
 }

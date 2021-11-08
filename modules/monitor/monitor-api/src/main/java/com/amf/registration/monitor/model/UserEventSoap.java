@@ -38,12 +38,10 @@ public class UserEventSoap implements Serializable {
 		soapModel.setGroupId(model.getGroupId());
 		soapModel.setCompanyId(model.getCompanyId());
 		soapModel.setUserId(model.getUserId());
-		soapModel.setUserName(model.getUserName());
 		soapModel.setCreateDate(model.getCreateDate());
 		soapModel.setModifiedDate(model.getModifiedDate());
 		soapModel.setIpAddress(model.getIpAddress());
 		soapModel.setType(model.getType());
-		soapModel.setScreenName(model.getScreenName());
 
 		return soapModel;
 	}
@@ -137,14 +135,6 @@ public class UserEventSoap implements Serializable {
 		_userId = userId;
 	}
 
-	public String getUserName() {
-		return _userName;
-	}
-
-	public void setUserName(String userName) {
-		_userName = userName;
-	}
-
 	public Date getCreateDate() {
 		return _createDate;
 	}
@@ -177,24 +167,14 @@ public class UserEventSoap implements Serializable {
 		_type = type;
 	}
 
-	public String getScreenName() {
-		return _screenName;
-	}
-
-	public void setScreenName(String screenName) {
-		_screenName = screenName;
-	}
-
 	private String _uuid;
 	private long _userEventId;
 	private long _groupId;
 	private long _companyId;
 	private long _userId;
-	private String _userName;
 	private Date _createDate;
 	private Date _modifiedDate;
 	private String _ipAddress;
 	private String _type;
-	private String _screenName;
 
 }

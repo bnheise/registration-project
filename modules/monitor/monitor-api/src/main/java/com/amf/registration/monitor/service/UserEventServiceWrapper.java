@@ -30,6 +30,14 @@ public class UserEventServiceWrapper
 		_userEventService = userEventService;
 	}
 
+	@Override
+	public com.amf.registration.monitor.model.UserEvent addUserEvent(
+		String type,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
+
+		return _userEventService.addUserEvent(type, serviceContext);
+	}
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *
@@ -38,6 +46,13 @@ public class UserEventServiceWrapper
 	@Override
 	public String getOSGiServiceIdentifier() {
 		return _userEventService.getOSGiServiceIdentifier();
+	}
+
+	@Override
+	public java.util.List<java.util.HashMap<String, Object>> getUserEvents(
+		int start, int end) {
+
+		return _userEventService.getUserEvents(start, end);
 	}
 
 	@Override

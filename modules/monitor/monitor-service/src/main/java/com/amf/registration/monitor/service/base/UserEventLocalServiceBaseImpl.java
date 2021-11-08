@@ -17,6 +17,7 @@ package com.amf.registration.monitor.service.base;
 import com.amf.registration.monitor.model.UserEvent;
 import com.amf.registration.monitor.service.UserEventLocalService;
 import com.amf.registration.monitor.service.UserEventLocalServiceUtil;
+import com.amf.registration.monitor.service.persistence.UserEventFinder;
 import com.amf.registration.monitor.service.persistence.UserEventPersistence;
 
 import com.liferay.exportimport.kernel.lar.ExportImportHelperUtil;
@@ -573,6 +574,9 @@ public abstract class UserEventLocalServiceBaseImpl
 
 	@Reference
 	protected UserEventPersistence userEventPersistence;
+
+	@Reference
+	protected UserEventFinder userEventFinder;
 
 	@Reference
 	protected com.liferay.counter.kernel.service.CounterLocalService

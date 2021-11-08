@@ -14,6 +14,10 @@
 
 package com.amf.registration.monitor.service;
 
+import com.amf.registration.monitor.model.UserEvent;
+
+import java.util.List;
+
 /**
  * Provides the remote service utility for UserEvent. This utility wraps
  * <code>com.amf.registration.monitor.service.impl.UserEventServiceImpl</code> and is an
@@ -33,14 +37,26 @@ public class UserEventServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>com.amf.registration.monitor.service.impl.UserEventServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
+	public static UserEvent addUserEvent(
+		String type,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
+
+		return getService().addUserEvent(type, serviceContext);
+	}
 
 	/**
 	 * Returns the OSGi service identifier.
 	 *
 	 * @return the OSGi service identifier
 	 */
-	public static java.lang.String getOSGiServiceIdentifier() {
+	public static String getOSGiServiceIdentifier() {
 		return getService().getOSGiServiceIdentifier();
+	}
+
+	public static List<java.util.HashMap<String, Object>> getUserEvents(
+		int start, int end) {
+
+		return getService().getUserEvents(start, end);
 	}
 
 	public static UserEventService getService() {

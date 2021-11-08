@@ -14,8 +14,12 @@
 
 package com.amf.registration.monitor.service.impl;
 
+import java.util.Date;
+
+import com.amf.registration.monitor.model.UserEvent;
 import com.amf.registration.monitor.service.base.UserEventLocalServiceBaseImpl;
 import com.liferay.portal.aop.AopService;
+import com.liferay.portal.kernel.service.ServiceContext;
 
 import org.osgi.service.component.annotations.Component;
 
@@ -48,5 +52,28 @@ public class UserEventLocalServiceImpl extends UserEventLocalServiceBaseImpl {
 	 * injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use
 	 * <code>com.amf.registration.monitor.service.UserEventLocalServiceUtil</code>.
 	 */
+	@Override
+	public UserEvent addUserEvent(String type, ServiceContext serviceContext) {
+		long userEventId = counterLocalService.increment(UserEvent.class.getName());
+		long groupId = serviceContext.getScopeGroupId();
+		long companyId = serviceContext.getCompanyId();
+		long userId = serviceContext.getUserId();
+		Date createDate = serviceContext.getCreateDate(new Date());
+		Date modifiedDate = serviceContext.getModifiedDate(new Date());
+		String ipAddress = serviceContext.getRemoteAddr();
 
+		UserEvent userEvent = createUserEvent(userEventId);
+		userEvent.setGroupId(groupId);
+		userEvent.setCompanyId(companyId);
+		userEvent.setUserId(userId);
+		userEvent.setCreateDate(createDate);
+		userEvent.setModifiedDate(modifiedDate);
+		userEvent.setIpAddress(ipAddress);
+		userEvent.setType(type);
+		return super.addUserEvent(userEvent);
+	}
+
+	// @Override
+	// public List<UserEvent> findAll(int start, int end) {
+	// }
 }

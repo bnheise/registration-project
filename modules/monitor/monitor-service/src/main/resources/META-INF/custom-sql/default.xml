@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<custom-sql>
+    <sql id="findAll">
+        <![CDATA[
+            SELECT
+                m.*,
+                u.screenname
+            FROM monitor_userevent m
+                INNER JOIN user_ u
+                USING(userid)
+            LIMIT ?
+            OFFSET ?;
+        ]]>
+    </sql>
+</custom-sql>

@@ -14,9 +14,13 @@
 
 package com.amf.registration.monitor.service.impl;
 
-import com.amf.registration.monitor.service.base.UserEventServiceBaseImpl;
+import java.util.HashMap;
+import java.util.List;
 
+import com.amf.registration.monitor.model.UserEvent;
+import com.amf.registration.monitor.service.base.UserEventServiceBaseImpl;
 import com.liferay.portal.aop.AopService;
+import com.liferay.portal.kernel.service.ServiceContext;
 
 import org.osgi.service.component.annotations.Component;
 
@@ -24,27 +28,41 @@ import org.osgi.service.component.annotations.Component;
  * The implementation of the user event remote service.
  *
  * <p>
- * All custom service methods should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy their definitions into the <code>com.amf.registration.monitor.service.UserEventService</code> interface.
+ * All custom service methods should be put in this class. Whenever methods are
+ * added, rerun ServiceBuilder to copy their definitions into the
+ * <code>com.amf.registration.monitor.service.UserEventService</code> interface.
  *
  * <p>
- * This is a remote service. Methods of this service are expected to have security checks based on the propagated JAAS credentials because this service can be accessed remotely.
+ * This is a remote service. Methods of this service are expected to have
+ * security checks based on the propagated JAAS credentials because this service
+ * can be accessed remotely.
  * </p>
  *
  * @author Brian Wing Shun Chan
  * @see UserEventServiceBaseImpl
  */
-@Component(
-	property = {
+@Component(property = {
 		"json.web.service.context.name=monitor",
 		"json.web.service.context.path=UserEvent"
-	},
-	service = AopService.class
-)
+}, service = AopService.class)
 public class UserEventServiceImpl extends UserEventServiceBaseImpl {
 
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never reference this class directly. Always use <code>com.amf.registration.monitor.service.UserEventServiceUtil</code> to access the user event remote service.
+	 * Never reference this class directly. Always use
+	 * <code>com.amf.registration.monitor.service.UserEventServiceUtil</code> to
+	 * access the user event remote service.
 	 */
+
+	@Override
+	public UserEvent addUserEvent(String type, ServiceContext serviceContext) {
+		return userEventLocalService.addUserEvent(type, serviceContext);
+	}
+
+	@Override
+	public List<HashMap<String, Object>> getUserEvents(int start, int end) {
+		System.out.println(userEventFinder.findAll(start, end).get(0));
+		return userEventFinder.findAll(start, end);
+	}
 }

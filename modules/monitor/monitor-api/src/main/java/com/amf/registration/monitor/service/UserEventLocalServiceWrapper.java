@@ -32,6 +32,14 @@ public class UserEventLocalServiceWrapper
 		_userEventLocalService = userEventLocalService;
 	}
 
+	@Override
+	public com.amf.registration.monitor.model.UserEvent addUserEvent(
+		String type,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
+
+		return _userEventLocalService.addUserEvent(type, serviceContext);
+	}
+
 	/**
 	 * Adds the user event to the database. Also notifies the appropriate model listeners.
 	 *

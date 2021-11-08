@@ -48,12 +48,10 @@ public class UserEventWrapper
 		attributes.put("groupId", getGroupId());
 		attributes.put("companyId", getCompanyId());
 		attributes.put("userId", getUserId());
-		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("ipAddress", getIpAddress());
 		attributes.put("type", getType());
-		attributes.put("screenName", getScreenName());
 
 		return attributes;
 	}
@@ -90,12 +88,6 @@ public class UserEventWrapper
 			setUserId(userId);
 		}
 
-		String userName = (String)attributes.get("userName");
-
-		if (userName != null) {
-			setUserName(userName);
-		}
-
 		Date createDate = (Date)attributes.get("createDate");
 
 		if (createDate != null) {
@@ -118,12 +110,6 @@ public class UserEventWrapper
 
 		if (type != null) {
 			setType(type);
-		}
-
-		String screenName = (String)attributes.get("screenName");
-
-		if (screenName != null) {
-			setScreenName(screenName);
 		}
 	}
 
@@ -187,11 +173,6 @@ public class UserEventWrapper
 		return model.getPrimaryKey();
 	}
 
-	/**
-	 * Returns the screen name of this user event.
-	 *
-	 * @return the screen name of this user event
-	 */
 	@Override
 	public String getScreenName() {
 		return model.getScreenName();
@@ -225,16 +206,6 @@ public class UserEventWrapper
 	@Override
 	public long getUserId() {
 		return model.getUserId();
-	}
-
-	/**
-	 * Returns the user name of this user event.
-	 *
-	 * @return the user name of this user event
-	 */
-	@Override
-	public String getUserName() {
-		return model.getUserName();
 	}
 
 	/**
@@ -322,11 +293,6 @@ public class UserEventWrapper
 		model.setPrimaryKey(primaryKey);
 	}
 
-	/**
-	 * Sets the screen name of this user event.
-	 *
-	 * @param screenName the screen name of this user event
-	 */
 	@Override
 	public void setScreenName(String screenName) {
 		model.setScreenName(screenName);
@@ -360,16 +326,6 @@ public class UserEventWrapper
 	@Override
 	public void setUserId(long userId) {
 		model.setUserId(userId);
-	}
-
-	/**
-	 * Sets the user name of this user event.
-	 *
-	 * @param userName the user name of this user event
-	 */
-	@Override
-	public void setUserName(String userName) {
-		model.setUserName(userName);
 	}
 
 	/**
