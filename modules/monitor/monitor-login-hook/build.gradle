@@ -1,3 +1,8 @@
 dependencies {
+	compile project(":modules:monitor:monitor-api")
+	compile project(":modules:monitor:monitor-service")
 	compileOnly group: "com.liferay.portal", name: "release.dxp.api"
+	compileOnly group: "com.liferay.portal", name: "com.liferay.portal.kernel"
+	compileOnly group: "org.osgi", name: "org.osgi.service.component.annotations"
+	compileOnly group: "javax.servlet", name: "javax.servlet-api"
 }
