@@ -34,6 +34,20 @@ public class UserEventLocalServiceWrapper
 
 	@Override
 	public com.amf.registration.monitor.model.UserEvent addUserEvent(
+		javax.servlet.http.HttpServletRequest request) {
+
+		return _userEventLocalService.addUserEvent(request);
+	}
+
+	@Override
+	public com.amf.registration.monitor.model.UserEvent addUserEvent(
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
+
+		return _userEventLocalService.addUserEvent(serviceContext);
+	}
+
+	@Override
+	public com.amf.registration.monitor.model.UserEvent addUserEvent(
 		String type,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
 

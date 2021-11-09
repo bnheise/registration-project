@@ -45,6 +45,18 @@ public class UserEventLocalServiceUtil {
 	 * Never modify this class directly. Add custom service methods to <code>com.amf.registration.monitor.service.impl.UserEventLocalServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
 	public static UserEvent addUserEvent(
+		javax.servlet.http.HttpServletRequest request) {
+
+		return getService().addUserEvent(request);
+	}
+
+	public static UserEvent addUserEvent(
+		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
+
+		return getService().addUserEvent(serviceContext);
+	}
+
+	public static UserEvent addUserEvent(
 		String type,
 		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
 

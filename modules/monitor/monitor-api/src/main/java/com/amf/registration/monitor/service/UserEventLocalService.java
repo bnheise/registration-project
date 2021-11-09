@@ -39,6 +39,8 @@ import java.io.Serializable;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.osgi.annotation.versioning.ProviderType;
 
 /**
@@ -64,6 +66,10 @@ public interface UserEventLocalService
 	 *
 	 * Never modify this interface directly. Add custom service methods to <code>com.amf.registration.monitor.service.impl.UserEventLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the user event local service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link UserEventLocalServiceUtil} if injection and service tracking are not available.
 	 */
+	public UserEvent addUserEvent(HttpServletRequest request);
+
+	public UserEvent addUserEvent(ServiceContext serviceContext);
+
 	public UserEvent addUserEvent(String type, ServiceContext serviceContext);
 
 	/**

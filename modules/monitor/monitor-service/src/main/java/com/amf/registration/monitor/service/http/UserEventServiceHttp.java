@@ -52,46 +52,13 @@ import com.liferay.portal.kernel.util.MethodKey;
  */
 public class UserEventServiceHttp {
 
-	public static com.amf.registration.monitor.model.UserEvent addUserEvent(
-		HttpPrincipal httpPrincipal, String type,
-		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
-
-		try {
-			MethodKey methodKey = new MethodKey(
-				UserEventServiceUtil.class, "addUserEvent",
-				_addUserEventParameterTypes0);
-
-			MethodHandler methodHandler = new MethodHandler(
-				methodKey, type, serviceContext);
-
-			Object returnObj = null;
-
-			try {
-				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
-			}
-			catch (Exception exception) {
-				throw new com.liferay.portal.kernel.exception.SystemException(
-					exception);
-			}
-
-			return (com.amf.registration.monitor.model.UserEvent)returnObj;
-		}
-		catch (com.liferay.portal.kernel.exception.SystemException
-					systemException) {
-
-			_log.error(systemException, systemException);
-
-			throw systemException;
-		}
-	}
-
 	public static java.util.List<java.util.HashMap<String, Object>>
 		getUserEvents(HttpPrincipal httpPrincipal, int start, int end) {
 
 		try {
 			MethodKey methodKey = new MethodKey(
 				UserEventServiceUtil.class, "getUserEvents",
-				_getUserEventsParameterTypes1);
+				_getUserEventsParameterTypes0);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, start, end);
@@ -119,10 +86,7 @@ public class UserEventServiceHttp {
 
 	private static Log _log = LogFactoryUtil.getLog(UserEventServiceHttp.class);
 
-	private static final Class<?>[] _addUserEventParameterTypes0 = new Class[] {
-		String.class, com.liferay.portal.kernel.service.ServiceContext.class
-	};
-	private static final Class<?>[] _getUserEventsParameterTypes1 =
+	private static final Class<?>[] _getUserEventsParameterTypes0 =
 		new Class[] {int.class, int.class};
 
 }
