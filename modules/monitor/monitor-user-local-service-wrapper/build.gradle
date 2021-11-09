@@ -1,3 +1,5 @@
 dependencies {
+	compile project(":modules:monitor:monitor-api")
+	compile project(":modules:monitor:monitor-service")
 	compileOnly group: "com.liferay.portal", name: "release.dxp.api"
 }

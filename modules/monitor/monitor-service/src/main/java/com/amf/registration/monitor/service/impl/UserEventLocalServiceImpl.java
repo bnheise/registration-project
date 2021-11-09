@@ -23,6 +23,8 @@ import com.amf.registration.monitor.model.impl.UserEventImpl;
 import com.amf.registration.monitor.service.base.UserEventLocalServiceBaseImpl;
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.PortalUtil;
 
@@ -80,16 +82,15 @@ public class UserEventLocalServiceImpl extends UserEventLocalServiceBaseImpl {
 
 	@Override
 	public UserEvent addUserEvent(HttpServletRequest request) {
-
 		try {
-			System.out.println("IN ADD USER EVENT");
+			_log.info("Attempting to add user event via HttpServletRequest...");
 			long userEventId = counterLocalService.increment(UserEvent.class.getName());
 			long groupId = PortalUtil.getScopeGroupId(request);
 			long companyId = PortalUtil.getCompanyId(request);
 			long userId = PortalUtil.getUserId(request);
 			Date createDate = new Date();
 			Date modifiedDate = new Date();
-			String ipAddress = request.getHeader("x-forwarded-for");
+			String ipAddress = request.getRemoteAddr();
 
 			UserEvent userEvent = createUserEvent(userEventId);
 			userEvent.setGroupId(groupId);
@@ -99,11 +100,12 @@ public class UserEventLocalServiceImpl extends UserEventLocalServiceBaseImpl {
 			userEvent.setModifiedDate(modifiedDate);
 			userEvent.setIpAddress(ipAddress);
 			userEvent.setType("login");
-			return super.addUserEvent(userEvent);
+			UserEvent newEvent = super.addUserEvent(userEvent);
+			_log.info("Success: new login event created for user " + newEvent.getUserId());
+			return newEvent;
 		} catch (PortalException e) {
 			return new UserEventImpl();
 		}
-
 	}
 
 	@Override
@@ -111,7 +113,5 @@ public class UserEventLocalServiceImpl extends UserEventLocalServiceBaseImpl {
 		return userEventLocalService.addUserEvent(serviceContext);
 	}
 
-	// @Override
-	// public List<UserEvent> findAll(int start, int end) {
-	// }
+	private static final Log _log = LogFactoryUtil.getLog(UserEventLocalServiceImpl.class);
 }
