@@ -17,10 +17,8 @@ package com.amf.registration.monitor.service.impl;
 import java.util.HashMap;
 import java.util.List;
 
-import com.amf.registration.monitor.model.UserEvent;
 import com.amf.registration.monitor.service.base.UserEventServiceBaseImpl;
 import com.liferay.portal.aop.AopService;
-import com.liferay.portal.kernel.service.ServiceContext;
 
 import org.osgi.service.component.annotations.Component;
 
@@ -56,13 +54,7 @@ public class UserEventServiceImpl extends UserEventServiceBaseImpl {
 	 */
 
 	@Override
-	public UserEvent addUserEvent(String type, ServiceContext serviceContext) {
-		return userEventLocalService.addUserEvent(type, serviceContext);
-	}
-
-	@Override
 	public List<HashMap<String, Object>> getUserEvents(int start, int end) {
-		System.out.println(userEventFinder.findAll(start, end).get(0));
 		return userEventFinder.findAll(start, end);
 	}
 }
