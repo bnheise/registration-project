@@ -1,19 +1,18 @@
 {
 	"name": "monitor-web",
 	"version": "1.0.0",
-	"description": "React portlet for displaying login and registration monitor UI.",
+	"description": "monitor-web",
 	"devDependencies": {
-		"@babel/cli": "^7.7.5",
-		"@babel/core": "^7.7.5",
-		"@babel/helper-compilation-targets": "^7.16.0",
-		"@babel/preset-env": "^7.7.6",
-		"@babel/preset-react": "^7.7.4",
-		"copy-webpack-plugin": "4.6.0",
-		"liferay-npm-build-support": "^2.27.0",
 		"liferay-npm-bundler": "^2.27.0",
+		"liferay-npm-build-support": "^2.27.0",
+		"copy-webpack-plugin": "4.6.0",
 		"webpack": "4.29.6",
 		"webpack-cli": "3.3.0",
-		"webpack-dev-server": "3.2.1"
+		"webpack-dev-server": "3.2.1",
+		"@babel/cli": "^7.7.5",
+		"@babel/core": "^7.7.5",
+		"@babel/preset-env": "^7.7.6",
+		"@babel/preset-react": "^7.7.4"
 	},
 	"dependencies": {
 		"react": "16.8.6",

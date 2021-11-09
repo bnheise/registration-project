@@ -18,11 +18,6 @@ export default class extends React.Component {
 					<span className="value">{this.props.portletElementId}</span>
 				</div>
 				
-				<div>
-					<span className="tag">{Liferay.Language.get('configuration')}:</span>
-					<span className="value pre">{JSON.stringify(this.props.configuration, null, 2)}</span>
-				</div>
-				
 			</div>
 		);
 	}	
