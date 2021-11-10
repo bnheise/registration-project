@@ -37,6 +37,13 @@ public class UserEventServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>com.amf.registration.monitor.service.impl.UserEventServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
+	public static List<java.util.HashMap<String, Object>> getLoginEvents(
+			int start, int end,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
+
+		return getService().getLoginEvents(start, end, serviceContext);
+	}
 
 	/**
 	 * Returns the OSGi service identifier.
@@ -45,6 +52,14 @@ public class UserEventServiceUtil {
 	 */
 	public static String getOSGiServiceIdentifier() {
 		return getService().getOSGiServiceIdentifier();
+	}
+
+	public static List<java.util.HashMap<String, Object>> getRegistrationEvents(
+			int start, int end,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
+
+		return getService().getRegistrationEvents(start, end, serviceContext);
 	}
 
 	public static List<java.util.HashMap<String, Object>> getUserEvents(

@@ -26,7 +26,13 @@ public interface UserEventFinder {
 	public java.util.List<java.util.HashMap<String, Object>> findAll(
 		int start, int end);
 
-	public java.util.List<java.util.HashMap<String, Object>> findForCurrentUser(
-		int start, int end, long userId);
+	public java.util.List<java.util.HashMap<String, Object>> findType(
+		int start, int end, String type);
+
+	public java.util.List<java.util.HashMap<String, Object>>
+		findAllForCurrentUser(int start, int end, long userId);
+
+	public java.util.List<java.util.HashMap<String, Object>>
+		findTypeForCurrentUser(int start, int end, long userId, String type);
 
 }

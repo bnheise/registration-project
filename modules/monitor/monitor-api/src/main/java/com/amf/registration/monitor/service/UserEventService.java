@@ -52,6 +52,10 @@ public interface UserEventService extends BaseService {
 	 *
 	 * Never modify this interface directly. Add custom service methods to <code>com.amf.registration.monitor.service.impl.UserEventServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the user event remote service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link UserEventServiceUtil} if injection and service tracking are not available.
 	 */
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<HashMap<String, Object>> getLoginEvents(
+			int start, int end, ServiceContext serviceContext)
+		throws PortalException;
 
 	/**
 	 * Returns the OSGi service identifier.
@@ -59,6 +63,11 @@ public interface UserEventService extends BaseService {
 	 * @return the OSGi service identifier
 	 */
 	public String getOSGiServiceIdentifier();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<HashMap<String, Object>> getRegistrationEvents(
+			int start, int end, ServiceContext serviceContext)
+		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<HashMap<String, Object>> getUserEvents(

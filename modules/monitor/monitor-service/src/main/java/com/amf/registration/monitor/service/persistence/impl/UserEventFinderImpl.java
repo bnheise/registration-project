@@ -34,20 +34,8 @@ public class UserEventFinderImpl extends UserEventFinderBaseImpl implements User
             queryPos.add(start);
 
             List<Object[]> result = sqlQuery.list();
-            List<HashMap<String, Object>> finalResult = new ArrayList<>();
-            for (Object[] objects : result) {
-                HashMap<String, Object> event = new HashMap<>();
 
-                event.put("ipAddress", objects[0]);
-                event.put("type", objects[1]);
-                event.put("userId", Long.parseLong(String.valueOf(objects[2])));
-                event.put("userEventId", Long.parseLong(String.valueOf(objects[3])));
-                event.put("createDate", String.valueOf(objects[4]));
-                event.put("screenName", objects[5]);
-                finalResult.add(event);
-            }
-
-            return finalResult;
+            return formatResult(result);
         } catch (
 
         ORMException e) {
@@ -57,12 +45,39 @@ public class UserEventFinderImpl extends UserEventFinderBaseImpl implements User
         }
     }
 
-    public List<HashMap<String, Object>> findForCurrentUser(int start, int end, long userId) {
+    public List<HashMap<String, Object>> findType(int start, int end, String type) {
         Session session = null;
         try {
 
             session = openSession();
-            String queryString = customSQL.get(getClass(), "findForCurrentUser");
+            String queryString = customSQL.get(getClass(), "findType");
+
+            SQLQuery sqlQuery = session.createSQLQuery(queryString);
+            sqlQuery.setCacheable(false);
+
+            QueryPos queryPos = QueryPos.getInstance(sqlQuery);
+            queryPos.add(type);
+            queryPos.add(end - start);
+            queryPos.add(start);
+
+            List<Object[]> result = sqlQuery.list();
+
+            return formatResult(result);
+        } catch (
+
+        ORMException e) {
+            return new ArrayList<>();
+        } finally {
+            closeSession(session);
+        }
+    }
+
+    public List<HashMap<String, Object>> findAllForCurrentUser(int start, int end, long userId) {
+        Session session = null;
+        try {
+
+            session = openSession();
+            String queryString = customSQL.get(getClass(), "findAllForCurrentUser");
 
             SQLQuery sqlQuery = session.createSQLQuery(queryString);
             sqlQuery.setCacheable(false);
@@ -73,20 +88,8 @@ public class UserEventFinderImpl extends UserEventFinderBaseImpl implements User
             queryPos.add(start);
 
             List<Object[]> result = sqlQuery.list();
-            List<HashMap<String, Object>> finalResult = new ArrayList<>();
-            for (Object[] objects : result) {
-                HashMap<String, Object> event = new HashMap<>();
 
-                event.put("ipAddress", objects[0]);
-                event.put("type", objects[1]);
-                event.put("userId", Long.parseLong(String.valueOf(objects[2])));
-                event.put("userEventId", Long.parseLong(String.valueOf(objects[3])));
-                event.put("createDate", String.valueOf(objects[4]));
-                event.put("screenName", objects[5]);
-                finalResult.add(event);
-            }
-
-            return finalResult;
+            return formatResult(result);
         } catch (
 
         ORMException e) {
@@ -94,5 +97,49 @@ public class UserEventFinderImpl extends UserEventFinderBaseImpl implements User
         } finally {
             closeSession(session);
         }
+    }
+
+    public List<HashMap<String, Object>> findTypeForCurrentUser(int start, int end, long userId, String type) {
+        Session session = null;
+        try {
+
+            session = openSession();
+            String queryString = customSQL.get(getClass(), "findTypeForCurrentUser");
+
+            SQLQuery sqlQuery = session.createSQLQuery(queryString);
+            sqlQuery.setCacheable(false);
+
+            QueryPos queryPos = QueryPos.getInstance(sqlQuery);
+            queryPos.add(userId);
+            queryPos.add(type);
+            queryPos.add(end - start);
+            queryPos.add(start);
+
+            List<Object[]> result = sqlQuery.list();
+
+            return formatResult(result);
+        } catch (
+
+        ORMException e) {
+            return new ArrayList<>();
+        } finally {
+            closeSession(session);
+        }
+    }
+
+    private List<HashMap<String, Object>> formatResult(List<Object[]> result) {
+        List<HashMap<String, Object>> finalResult = new ArrayList<>();
+        for (Object[] objects : result) {
+            HashMap<String, Object> event = new HashMap<>();
+
+            event.put("ipAddress", objects[0]);
+            event.put("type", objects[1]);
+            event.put("userId", Long.parseLong(String.valueOf(objects[2])));
+            event.put("userEventId", Long.parseLong(String.valueOf(objects[3])));
+            event.put("createDate", String.valueOf(objects[4]));
+            event.put("screenName", objects[5]);
+            finalResult.add(event);
+        }
+        return finalResult;
     }
 }

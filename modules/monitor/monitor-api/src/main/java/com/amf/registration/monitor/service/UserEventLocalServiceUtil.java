@@ -236,6 +236,24 @@ public class UserEventLocalServiceUtil {
 		return getService().getActionableDynamicQuery();
 	}
 
+	public static List<java.util.HashMap<String, Object>> getAllLoginEvents(
+		int start, int end) {
+
+		return getService().getAllLoginEvents(start, end);
+	}
+
+	public static List<java.util.HashMap<String, Object>>
+		getAllRegistrationEvents(int start, int end) {
+
+		return getService().getAllRegistrationEvents(start, end);
+	}
+
+	public static List<java.util.HashMap<String, Object>> getAllUserEvents(
+		int start, int end) {
+
+		return getService().getAllUserEvents(start, end);
+	}
+
 	public static com.liferay.portal.kernel.dao.orm.ExportActionableDynamicQuery
 		getExportActionableDynamicQuery(
 			com.liferay.exportimport.kernel.lar.PortletDataContext
@@ -249,6 +267,12 @@ public class UserEventLocalServiceUtil {
 			getIndexableActionableDynamicQuery() {
 
 		return getService().getIndexableActionableDynamicQuery();
+	}
+
+	public static List<java.util.HashMap<String, Object>>
+		getLoginEventsForCurrentUser(int start, int end, long userId) {
+
+		return getService().getLoginEventsForCurrentUser(start, end, userId);
 	}
 
 	/**
@@ -267,6 +291,13 @@ public class UserEventLocalServiceUtil {
 		throws PortalException {
 
 		return getService().getPersistedModel(primaryKeyObj);
+	}
+
+	public static List<java.util.HashMap<String, Object>>
+		getRegistrationEventsForCurrentUser(int start, int end, long userId) {
+
+		return getService().getRegistrationEventsForCurrentUser(
+			start, end, userId);
 	}
 
 	/**
@@ -356,12 +387,6 @@ public class UserEventLocalServiceUtil {
 		getUserEventsForCurrentUser(int start, int end, long userId) {
 
 		return getService().getUserEventsForCurrentUser(start, end, userId);
-	}
-
-	public static List<java.util.HashMap<String, Object>>
-		getUserEventsWithScreenName(int start, int end) {
-
-		return getService().getUserEventsWithScreenName(start, end);
 	}
 
 	/**

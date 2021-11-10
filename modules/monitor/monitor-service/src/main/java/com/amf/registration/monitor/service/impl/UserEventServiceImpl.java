@@ -63,14 +63,35 @@ public class UserEventServiceImpl extends UserEventServiceBaseImpl {
 	 */
 
 	@Override
-	public List<HashMap<String, Object>> getUserEvents(int start, int end,
-			ServiceContext serviceContext)
+	public List<HashMap<String, Object>> getUserEvents(int start, int end, ServiceContext serviceContext)
 			throws PortalException {
 
 		if (portletResourcePermission.contains(getPermissionChecker(), serviceContext.getScopeGroup(), "VIEW_ALL")) {
-			return userEventLocalService.getUserEventsWithScreenName(start, end);
+			return userEventLocalService.getAllUserEvents(start, end);
 		} else {
 			return userEventLocalService.getUserEventsForCurrentUser(start, end, serviceContext.getUserId());
+		}
+	}
+
+	@Override
+	public List<HashMap<String, Object>> getLoginEvents(int start, int end, ServiceContext serviceContext)
+			throws PortalException {
+
+		if (portletResourcePermission.contains(getPermissionChecker(), serviceContext.getScopeGroup(), "VIEW_ALL")) {
+			return userEventLocalService.getAllLoginEvents(start, end);
+		} else {
+			return userEventLocalService.getLoginEventsForCurrentUser(start, end, serviceContext.getUserId());
+		}
+	}
+
+	@Override
+	public List<HashMap<String, Object>> getRegistrationEvents(int start, int end, ServiceContext serviceContext)
+			throws PortalException {
+
+		if (portletResourcePermission.contains(getPermissionChecker(), serviceContext.getScopeGroup(), "VIEW_ALL")) {
+			return userEventLocalService.getAllRegistrationEvents(start, end);
+		} else {
+			return userEventLocalService.getRegistrationEventsForCurrentUser(start, end, serviceContext.getUserId());
 		}
 	}
 

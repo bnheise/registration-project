@@ -30,6 +30,15 @@ public class UserEventServiceWrapper
 		_userEventService = userEventService;
 	}
 
+	@Override
+	public java.util.List<java.util.HashMap<String, Object>> getLoginEvents(
+			int start, int end,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _userEventService.getLoginEvents(start, end, serviceContext);
+	}
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *
@@ -38,6 +47,17 @@ public class UserEventServiceWrapper
 	@Override
 	public String getOSGiServiceIdentifier() {
 		return _userEventService.getOSGiServiceIdentifier();
+	}
+
+	@Override
+	public java.util.List<java.util.HashMap<String, Object>>
+			getRegistrationEvents(
+				int start, int end,
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _userEventService.getRegistrationEvents(
+			start, end, serviceContext);
 	}
 
 	@Override

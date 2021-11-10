@@ -16,7 +16,24 @@
             OFFSET ?;
         ]]>
     </sql>
-    <sql id="findForCurrentUser">
+    <sql id="findType">
+        <![CDATA[
+            SELECT
+                m.ipaddress,
+                m.type_,
+                m.userid,
+                m.usereventid,
+                m.createdate,
+                u.screenname
+            FROM monitor_userevent m
+                INNER JOIN user_ u
+                USING(userid)
+            WHERE type_ = ?
+            LIMIT ?
+            OFFSET ?;
+        ]]>
+    </sql>
+    <sql id="findAllForCurrentUser">
         <![CDATA[
             SELECT
                 m.ipaddress,
@@ -29,6 +46,23 @@
                 INNER JOIN user_ u
                 USING(userid)
             WHERE userid = ?
+            LIMIT ?
+            OFFSET ?;
+        ]]>
+    </sql>
+    <sql id="findTypeForCurrentUser">
+        <![CDATA[
+            SELECT
+                m.ipaddress,
+                m.type_,
+                m.userid,
+                m.usereventid,
+                m.createdate,
+                u.screenname
+            FROM monitor_userevent m
+                INNER JOIN user_ u
+                USING(userid)
+            WHERE userid = ? AND type_ = ?
             LIMIT ?
             OFFSET ?;
         ]]>

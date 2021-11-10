@@ -220,11 +220,25 @@ public interface UserEventLocalService
 	public ActionableDynamicQuery getActionableDynamicQuery();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<HashMap<String, Object>> getAllLoginEvents(int start, int end);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<HashMap<String, Object>> getAllRegistrationEvents(
+		int start, int end);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<HashMap<String, Object>> getAllUserEvents(int start, int end);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ExportActionableDynamicQuery getExportActionableDynamicQuery(
 		PortletDataContext portletDataContext);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public IndexableActionableDynamicQuery getIndexableActionableDynamicQuery();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<HashMap<String, Object>> getLoginEventsForCurrentUser(
+		int start, int end, long userId);
 
 	/**
 	 * Returns the OSGi service identifier.
@@ -240,6 +254,10 @@ public interface UserEventLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<HashMap<String, Object>> getRegistrationEventsForCurrentUser(
+		int start, int end, long userId);
 
 	/**
 	 * Returns the user event with the primary key.
@@ -314,10 +332,6 @@ public interface UserEventLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<HashMap<String, Object>> getUserEventsForCurrentUser(
 		int start, int end, long userId);
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<HashMap<String, Object>> getUserEventsWithScreenName(
-		int start, int end);
 
 	/**
 	 * Updates the user event in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.

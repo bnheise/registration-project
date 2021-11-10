@@ -258,6 +258,27 @@ public class UserEventLocalServiceWrapper
 	}
 
 	@Override
+	public java.util.List<java.util.HashMap<String, Object>> getAllLoginEvents(
+		int start, int end) {
+
+		return _userEventLocalService.getAllLoginEvents(start, end);
+	}
+
+	@Override
+	public java.util.List<java.util.HashMap<String, Object>>
+		getAllRegistrationEvents(int start, int end) {
+
+		return _userEventLocalService.getAllRegistrationEvents(start, end);
+	}
+
+	@Override
+	public java.util.List<java.util.HashMap<String, Object>> getAllUserEvents(
+		int start, int end) {
+
+		return _userEventLocalService.getAllUserEvents(start, end);
+	}
+
+	@Override
 	public com.liferay.portal.kernel.dao.orm.ExportActionableDynamicQuery
 		getExportActionableDynamicQuery(
 			com.liferay.exportimport.kernel.lar.PortletDataContext
@@ -272,6 +293,14 @@ public class UserEventLocalServiceWrapper
 		getIndexableActionableDynamicQuery() {
 
 		return _userEventLocalService.getIndexableActionableDynamicQuery();
+	}
+
+	@Override
+	public java.util.List<java.util.HashMap<String, Object>>
+		getLoginEventsForCurrentUser(int start, int end, long userId) {
+
+		return _userEventLocalService.getLoginEventsForCurrentUser(
+			start, end, userId);
 	}
 
 	/**
@@ -293,6 +322,14 @@ public class UserEventLocalServiceWrapper
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _userEventLocalService.getPersistedModel(primaryKeyObj);
+	}
+
+	@Override
+	public java.util.List<java.util.HashMap<String, Object>>
+		getRegistrationEventsForCurrentUser(int start, int end, long userId) {
+
+		return _userEventLocalService.getRegistrationEventsForCurrentUser(
+			start, end, userId);
 	}
 
 	/**
@@ -398,13 +435,6 @@ public class UserEventLocalServiceWrapper
 
 		return _userEventLocalService.getUserEventsForCurrentUser(
 			start, end, userId);
-	}
-
-	@Override
-	public java.util.List<java.util.HashMap<String, Object>>
-		getUserEventsWithScreenName(int start, int end) {
-
-		return _userEventLocalService.getUserEventsWithScreenName(start, end);
 	}
 
 	/**

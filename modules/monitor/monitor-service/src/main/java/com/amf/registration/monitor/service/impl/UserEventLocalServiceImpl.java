@@ -22,6 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.amf.registration.monitor.model.UserEvent;
 import com.amf.registration.monitor.service.base.UserEventLocalServiceBaseImpl;
+import com.amf.registration.monitor.service.persistence.impl.constants.UserEventTypes;
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
@@ -78,7 +79,7 @@ public class UserEventLocalServiceImpl extends UserEventLocalServiceBaseImpl {
 		userEvent.setCreateDate(createDate);
 		userEvent.setModifiedDate(modifiedDate);
 		userEvent.setIpAddress(ipAddress);
-		userEvent.setType("registration");
+		userEvent.setType(UserEventTypes.REGISTRATION);
 		userEvent = super.addUserEvent(userEvent);
 		addPermissions(userEvent);
 		return userEvent;
@@ -103,7 +104,7 @@ public class UserEventLocalServiceImpl extends UserEventLocalServiceBaseImpl {
 		userEvent.setCreateDate(createDate);
 		userEvent.setModifiedDate(modifiedDate);
 		userEvent.setIpAddress(ipAddress);
-		userEvent.setType("login");
+		userEvent.setType(UserEventTypes.LOGIN);
 		userEvent = super.addUserEvent(userEvent);
 		addPermissions(userEvent);
 		_log.info("Success: new login event created for user " + userEvent.getUserId());
@@ -112,17 +113,42 @@ public class UserEventLocalServiceImpl extends UserEventLocalServiceBaseImpl {
 	}
 
 	@Override
-	public List<HashMap<String, Object>> getUserEventsWithScreenName(int start,
+	public List<HashMap<String, Object>> getAllUserEvents(int start,
 			int end) {
 
 		return userEventFinder.findAll(start, end);
 	}
 
 	@Override
+	public List<HashMap<String, Object>> getAllRegistrationEvents(int start,
+			int end) {
+
+		return userEventFinder.findType(start, end, UserEventTypes.REGISTRATION);
+	}
+
+	@Override
+	public List<HashMap<String, Object>> getAllLoginEvents(int start,
+			int end) {
+
+		return userEventFinder.findType(start, end, UserEventTypes.LOGIN);
+	}
+
+	@Override
 	public List<HashMap<String, Object>> getUserEventsForCurrentUser(int start,
 			int end, long userId) {
-		System.out.println("IN LOCAL SERVICE");
-		return userEventFinder.findForCurrentUser(start, end, userId);
+		return userEventFinder.findAllForCurrentUser(start, end, userId);
+	}
+
+	@Override
+	public List<HashMap<String, Object>> getRegistrationEventsForCurrentUser(int start,
+			int end, long userId) {
+		return userEventFinder.findTypeForCurrentUser(start, end, userId, UserEventTypes.REGISTRATION);
+	}
+
+	@Override
+	public List<HashMap<String, Object>> getLoginEventsForCurrentUser(int start,
+			int end, long userId) {
+		return userEventFinder.findTypeForCurrentUser(start, end, userId, UserEventTypes.LOGIN);
 	}
 
 	@Override
