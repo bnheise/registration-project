@@ -16,8 +16,9 @@ package com.amf.registration.monitor.model;
 
 import com.liferay.portal.kernel.bean.AutoEscape;
 import com.liferay.portal.kernel.model.BaseModel;
+import com.liferay.portal.kernel.model.GroupedModel;
 import com.liferay.portal.kernel.model.ShardedModel;
-import com.liferay.portal.kernel.model.StagedModel;
+import com.liferay.portal.kernel.model.StagedAuditedModel;
 
 import java.util.Date;
 
@@ -36,7 +37,8 @@ import org.osgi.annotation.versioning.ProviderType;
  */
 @ProviderType
 public interface UserEventModel
-	extends BaseModel<UserEvent>, ShardedModel, StagedModel {
+	extends BaseModel<UserEvent>, GroupedModel, ShardedModel,
+			StagedAuditedModel {
 
 	/*
 	 * NOTE FOR DEVELOPERS:
@@ -94,6 +96,7 @@ public interface UserEventModel
 	 *
 	 * @return the group ID of this user event
 	 */
+	@Override
 	public long getGroupId();
 
 	/**
@@ -101,6 +104,7 @@ public interface UserEventModel
 	 *
 	 * @param groupId the group ID of this user event
 	 */
+	@Override
 	public void setGroupId(long groupId);
 
 	/**
@@ -124,6 +128,7 @@ public interface UserEventModel
 	 *
 	 * @return the user ID of this user event
 	 */
+	@Override
 	public long getUserId();
 
 	/**
@@ -131,6 +136,7 @@ public interface UserEventModel
 	 *
 	 * @param userId the user ID of this user event
 	 */
+	@Override
 	public void setUserId(long userId);
 
 	/**
@@ -138,6 +144,7 @@ public interface UserEventModel
 	 *
 	 * @return the user uuid of this user event
 	 */
+	@Override
 	public String getUserUuid();
 
 	/**
@@ -145,7 +152,25 @@ public interface UserEventModel
 	 *
 	 * @param userUuid the user uuid of this user event
 	 */
+	@Override
 	public void setUserUuid(String userUuid);
+
+	/**
+	 * Returns the user name of this user event.
+	 *
+	 * @return the user name of this user event
+	 */
+	@AutoEscape
+	@Override
+	public String getUserName();
+
+	/**
+	 * Sets the user name of this user event.
+	 *
+	 * @param userName the user name of this user event
+	 */
+	@Override
+	public void setUserName(String userName);
 
 	/**
 	 * Returns the create date of this user event.
@@ -178,6 +203,21 @@ public interface UserEventModel
 	 */
 	@Override
 	public void setModifiedDate(Date modifiedDate);
+
+	/**
+	 * Returns the title of this user event.
+	 *
+	 * @return the title of this user event
+	 */
+	@AutoEscape
+	public String getTitle();
+
+	/**
+	 * Sets the title of this user event.
+	 *
+	 * @param title the title of this user event
+	 */
+	public void setTitle(String title);
 
 	/**
 	 * Returns the ip address of this user event.

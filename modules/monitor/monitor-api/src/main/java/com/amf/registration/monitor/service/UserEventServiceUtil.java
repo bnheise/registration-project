@@ -14,6 +14,8 @@
 
 package com.amf.registration.monitor.service;
 
+import com.liferay.portal.kernel.exception.PortalException;
+
 import java.util.List;
 
 /**
@@ -46,9 +48,11 @@ public class UserEventServiceUtil {
 	}
 
 	public static List<java.util.HashMap<String, Object>> getUserEvents(
-		int start, int end) {
+			int start, int end,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
 
-		return getService().getUserEvents(start, end);
+		return getService().getUserEvents(start, end, serviceContext);
 	}
 
 	public static UserEventService getService() {

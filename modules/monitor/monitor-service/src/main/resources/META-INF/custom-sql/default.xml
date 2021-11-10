@@ -16,4 +16,21 @@
             OFFSET ?;
         ]]>
     </sql>
+    <sql id="findForCurrentUser">
+        <![CDATA[
+            SELECT
+                m.ipaddress,
+                m.type_,
+                m.userid,
+                m.usereventid,
+                m.createdate,
+                u.screenname
+            FROM monitor_userevent m
+                INNER JOIN user_ u
+                USING(userid)
+            WHERE userid = ?
+            LIMIT ?
+            OFFSET ?;
+        ]]>
+    </sql>
 </custom-sql>

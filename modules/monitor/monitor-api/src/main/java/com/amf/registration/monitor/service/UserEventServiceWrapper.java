@@ -42,9 +42,11 @@ public class UserEventServiceWrapper
 
 	@Override
 	public java.util.List<java.util.HashMap<String, Object>> getUserEvents(
-		int start, int end) {
+			int start, int end,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
 
-		return _userEventService.getUserEvents(start, end);
+		return _userEventService.getUserEvents(start, end, serviceContext);
 	}
 
 	@Override

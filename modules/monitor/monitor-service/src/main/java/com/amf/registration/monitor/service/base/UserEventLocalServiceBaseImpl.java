@@ -138,10 +138,13 @@ public abstract class UserEventLocalServiceBaseImpl
 	 *
 	 * @param userEvent the user event
 	 * @return the user event that was removed
+	 * @throws PortalException
 	 */
 	@Indexable(type = IndexableType.DELETE)
 	@Override
-	public UserEvent deleteUserEvent(UserEvent userEvent) {
+	public UserEvent deleteUserEvent(UserEvent userEvent)
+		throws PortalException {
+
 		return userEventPersistence.remove(userEvent);
 	}
 
@@ -587,6 +590,10 @@ public abstract class UserEventLocalServiceBaseImpl
 		classNameLocalService;
 
 	@Reference
+	protected com.liferay.portal.kernel.service.GroupLocalService
+		groupLocalService;
+
+	@Reference
 	protected com.liferay.portal.kernel.service.ResourceLocalService
 		resourceLocalService;
 
@@ -597,6 +604,10 @@ public abstract class UserEventLocalServiceBaseImpl
 	@Reference
 	protected com.liferay.asset.kernel.service.AssetEntryLocalService
 		assetEntryLocalService;
+
+	@Reference
+	protected com.liferay.asset.kernel.service.AssetLinkLocalService
+		assetLinkLocalService;
 
 	@Reference
 	protected com.liferay.asset.kernel.service.AssetTagLocalService

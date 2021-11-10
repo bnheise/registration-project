@@ -45,22 +45,17 @@ public class UserEventLocalServiceUtil {
 	 * Never modify this class directly. Add custom service methods to <code>com.amf.registration.monitor.service.impl.UserEventLocalServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
 	public static UserEvent addUserEvent(
-		javax.servlet.http.HttpServletRequest request) {
+			javax.servlet.http.HttpServletRequest request)
+		throws PortalException {
 
 		return getService().addUserEvent(request);
 	}
 
 	public static UserEvent addUserEvent(
-		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
 
 		return getService().addUserEvent(serviceContext);
-	}
-
-	public static UserEvent addUserEvent(
-		String type,
-		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
-
-		return getService().addUserEvent(type, serviceContext);
 	}
 
 	/**
@@ -133,8 +128,11 @@ public class UserEventLocalServiceUtil {
 	 *
 	 * @param userEvent the user event
 	 * @return the user event that was removed
+	 * @throws PortalException
 	 */
-	public static UserEvent deleteUserEvent(UserEvent userEvent) {
+	public static UserEvent deleteUserEvent(UserEvent userEvent)
+		throws PortalException {
+
 		return getService().deleteUserEvent(userEvent);
 	}
 
@@ -352,6 +350,18 @@ public class UserEventLocalServiceUtil {
 	 */
 	public static int getUserEventsCount() {
 		return getService().getUserEventsCount();
+	}
+
+	public static List<java.util.HashMap<String, Object>>
+		getUserEventsForCurrentUser(int start, int end, long userId) {
+
+		return getService().getUserEventsForCurrentUser(start, end, userId);
+	}
+
+	public static List<java.util.HashMap<String, Object>>
+		getUserEventsWithScreenName(int start, int end) {
+
+		return getService().getUserEventsWithScreenName(start, end);
 	}
 
 	/**

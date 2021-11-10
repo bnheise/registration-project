@@ -18,8 +18,10 @@
 
 		<column name="companyId" type="long" />
 		<column name="userId" type="long" />
+		<column name="userName" type="String" />
 		<column name="createDate" type="Date" />
 		<column name="modifiedDate" type="Date" />
+		<column name="title" type="String" />
 
 		<!-- Other fields -->
 
@@ -36,5 +38,7 @@
 
 		<reference entity="AssetEntry" package-path="com.liferay.portlet.asset" />
 		<reference entity="AssetTag" package-path="com.liferay.portlet.asset" />
+		<reference entity="AssetLink" package-path="com.liferay.portlet.asset" />
+		<reference entity="Group" package-path="com.liferay.portal" />
 	</entity>
 </service-builder>

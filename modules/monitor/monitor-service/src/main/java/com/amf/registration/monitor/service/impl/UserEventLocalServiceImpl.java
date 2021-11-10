@@ -15,16 +15,18 @@
 package com.amf.registration.monitor.service.impl;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import com.amf.registration.monitor.model.UserEvent;
-import com.amf.registration.monitor.model.impl.UserEventImpl;
 import com.amf.registration.monitor.service.base.UserEventLocalServiceBaseImpl;
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.model.ResourceConstants;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.PortalUtil;
 
@@ -60,7 +62,7 @@ public class UserEventLocalServiceImpl extends UserEventLocalServiceBaseImpl {
 	 * <code>com.amf.registration.monitor.service.UserEventLocalServiceUtil</code>.
 	 */
 	@Override
-	public UserEvent addUserEvent(ServiceContext serviceContext) {
+	public UserEvent addUserEvent(ServiceContext serviceContext) throws PortalException {
 		long userEventId = counterLocalService.increment(UserEvent.class.getName());
 		long groupId = serviceContext.getScopeGroupId();
 		long companyId = serviceContext.getCompanyId();
@@ -77,40 +79,67 @@ public class UserEventLocalServiceImpl extends UserEventLocalServiceBaseImpl {
 		userEvent.setModifiedDate(modifiedDate);
 		userEvent.setIpAddress(ipAddress);
 		userEvent.setType("registration");
-		return super.addUserEvent(userEvent);
+		userEvent = super.addUserEvent(userEvent);
+		addPermissions(userEvent);
+		return userEvent;
 	}
 
 	@Override
-	public UserEvent addUserEvent(HttpServletRequest request) {
-		try {
-			_log.info("Attempting to add user event via HttpServletRequest...");
-			long userEventId = counterLocalService.increment(UserEvent.class.getName());
-			long groupId = PortalUtil.getScopeGroupId(request);
-			long companyId = PortalUtil.getCompanyId(request);
-			long userId = PortalUtil.getUserId(request);
-			Date createDate = new Date();
-			Date modifiedDate = new Date();
-			String ipAddress = request.getRemoteAddr();
+	public UserEvent addUserEvent(HttpServletRequest request) throws PortalException {
 
-			UserEvent userEvent = createUserEvent(userEventId);
-			userEvent.setGroupId(groupId);
-			userEvent.setCompanyId(companyId);
-			userEvent.setUserId(userId);
-			userEvent.setCreateDate(createDate);
-			userEvent.setModifiedDate(modifiedDate);
-			userEvent.setIpAddress(ipAddress);
-			userEvent.setType("login");
-			UserEvent newEvent = super.addUserEvent(userEvent);
-			_log.info("Success: new login event created for user " + newEvent.getUserId());
-			return newEvent;
-		} catch (PortalException e) {
-			return new UserEventImpl();
-		}
+		_log.info("Attempting to add user event via HttpServletRequest...");
+		long userEventId = counterLocalService.increment(UserEvent.class.getName());
+		long groupId = PortalUtil.getScopeGroupId(request);
+		long companyId = PortalUtil.getCompanyId(request);
+		long userId = PortalUtil.getUserId(request);
+		Date createDate = new Date();
+		Date modifiedDate = new Date();
+		String ipAddress = request.getRemoteAddr();
+
+		UserEvent userEvent = createUserEvent(userEventId);
+		userEvent.setGroupId(groupId);
+		userEvent.setCompanyId(companyId);
+		userEvent.setUserId(userId);
+		userEvent.setCreateDate(createDate);
+		userEvent.setModifiedDate(modifiedDate);
+		userEvent.setIpAddress(ipAddress);
+		userEvent.setType("login");
+		userEvent = super.addUserEvent(userEvent);
+		addPermissions(userEvent);
+		_log.info("Success: new login event created for user " + userEvent.getUserId());
+		return userEvent;
+
 	}
 
 	@Override
-	public UserEvent addUserEvent(String type, ServiceContext serviceContext) {
-		return userEventLocalService.addUserEvent(serviceContext);
+	public List<HashMap<String, Object>> getUserEventsWithScreenName(int start,
+			int end) {
+
+		return userEventFinder.findAll(start, end);
+	}
+
+	@Override
+	public List<HashMap<String, Object>> getUserEventsForCurrentUser(int start,
+			int end, long userId) {
+		System.out.println("IN LOCAL SERVICE");
+		return userEventFinder.findForCurrentUser(start, end, userId);
+	}
+
+	@Override
+	public UserEvent deleteUserEvent(UserEvent userEvent) throws PortalException {
+		resourceLocalService.deleteResource(userEvent.getCompanyId(), UserEvent.class.getName(),
+				ResourceConstants.SCOPE_INDIVIDUAL, userEvent.getUserEventId());
+
+		return super.deleteUserEvent(userEvent);
+	}
+
+	private void addPermissions(UserEvent userEvent) throws PortalException {
+		boolean portletActions = true;
+		boolean addGroupPermissions = true;
+		boolean addGuestPermissions = true;
+		resourceLocalService.addResources(userEvent.getCompanyId(), userEvent.getGroupId(), userEvent.getUserId(),
+				UserEvent.class.getName(), userEvent.getUserEventId(), portletActions, addGroupPermissions,
+				addGuestPermissions);
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(UserEventLocalServiceImpl.class);

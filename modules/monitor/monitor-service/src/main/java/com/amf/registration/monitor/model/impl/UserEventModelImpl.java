@@ -79,8 +79,9 @@ public class UserEventModelImpl
 	public static final Object[][] TABLE_COLUMNS = {
 		{"uuid_", Types.VARCHAR}, {"userEventId", Types.BIGINT},
 		{"groupId", Types.BIGINT}, {"companyId", Types.BIGINT},
-		{"userId", Types.BIGINT}, {"createDate", Types.TIMESTAMP},
-		{"modifiedDate", Types.TIMESTAMP}, {"ipAddress", Types.VARCHAR},
+		{"userId", Types.BIGINT}, {"userName", Types.VARCHAR},
+		{"createDate", Types.TIMESTAMP}, {"modifiedDate", Types.TIMESTAMP},
+		{"title", Types.VARCHAR}, {"ipAddress", Types.VARCHAR},
 		{"type_", Types.VARCHAR}
 	};
 
@@ -93,14 +94,16 @@ public class UserEventModelImpl
 		TABLE_COLUMNS_MAP.put("groupId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("companyId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("userId", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("userName", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("createDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("modifiedDate", Types.TIMESTAMP);
+		TABLE_COLUMNS_MAP.put("title", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("ipAddress", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("type_", Types.VARCHAR);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table Monitor_UserEvent (uuid_ VARCHAR(75) null,userEventId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null,ipAddress VARCHAR(75) null,type_ VARCHAR(75) null)";
+		"create table Monitor_UserEvent (uuid_ VARCHAR(75) null,userEventId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,title VARCHAR(75) null,ipAddress VARCHAR(75) null,type_ VARCHAR(75) null)";
 
 	public static final String TABLE_SQL_DROP = "drop table Monitor_UserEvent";
 
@@ -175,8 +178,10 @@ public class UserEventModelImpl
 		model.setGroupId(soapModel.getGroupId());
 		model.setCompanyId(soapModel.getCompanyId());
 		model.setUserId(soapModel.getUserId());
+		model.setUserName(soapModel.getUserName());
 		model.setCreateDate(soapModel.getCreateDate());
 		model.setModifiedDate(soapModel.getModifiedDate());
+		model.setTitle(soapModel.getTitle());
 		model.setIpAddress(soapModel.getIpAddress());
 		model.setType(soapModel.getType());
 
@@ -344,6 +349,9 @@ public class UserEventModelImpl
 		attributeGetterFunctions.put("userId", UserEvent::getUserId);
 		attributeSetterBiConsumers.put(
 			"userId", (BiConsumer<UserEvent, Long>)UserEvent::setUserId);
+		attributeGetterFunctions.put("userName", UserEvent::getUserName);
+		attributeSetterBiConsumers.put(
+			"userName", (BiConsumer<UserEvent, String>)UserEvent::setUserName);
 		attributeGetterFunctions.put("createDate", UserEvent::getCreateDate);
 		attributeSetterBiConsumers.put(
 			"createDate",
@@ -353,6 +361,9 @@ public class UserEventModelImpl
 		attributeSetterBiConsumers.put(
 			"modifiedDate",
 			(BiConsumer<UserEvent, Date>)UserEvent::setModifiedDate);
+		attributeGetterFunctions.put("title", UserEvent::getTitle);
+		attributeSetterBiConsumers.put(
+			"title", (BiConsumer<UserEvent, String>)UserEvent::setTitle);
 		attributeGetterFunctions.put("ipAddress", UserEvent::getIpAddress);
 		attributeSetterBiConsumers.put(
 			"ipAddress",
@@ -493,6 +504,26 @@ public class UserEventModelImpl
 
 	@JSON
 	@Override
+	public String getUserName() {
+		if (_userName == null) {
+			return "";
+		}
+		else {
+			return _userName;
+		}
+	}
+
+	@Override
+	public void setUserName(String userName) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_userName = userName;
+	}
+
+	@JSON
+	@Override
 	public Date getCreateDate() {
 		return _createDate;
 	}
@@ -525,6 +556,26 @@ public class UserEventModelImpl
 		}
 
 		_modifiedDate = modifiedDate;
+	}
+
+	@JSON
+	@Override
+	public String getTitle() {
+		if (_title == null) {
+			return "";
+		}
+		else {
+			return _title;
+		}
+	}
+
+	@Override
+	public void setTitle(String title) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_title = title;
 	}
 
 	@JSON
@@ -634,8 +685,10 @@ public class UserEventModelImpl
 		userEventImpl.setGroupId(getGroupId());
 		userEventImpl.setCompanyId(getCompanyId());
 		userEventImpl.setUserId(getUserId());
+		userEventImpl.setUserName(getUserName());
 		userEventImpl.setCreateDate(getCreateDate());
 		userEventImpl.setModifiedDate(getModifiedDate());
+		userEventImpl.setTitle(getTitle());
 		userEventImpl.setIpAddress(getIpAddress());
 		userEventImpl.setType(getType());
 
@@ -731,6 +784,14 @@ public class UserEventModelImpl
 
 		userEventCacheModel.userId = getUserId();
 
+		userEventCacheModel.userName = getUserName();
+
+		String userName = userEventCacheModel.userName;
+
+		if ((userName != null) && (userName.length() == 0)) {
+			userEventCacheModel.userName = null;
+		}
+
 		Date createDate = getCreateDate();
 
 		if (createDate != null) {
@@ -747,6 +808,14 @@ public class UserEventModelImpl
 		}
 		else {
 			userEventCacheModel.modifiedDate = Long.MIN_VALUE;
+		}
+
+		userEventCacheModel.title = getTitle();
+
+		String title = userEventCacheModel.title;
+
+		if ((title != null) && (title.length() == 0)) {
+			userEventCacheModel.title = null;
 		}
 
 		userEventCacheModel.ipAddress = getIpAddress();
@@ -843,9 +912,11 @@ public class UserEventModelImpl
 	private long _groupId;
 	private long _companyId;
 	private long _userId;
+	private String _userName;
 	private Date _createDate;
 	private Date _modifiedDate;
 	private boolean _setModifiedDate;
+	private String _title;
 	private String _ipAddress;
 	private String _type;
 
@@ -883,8 +954,10 @@ public class UserEventModelImpl
 		_columnOriginalValues.put("groupId", _groupId);
 		_columnOriginalValues.put("companyId", _companyId);
 		_columnOriginalValues.put("userId", _userId);
+		_columnOriginalValues.put("userName", _userName);
 		_columnOriginalValues.put("createDate", _createDate);
 		_columnOriginalValues.put("modifiedDate", _modifiedDate);
+		_columnOriginalValues.put("title", _title);
 		_columnOriginalValues.put("ipAddress", _ipAddress);
 		_columnOriginalValues.put("type_", _type);
 	}
@@ -921,13 +994,17 @@ public class UserEventModelImpl
 
 		columnBitmasks.put("userId", 16L);
 
-		columnBitmasks.put("createDate", 32L);
+		columnBitmasks.put("userName", 32L);
 
-		columnBitmasks.put("modifiedDate", 64L);
+		columnBitmasks.put("createDate", 64L);
 
-		columnBitmasks.put("ipAddress", 128L);
+		columnBitmasks.put("modifiedDate", 128L);
 
-		columnBitmasks.put("type_", 256L);
+		columnBitmasks.put("title", 256L);
+
+		columnBitmasks.put("ipAddress", 512L);
+
+		columnBitmasks.put("type_", 1024L);
 
 		_columnBitmasks = Collections.unmodifiableMap(columnBitmasks);
 	}

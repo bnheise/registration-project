@@ -5,6 +5,7 @@ Export-Package:\
 	com.amf.registration.monitor.exception,\
 	com.amf.registration.monitor.model,\
 	com.amf.registration.monitor.service,\
-	com.amf.registration.monitor.service.persistence
+	com.amf.registration.monitor.service.persistence,\
+	com.amf.registration.monitor.constants
 -check: EXPORTS
 -includeresource: META-INF/service.xml=../monitor-service/service.xml

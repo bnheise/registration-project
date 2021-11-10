@@ -38,8 +38,10 @@ public class UserEventSoap implements Serializable {
 		soapModel.setGroupId(model.getGroupId());
 		soapModel.setCompanyId(model.getCompanyId());
 		soapModel.setUserId(model.getUserId());
+		soapModel.setUserName(model.getUserName());
 		soapModel.setCreateDate(model.getCreateDate());
 		soapModel.setModifiedDate(model.getModifiedDate());
+		soapModel.setTitle(model.getTitle());
 		soapModel.setIpAddress(model.getIpAddress());
 		soapModel.setType(model.getType());
 
@@ -135,6 +137,14 @@ public class UserEventSoap implements Serializable {
 		_userId = userId;
 	}
 
+	public String getUserName() {
+		return _userName;
+	}
+
+	public void setUserName(String userName) {
+		_userName = userName;
+	}
+
 	public Date getCreateDate() {
 		return _createDate;
 	}
@@ -149,6 +159,14 @@ public class UserEventSoap implements Serializable {
 
 	public void setModifiedDate(Date modifiedDate) {
 		_modifiedDate = modifiedDate;
+	}
+
+	public String getTitle() {
+		return _title;
+	}
+
+	public void setTitle(String title) {
+		_title = title;
 	}
 
 	public String getIpAddress() {
@@ -172,8 +190,10 @@ public class UserEventSoap implements Serializable {
 	private long _groupId;
 	private long _companyId;
 	private long _userId;
+	private String _userName;
 	private Date _createDate;
 	private Date _modifiedDate;
+	private String _title;
 	private String _ipAddress;
 	private String _type;
 

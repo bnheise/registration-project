@@ -6,6 +6,7 @@ import com.amf.registration.monitor.service.UserEventLocalService;
 import com.liferay.portal.kernel.events.ActionException;
 import com.liferay.portal.kernel.events.LifecycleAction;
 import com.liferay.portal.kernel.events.LifecycleEvent;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 
@@ -22,8 +23,13 @@ public class LoginPostAction implements LifecycleAction {
 	public void processLifecycleEvent(LifecycleEvent lifecycleEvent) throws ActionException {
 		_log.info("Recording user login start...");
 		HttpServletRequest request = lifecycleEvent.getRequest();
-		userEventLocalService.addUserEvent(request);
-		_log.info("Recording user login end");
+		try {
+			userEventLocalService.addUserEvent(request);
+			_log.info("Recording user login end successful");
+		} catch (PortalException exception) {
+			_log.error("Recording user login failed");
+			_log.error(exception.getMessage());
+		}
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(LoginPostAction.class);

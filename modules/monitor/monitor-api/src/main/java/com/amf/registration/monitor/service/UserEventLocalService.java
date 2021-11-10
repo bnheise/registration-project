@@ -37,6 +37,7 @@ import com.liferay.portal.kernel.util.OrderByComparator;
 
 import java.io.Serializable;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -66,11 +67,11 @@ public interface UserEventLocalService
 	 *
 	 * Never modify this interface directly. Add custom service methods to <code>com.amf.registration.monitor.service.impl.UserEventLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the user event local service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link UserEventLocalServiceUtil} if injection and service tracking are not available.
 	 */
-	public UserEvent addUserEvent(HttpServletRequest request);
+	public UserEvent addUserEvent(HttpServletRequest request)
+		throws PortalException;
 
-	public UserEvent addUserEvent(ServiceContext serviceContext);
-
-	public UserEvent addUserEvent(String type, ServiceContext serviceContext);
+	public UserEvent addUserEvent(ServiceContext serviceContext)
+		throws PortalException;
 
 	/**
 	 * Adds the user event to the database. Also notifies the appropriate model listeners.
@@ -130,9 +131,11 @@ public interface UserEventLocalService
 	 *
 	 * @param userEvent the user event
 	 * @return the user event that was removed
+	 * @throws PortalException
 	 */
 	@Indexable(type = IndexableType.DELETE)
-	public UserEvent deleteUserEvent(UserEvent userEvent);
+	public UserEvent deleteUserEvent(UserEvent userEvent)
+		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public DynamicQuery dynamicQuery();
@@ -307,6 +310,14 @@ public interface UserEventLocalService
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getUserEventsCount();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<HashMap<String, Object>> getUserEventsForCurrentUser(
+		int start, int end, long userId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<HashMap<String, Object>> getUserEventsWithScreenName(
+		int start, int end);
 
 	/**
 	 * Updates the user event in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.

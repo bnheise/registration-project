@@ -53,7 +53,10 @@ import com.liferay.portal.kernel.util.MethodKey;
 public class UserEventServiceHttp {
 
 	public static java.util.List<java.util.HashMap<String, Object>>
-		getUserEvents(HttpPrincipal httpPrincipal, int start, int end) {
+			getUserEvents(
+				HttpPrincipal httpPrincipal, int start, int end,
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
 			MethodKey methodKey = new MethodKey(
@@ -61,7 +64,7 @@ public class UserEventServiceHttp {
 				_getUserEventsParameterTypes0);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, start, end);
+				methodKey, start, end, serviceContext);
 
 			Object returnObj = null;
 
@@ -69,6 +72,13 @@ public class UserEventServiceHttp {
 				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
 			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
 				throw new com.liferay.portal.kernel.exception.SystemException(
 					exception);
 			}
@@ -87,6 +97,9 @@ public class UserEventServiceHttp {
 	private static Log _log = LogFactoryUtil.getLog(UserEventServiceHttp.class);
 
 	private static final Class<?>[] _getUserEventsParameterTypes0 =
-		new Class[] {int.class, int.class};
+		new Class[] {
+			int.class, int.class,
+			com.liferay.portal.kernel.service.ServiceContext.class
+		};
 
 }

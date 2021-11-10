@@ -17,10 +17,19 @@ package com.amf.registration.monitor.service.impl;
 import java.util.HashMap;
 import java.util.List;
 
+import com.amf.registration.monitor.constants.MonitorConstants;
+import com.amf.registration.monitor.model.UserEvent;
 import com.amf.registration.monitor.service.base.UserEventServiceBaseImpl;
 import com.liferay.portal.aop.AopService;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
+import com.liferay.portal.kernel.security.permission.resource.PortletResourcePermission;
+import com.liferay.portal.kernel.service.ServiceContext;
 
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.component.annotations.ReferencePolicy;
+import org.osgi.service.component.annotations.ReferencePolicyOption;
 
 /**
  * The implementation of the user event remote service.
@@ -54,7 +63,21 @@ public class UserEventServiceImpl extends UserEventServiceBaseImpl {
 	 */
 
 	@Override
-	public List<HashMap<String, Object>> getUserEvents(int start, int end) {
-		return userEventFinder.findAll(start, end);
+	public List<HashMap<String, Object>> getUserEvents(int start, int end,
+			ServiceContext serviceContext)
+			throws PortalException {
+
+		if (portletResourcePermission.contains(getPermissionChecker(), serviceContext.getScopeGroup(), "VIEW_ALL")) {
+			return userEventLocalService.getUserEventsWithScreenName(start, end);
+		} else {
+			return userEventLocalService.getUserEventsForCurrentUser(start, end, serviceContext.getUserId());
+		}
 	}
+
+	@Reference(policy = ReferencePolicy.DYNAMIC, policyOption = ReferencePolicyOption.GREEDY, target = "(model.class.name=com.amf.registration.monitor.model.UserEvent)")
+	private volatile ModelResourcePermission<UserEvent> userEventModelResourcePermission;
+
+	@Reference(policy = ReferencePolicy.DYNAMIC, policyOption = ReferencePolicyOption.GREEDY, target = "(resource.name="
+			+ MonitorConstants.RESOURCE_NAME + ")")
+	private volatile PortletResourcePermission portletResourcePermission;
 }

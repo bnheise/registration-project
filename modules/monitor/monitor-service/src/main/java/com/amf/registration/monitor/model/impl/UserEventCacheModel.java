@@ -62,7 +62,7 @@ public class UserEventCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(19);
+		StringBundler sb = new StringBundler(23);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -74,10 +74,14 @@ public class UserEventCacheModel
 		sb.append(companyId);
 		sb.append(", userId=");
 		sb.append(userId);
+		sb.append(", userName=");
+		sb.append(userName);
 		sb.append(", createDate=");
 		sb.append(createDate);
 		sb.append(", modifiedDate=");
 		sb.append(modifiedDate);
+		sb.append(", title=");
+		sb.append(title);
 		sb.append(", ipAddress=");
 		sb.append(ipAddress);
 		sb.append(", type=");
@@ -103,6 +107,13 @@ public class UserEventCacheModel
 		userEventImpl.setCompanyId(companyId);
 		userEventImpl.setUserId(userId);
 
+		if (userName == null) {
+			userEventImpl.setUserName("");
+		}
+		else {
+			userEventImpl.setUserName(userName);
+		}
+
 		if (createDate == Long.MIN_VALUE) {
 			userEventImpl.setCreateDate(null);
 		}
@@ -115,6 +126,13 @@ public class UserEventCacheModel
 		}
 		else {
 			userEventImpl.setModifiedDate(new Date(modifiedDate));
+		}
+
+		if (title == null) {
+			userEventImpl.setTitle("");
+		}
+		else {
+			userEventImpl.setTitle(title);
 		}
 
 		if (ipAddress == null) {
@@ -147,8 +165,10 @@ public class UserEventCacheModel
 		companyId = objectInput.readLong();
 
 		userId = objectInput.readLong();
+		userName = objectInput.readUTF();
 		createDate = objectInput.readLong();
 		modifiedDate = objectInput.readLong();
+		title = objectInput.readUTF();
 		ipAddress = objectInput.readUTF();
 		type = objectInput.readUTF();
 	}
@@ -169,8 +189,23 @@ public class UserEventCacheModel
 		objectOutput.writeLong(companyId);
 
 		objectOutput.writeLong(userId);
+
+		if (userName == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(userName);
+		}
+
 		objectOutput.writeLong(createDate);
 		objectOutput.writeLong(modifiedDate);
+
+		if (title == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(title);
+		}
 
 		if (ipAddress == null) {
 			objectOutput.writeUTF("");
@@ -192,8 +227,10 @@ public class UserEventCacheModel
 	public long groupId;
 	public long companyId;
 	public long userId;
+	public String userName;
 	public long createDate;
 	public long modifiedDate;
+	public String title;
 	public String ipAddress;
 	public String type;
 

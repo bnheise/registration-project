@@ -34,24 +34,18 @@ public class UserEventLocalServiceWrapper
 
 	@Override
 	public com.amf.registration.monitor.model.UserEvent addUserEvent(
-		javax.servlet.http.HttpServletRequest request) {
+			javax.servlet.http.HttpServletRequest request)
+		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _userEventLocalService.addUserEvent(request);
 	}
 
 	@Override
 	public com.amf.registration.monitor.model.UserEvent addUserEvent(
-		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _userEventLocalService.addUserEvent(serviceContext);
-	}
-
-	@Override
-	public com.amf.registration.monitor.model.UserEvent addUserEvent(
-		String type,
-		com.liferay.portal.kernel.service.ServiceContext serviceContext) {
-
-		return _userEventLocalService.addUserEvent(type, serviceContext);
 	}
 
 	/**
@@ -134,10 +128,12 @@ public class UserEventLocalServiceWrapper
 	 *
 	 * @param userEvent the user event
 	 * @return the user event that was removed
+	 * @throws PortalException
 	 */
 	@Override
 	public com.amf.registration.monitor.model.UserEvent deleteUserEvent(
-		com.amf.registration.monitor.model.UserEvent userEvent) {
+			com.amf.registration.monitor.model.UserEvent userEvent)
+		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _userEventLocalService.deleteUserEvent(userEvent);
 	}
@@ -394,6 +390,21 @@ public class UserEventLocalServiceWrapper
 	@Override
 	public int getUserEventsCount() {
 		return _userEventLocalService.getUserEventsCount();
+	}
+
+	@Override
+	public java.util.List<java.util.HashMap<String, Object>>
+		getUserEventsForCurrentUser(int start, int end, long userId) {
+
+		return _userEventLocalService.getUserEventsForCurrentUser(
+			start, end, userId);
+	}
+
+	@Override
+	public java.util.List<java.util.HashMap<String, Object>>
+		getUserEventsWithScreenName(int start, int end) {
+
+		return _userEventLocalService.getUserEventsWithScreenName(start, end);
 	}
 
 	/**
