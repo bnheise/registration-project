@@ -21,16 +21,14 @@ export interface IPortletDetails {
     configuration: object;
 }
 
-export default function main({portletNamespace, contextPath, portletElementId, configuration}: IPortletDetails) {
+export default function main({ portletNamespace, contextPath, portletElementId, configuration }: IPortletDetails) {
     ReactDOM.render(
-        <AppComponent 
-            portletNamespace={portletNamespace} 
+        <AppComponent
+            portletNamespace={portletNamespace}
             contextPath={contextPath}
             portletElementId={portletElementId}
-            
             configuration={configuration}
-            
-            />, 
+        />,
         document.getElementById(portletElementId)
     );
 }
