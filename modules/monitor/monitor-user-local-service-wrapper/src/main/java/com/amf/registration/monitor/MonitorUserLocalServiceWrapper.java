@@ -32,10 +32,10 @@ public class MonitorUserLocalServiceWrapper extends UserLocalServiceWrapper {
 			boolean sendEmail, ServiceContext serviceContext) throws PortalException {
 
 		User user = super.addUser(creatorUserId, companyId, autoPassword, password1, password2, autoScreenName,
-				screenName,
-				emailAddress, locale, firstName, middleName, lastName, prefixId, suffixId, male, birthdayMonth,
+				screenName, emailAddress, locale, firstName, middleName, lastName, prefixId, suffixId, male, birthdayMonth,
 				birthdayDay, birthdayYear, jobTitle, groupIds, organizationIds, roleIds, userGroupIds, sendEmail,
 				serviceContext);
+		serviceContext.setUserId(user.getUserId());
 		userEventLocalService.addUserEvent(serviceContext);
 		return user;
 	}
