@@ -26,12 +26,13 @@
 		"webpack-dev-server": "3.2.1"
 	},
 	"dependencies": {
+		"@clayui/loading-indicator": "^3.39.0",
 		"@clayui/table": "^3.39.0",
 		"react": "16.12.0",
 		"react-dom": "16.12.0"
 	},
 	"scripts": {
-		"build": "npm run check-types && npx babel src -d build src --extensions '.ts,.tsx' && npm run copy-assets && liferay-npm-bundler",
+		"build": "npm run check-types && rm -rf ./build && npx babel src -d build src --extensions '.ts,.tsx' && npm run copy-assets && liferay-npm-bundler",
 		"check-types": "tsc",
 		"copy-assets": "lnbs-copy-assets",
 		"translate": "lnbs-translate",

@@ -4,7 +4,7 @@
         "*": {
             "liferayDir": "/Users/brianheise/liferay/training/backend/registration-project/bundles",
             "target": "react-widget",
-            "folder": "modules/monitor-web",
+            "folder": "modules/monitor/monitor-web",
             "description": "monitor-web",
             "category": "category.sample",
             "liferayPresent": "true",
