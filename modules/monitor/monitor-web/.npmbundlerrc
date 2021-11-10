@@ -1,0 +1,15 @@
+{
+    "create-jar": {
+        "output-dir": "dist",
+        "features": {
+            "js-extender": true,
+            "web-context": "/monitor-web",
+            "localization": "features/localization/Language",
+            "configuration": "features/configuration.json"
+        }
+    },
+    "dump-report": true,
+    "*": {
+        "plugins": ["inject-imports-dependencies"]
+    }
+}
