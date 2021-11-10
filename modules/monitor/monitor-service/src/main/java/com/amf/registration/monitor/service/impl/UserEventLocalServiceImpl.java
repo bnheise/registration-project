@@ -70,7 +70,6 @@ public class UserEventLocalServiceImpl extends UserEventLocalServiceBaseImpl {
 		long userId = serviceContext.getUserId();
 		Date createDate = serviceContext.getCreateDate(new Date());
 		Date modifiedDate = serviceContext.getModifiedDate(new Date());
-		String ipAddress = serviceContext.getRemoteAddr();
 
 		UserEvent userEvent = createUserEvent(userEventId);
 		userEvent.setGroupId(groupId);
@@ -78,7 +77,7 @@ public class UserEventLocalServiceImpl extends UserEventLocalServiceBaseImpl {
 		userEvent.setUserId(userId);
 		userEvent.setCreateDate(createDate);
 		userEvent.setModifiedDate(modifiedDate);
-		userEvent.setIpAddress(ipAddress);
+		userEvent.setIpAddress("0.0.0.0");
 		userEvent.setType(UserEventTypes.REGISTRATION);
 		userEvent = super.addUserEvent(userEvent);
 		addPermissions(userEvent);
