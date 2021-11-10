@@ -14,13 +14,15 @@ import AppComponent from './AppComponent';
  * @param  {Object} params a hash with values of interest to the portlet
  * @return {void}
  */
-export default function main({portletNamespace, contextPath, portletElementId}) {
+export default function main({portletNamespace, contextPath, portletElementId, configuration}) {
     
     ReactDOM.render(
         <AppComponent 
             portletNamespace={portletNamespace} 
             contextPath={contextPath}
             portletElementId={portletElementId}
+            
+            configuration={configuration}
             
             />, 
         document.getElementById(portletElementId)
