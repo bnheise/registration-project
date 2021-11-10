@@ -12,6 +12,7 @@
             FROM monitor_userevent m
                 INNER JOIN user_ u
                 USING(userid)
+            ORDER BY m.createdate DESC
             LIMIT ?
             OFFSET ?;
         ]]>
@@ -29,6 +30,7 @@
                 INNER JOIN user_ u
                 USING(userid)
             WHERE type_ = ?
+            ORDER BY m.createdate DESC
             LIMIT ?
             OFFSET ?;
         ]]>
@@ -46,6 +48,7 @@
                 INNER JOIN user_ u
                 USING(userid)
             WHERE userid = ?
+            ORDER BY m.createdate DESC
             LIMIT ?
             OFFSET ?;
         ]]>
@@ -63,6 +66,7 @@
                 INNER JOIN user_ u
                 USING(userid)
             WHERE userid = ? AND type_ = ?
+            ORDER BY m.createdate DESC
             LIMIT ?
             OFFSET ?;
         ]]>
