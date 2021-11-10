@@ -8,6 +8,10 @@
 		"@babel/preset-env": "^7.7.6",
 		"@babel/preset-react": "^7.7.4",
 		"@babel/preset-typescript": "^7.16.0",
+		"@types/jest": "^27.0.2",
+		"@types/node": "^16.11.6",
+		"@types/react": "^17.0.33",
+		"@types/react-dom": "^17.0.11",
 		"copy-webpack-plugin": "4.6.0",
 		"eslint": "^8.1.0",
 		"eslint-config-prettier": "^8.3.0",
@@ -16,16 +20,13 @@
 		"liferay-npm-bundler": "^2.27.0",
 		"liferay-npm-bundler-plugin-inject-imports-dependencies": "^2.27.0",
 		"prettier": "^2.4.1",
+		"typescript": "^4.4.4",
 		"webpack": "4.29.6",
 		"webpack-cli": "3.3.0",
-		"webpack-dev-server": "3.2.1",
-		"@types/jest": "^27.0.2",
-		"@types/node": "^16.11.6",
-		"@types/react": "^17.0.33",
-		"@types/react-dom": "^17.0.10",
-		"typescript": "^4.4.4"
+		"webpack-dev-server": "3.2.1"
 	},
 	"dependencies": {
+		"@clayui/table": "^3.39.0",
 		"react": "16.12.0",
 		"react-dom": "16.12.0"
 	},
