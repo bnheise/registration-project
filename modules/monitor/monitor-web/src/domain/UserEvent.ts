@@ -7,6 +7,15 @@ export interface UserEvent {
   createDate: string;
 }
 
+export const UserEventTypes = {
+  REGISTRATION: "registration",
+  LOGIN: "login",
+  ALL: "all",
+} as const;
+
+type t = typeof UserEventTypes;
+export type TUserEventType = t[keyof t];
+
 export default class UserEventDTO {
   ipAddress: string;
   screenName: string;

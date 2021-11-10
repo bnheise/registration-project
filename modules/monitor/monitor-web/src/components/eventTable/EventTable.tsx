@@ -1,23 +1,26 @@
-import React, { FC, ReactElement, useEffect, useState } from 'react'
-import { GET_USER_EVENTS } from '../../constants';
-import { UserEvent } from '../../dtos/UserEventDTO';
-import EventTableDisplay from './EventTableDisplay';
-import ClayLoadingIndicator from '@clayui/loading-indicator';
+import React, { FC, ReactElement, useEffect, useState } from "react";
+import { TUserEventEndpoint, UserEventEndpoints } from "../../constants";
+import { UserEvent } from "../../domain/UserEvent";
+import EventTableDisplay from "./EventTableDisplay";
+import EventTypeTabs from "../eventTypeTabs/EventTypeTabs";
 
-interface Props {
-
-}
+interface Props { }
 
 const EventTable: FC<Props> = (): ReactElement => {
+    const { GET_LOGIN_EVENTS } =
+        UserEventEndpoints;
     const [userEvents, setUserEvents] = useState<UserEvent[]>();
+    const [currentEndpoint, setCurrentEndpoint] =
+        useState<TUserEventEndpoint>(GET_LOGIN_EVENTS);
 
     useEffect(() => {
         let mounted = true;
+        setUserEvents(undefined);
         Liferay.Service(
-            GET_USER_EVENTS,
+            currentEndpoint,
             {
                 start: 0,
-                end: 20
+                end: 20,
             },
             (response: UserEvent[]) => {
                 if (mounted) {
@@ -29,12 +32,13 @@ const EventTable: FC<Props> = (): ReactElement => {
         return () => {
             mounted = false;
         };
-    }, []);
+    }, [currentEndpoint]);
     return (
         <div>
-            {userEvents ? <EventTableDisplay userEvents={userEvents} /> : <ClayLoadingIndicator />}
+            <EventTypeTabs setCurrentEndpoint={setCurrentEndpoint} />
+            <EventTableDisplay userEvents={userEvents} />
         </div>
-    )
-}
+    );
+};
 
-export default EventTable
+export default EventTable;

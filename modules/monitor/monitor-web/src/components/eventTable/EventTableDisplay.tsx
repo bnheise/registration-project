@@ -1,10 +1,11 @@
 import ClayTable from '@clayui/table'
 import React, { FC, ReactElement } from 'react'
-import { UserEvent } from '../../dtos/UserEventDTO'
+import ClayLoadingIndicator from "@clayui/loading-indicator";
+import { UserEvent } from '../../domain/UserEvent'
 import { formatDate } from './utils'
 
 interface Props {
-    userEvents: UserEvent[]
+    userEvents: UserEvent[] | undefined
 }
 
 const EventTableDisplay: FC<Props> = ({ userEvents }): ReactElement => {
@@ -19,14 +20,14 @@ const EventTableDisplay: FC<Props> = ({ userEvents }): ReactElement => {
                 </ClayTable.Row>
             </ClayTable.Head>
             <ClayTable.Body>
-                {userEvents.map(userEvent =>
+                {userEvents ? userEvents.map(userEvent =>
                     <ClayTable.Row key={userEvent.userEventId}>
                         <ClayTable.Cell>{formatDate(new Date(userEvent.createDate))}</ClayTable.Cell>
                         <ClayTable.Cell>{`${userEvent.screenName} (${userEvent.userId})`}</ClayTable.Cell>
                         <ClayTable.Cell>{userEvent.ipAddress}</ClayTable.Cell>
                         <ClayTable.Cell>{userEvent.type}</ClayTable.Cell>
                     </ClayTable.Row>
-                )}
+                ) : <ClayLoadingIndicator />}
             </ClayTable.Body>
         </ClayTable>
     )
