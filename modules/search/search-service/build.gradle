@@ -5,7 +5,7 @@ dependencies {
 }
 
 buildService {
-	apiDir = "../search-service-api/src/main/java"
+	apiDir = "../search-api/src/main/java"
 }
 
 group = "com.amf.registration.search"
