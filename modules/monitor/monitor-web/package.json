@@ -28,6 +28,7 @@
 	},
 	"dependencies": {
 		"@clayui/loading-indicator": "^3.39.0",
+		"@clayui/pagination": "^3.39.0",
 		"@clayui/pagination-bar": "^3.39.0",
 		"@clayui/provider": "^3.39.0",
 		"@clayui/table": "^3.39.0",

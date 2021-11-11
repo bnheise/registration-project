@@ -24,7 +24,7 @@ const EventTable: FC<Props> = (): ReactElement => {
     return (
         <div>
             <EventTypeTabs setCurrentEndpoint={setCurrentEndpoint} />
-            <EventPagination pageStart={pageStart} pageEnd={pageStart + PAGE_END_INCREMENT} userEventsCount={userEventsCount} setPageStart={setPageStart} />
+            <EventPagination pageStart={pageStart} pageIncrement={PAGE_END_INCREMENT} pageEnd={pageStart + PAGE_END_INCREMENT} userEventsCount={userEventsCount} setPageStart={setPageStart} />
             <EventTableDisplay userEvents={userEvents} />
         </div>
     );
