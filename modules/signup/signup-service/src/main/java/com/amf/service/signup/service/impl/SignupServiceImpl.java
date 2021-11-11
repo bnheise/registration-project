@@ -135,6 +135,7 @@ public class SignupServiceImpl extends SignupServiceBaseImpl {
 		billingAddress.setClassName(Address.class.getName());
 		billingAddress.setTypeId(
 				listTypeLocalService.getListType("billing", Account.class.getName() + ".address").getListTypeId());
+		billingAddress.setPrimary(true);
 		addAddress(billingAddress, user, serviceContext);
 
 		return true;
