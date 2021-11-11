@@ -1,41 +1,30 @@
 import React, { FC, ReactElement, useEffect, useState } from "react";
-import { TUserEventEndpoint, UserEventEndpoints } from "../../constants";
+import { TGetUserEventEndpoint, GetUserEventEndpoints, CountUserEventEndpoints, GetToCountEnpointMap } from "../../constants";
 import { UserEvent } from "../../domain/UserEvent";
 import EventTableDisplay from "./EventTableDisplay";
 import EventTypeTabs from "../eventTypeTabs/EventTypeTabs";
+import EventPagination from "../eventPagination/EventPagination";
+import { fetchUserEvents } from "../../api/fetchUserEvents";
+import { fetchEventCount } from "../../api/fetchEventCount";
 
 interface Props { }
 
-const EventTable: FC<Props> = (): ReactElement => {
-    const { GET_LOGIN_EVENTS } =
-        UserEventEndpoints;
-    const [userEvents, setUserEvents] = useState<UserEvent[]>();
-    const [currentEndpoint, setCurrentEndpoint] =
-        useState<TUserEventEndpoint>(GET_LOGIN_EVENTS);
+const PAGE_END_INCREMENT = 20;
 
-    useEffect(() => {
-        let mounted = true;
-        setUserEvents(undefined);
-        Liferay.Service(
-            currentEndpoint,
-            {
-                start: 0,
-                end: 20,
-            },
-            (response: UserEvent[]) => {
-                if (mounted) {
-                    setUserEvents(response);
-                }
-            },
-            (error) => console.error(error)
-        );
-        return () => {
-            mounted = false;
-        };
-    }, [currentEndpoint]);
+const EventTable: FC<Props> = (): ReactElement => {
+    const { GET_USER_EVENTS } = GetUserEventEndpoints;
+    const [userEvents, setUserEvents] = useState<UserEvent[]>();
+    const [userEventsCount, setUserEventsCount] = useState<number>(0);
+    const [pageStart, setPageStart] = useState<number>(0);
+    const [currentGetEndpoint, setCurrentEndpoint] =
+        useState<TGetUserEventEndpoint>(GET_USER_EVENTS);
+
+    useEffect(fetchUserEvents(setUserEvents, currentGetEndpoint, pageStart, PAGE_END_INCREMENT), [currentGetEndpoint, pageStart]);
+    useEffect(fetchEventCount(setUserEventsCount, GetToCountEnpointMap[currentGetEndpoint]), [currentGetEndpoint]);
     return (
         <div>
             <EventTypeTabs setCurrentEndpoint={setCurrentEndpoint} />
+            <EventPagination pageStart={pageStart} pageEnd={pageStart + PAGE_END_INCREMENT} userEventsCount={userEventsCount} setPageStart={setPageStart} />
             <EventTableDisplay userEvents={userEvents} />
         </div>
     );

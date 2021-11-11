@@ -1,15 +1,15 @@
 import React, { FC, useState } from "react";
 import ClayTabs from "@clayui/tabs";
 import { TUserEventType, UserEventTypes } from "../../domain/UserEvent";
-import { TUserEventEndpoint, UserEventEndpoints } from "../../constants";
+import { TGetUserEventEndpoint, GetUserEventEndpoints } from "../../constants";
 
 interface Props {
-    setCurrentEndpoint: (endpoint: TUserEventEndpoint) => void;
+    setCurrentEndpoint: (endpoint: TGetUserEventEndpoint) => void;
 }
 
 const EventTypeTabs: FC<Props> = ({ setCurrentEndpoint }) => {
     const { REGISTRATION, ALL, LOGIN } = UserEventTypes;
-    const { GET_USER_EVENTS, GET_REGISTRATION_EVENTS, GET_LOGIN_EVENTS } = UserEventEndpoints;
+    const { GET_USER_EVENTS, GET_REGISTRATION_EVENTS, GET_LOGIN_EVENTS } = GetUserEventEndpoints;
     const [activeTabKeyValue, setActiveTabKeyValue] = useState<TUserEventType>(
         ALL
     );

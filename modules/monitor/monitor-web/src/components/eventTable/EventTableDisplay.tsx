@@ -10,26 +10,28 @@ interface Props {
 
 const EventTableDisplay: FC<Props> = ({ userEvents }): ReactElement => {
     return (
-        <ClayTable>
-            <ClayTable.Head>
-                <ClayTable.Row>
-                    <ClayTable.Cell expanded headingCell>Date/Time</ClayTable.Cell>
-                    <ClayTable.Cell headingCell>User</ClayTable.Cell>
-                    <ClayTable.Cell headingCell>IP Address</ClayTable.Cell>
-                    <ClayTable.Cell headingCell>Event Type</ClayTable.Cell>
-                </ClayTable.Row>
-            </ClayTable.Head>
-            <ClayTable.Body>
-                {userEvents ? userEvents.map(userEvent =>
-                    <ClayTable.Row key={userEvent.userEventId}>
-                        <ClayTable.Cell>{formatDate(new Date(userEvent.createDate))}</ClayTable.Cell>
-                        <ClayTable.Cell>{`${userEvent.screenName} (${userEvent.userId})`}</ClayTable.Cell>
-                        <ClayTable.Cell>{userEvent.ipAddress}</ClayTable.Cell>
-                        <ClayTable.Cell>{userEvent.type}</ClayTable.Cell>
+        userEvents ?
+            <ClayTable>
+                <ClayTable.Head>
+                    <ClayTable.Row>
+                        <ClayTable.Cell expanded headingCell>Date/Time</ClayTable.Cell>
+                        <ClayTable.Cell headingCell>User</ClayTable.Cell>
+                        <ClayTable.Cell headingCell>IP Address</ClayTable.Cell>
+                        <ClayTable.Cell headingCell>Event Type</ClayTable.Cell>
                     </ClayTable.Row>
-                ) : <ClayLoadingIndicator />}
-            </ClayTable.Body>
-        </ClayTable>
+                </ClayTable.Head>
+                <ClayTable.Body>
+                    {userEvents.map(userEvent =>
+                        <ClayTable.Row key={userEvent.userEventId}>
+                            <ClayTable.Cell>{formatDate(new Date(userEvent.createDate))}</ClayTable.Cell>
+                            <ClayTable.Cell>{`${userEvent.screenName} (${userEvent.userId})`}</ClayTable.Cell>
+                            <ClayTable.Cell>{userEvent.ipAddress}</ClayTable.Cell>
+                            <ClayTable.Cell>{userEvent.type}</ClayTable.Cell>
+                        </ClayTable.Row>
+                    )}
+                </ClayTable.Body>
+            </ClayTable>
+            : <ClayLoadingIndicator />
     )
 }
 

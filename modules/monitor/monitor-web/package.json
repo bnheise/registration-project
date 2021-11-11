@@ -12,6 +12,7 @@
 		"@types/node": "^16.11.6",
 		"@types/react": "^17.0.33",
 		"@types/react-dom": "^17.0.11",
+		"@types/warning": "^3.0.0",
 		"copy-webpack-plugin": "4.6.0",
 		"eslint": "^8.1.0",
 		"eslint-config-prettier": "^8.3.0",
@@ -27,6 +28,7 @@
 	},
 	"dependencies": {
 		"@clayui/loading-indicator": "^3.39.0",
+		"@clayui/pagination-bar": "^3.39.0",
 		"@clayui/provider": "^3.39.0",
 		"@clayui/table": "^3.39.0",
 		"@clayui/tabs": "^3.39.0",
