@@ -45,6 +45,13 @@ public class UserEventServiceUtil {
 		return getService().getLoginEvents(start, end, serviceContext);
 	}
 
+	public static long getLoginEventsCount(
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
+
+		return getService().getLoginEventsCount(serviceContext);
+	}
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *
@@ -62,12 +69,26 @@ public class UserEventServiceUtil {
 		return getService().getRegistrationEvents(start, end, serviceContext);
 	}
 
+	public static long getRegistrationEventsCount(
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
+
+		return getService().getRegistrationEventsCount(serviceContext);
+	}
+
 	public static List<java.util.HashMap<String, Object>> getUserEvents(
 			int start, int end,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws PortalException {
 
 		return getService().getUserEvents(start, end, serviceContext);
+	}
+
+	public static long getUserEventsCount(
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
+
+		return getService().getUserEventsCount(serviceContext);
 	}
 
 	public static UserEventService getService() {

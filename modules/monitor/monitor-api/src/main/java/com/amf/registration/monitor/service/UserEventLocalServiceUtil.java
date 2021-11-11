@@ -72,6 +72,30 @@ public class UserEventLocalServiceUtil {
 		return getService().addUserEvent(userEvent);
 	}
 
+	public static long countAllLoginEvents() {
+		return getService().countAllLoginEvents();
+	}
+
+	public static long countAllRegistrationEvents() {
+		return getService().countAllRegistrationEvents();
+	}
+
+	public static long countAllUserEvents() {
+		return getService().countAllUserEvents();
+	}
+
+	public static long countLoginEventsForUser(long userId) {
+		return getService().countLoginEventsForUser(userId);
+	}
+
+	public static long countRegistrationEventsForUser(long userId) {
+		return getService().countRegistrationEventsForUser(userId);
+	}
+
+	public static long countUserEventsForUser(long userId) {
+		return getService().countUserEventsForUser(userId);
+	}
+
 	/**
 	 * @throws PortalException
 	 */
@@ -269,10 +293,10 @@ public class UserEventLocalServiceUtil {
 		return getService().getIndexableActionableDynamicQuery();
 	}
 
-	public static List<java.util.HashMap<String, Object>>
-		getLoginEventsForCurrentUser(int start, int end, long userId) {
+	public static List<java.util.HashMap<String, Object>> getLoginEventsForUser(
+		int start, int end, long userId) {
 
-		return getService().getLoginEventsForCurrentUser(start, end, userId);
+		return getService().getLoginEventsForUser(start, end, userId);
 	}
 
 	/**
@@ -294,10 +318,9 @@ public class UserEventLocalServiceUtil {
 	}
 
 	public static List<java.util.HashMap<String, Object>>
-		getRegistrationEventsForCurrentUser(int start, int end, long userId) {
+		getRegistrationEventsForUser(int start, int end, long userId) {
 
-		return getService().getRegistrationEventsForCurrentUser(
-			start, end, userId);
+		return getService().getRegistrationEventsForUser(start, end, userId);
 	}
 
 	/**
@@ -383,10 +406,10 @@ public class UserEventLocalServiceUtil {
 		return getService().getUserEventsCount();
 	}
 
-	public static List<java.util.HashMap<String, Object>>
-		getUserEventsForCurrentUser(int start, int end, long userId) {
+	public static List<java.util.HashMap<String, Object>> getUserEventsForUser(
+		int start, int end, long userId) {
 
-		return getService().getUserEventsForCurrentUser(start, end, userId);
+		return getService().getUserEventsForUser(start, end, userId);
 	}
 
 	/**

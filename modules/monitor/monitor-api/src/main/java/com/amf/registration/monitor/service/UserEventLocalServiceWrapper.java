@@ -65,6 +65,36 @@ public class UserEventLocalServiceWrapper
 		return _userEventLocalService.addUserEvent(userEvent);
 	}
 
+	@Override
+	public long countAllLoginEvents() {
+		return _userEventLocalService.countAllLoginEvents();
+	}
+
+	@Override
+	public long countAllRegistrationEvents() {
+		return _userEventLocalService.countAllRegistrationEvents();
+	}
+
+	@Override
+	public long countAllUserEvents() {
+		return _userEventLocalService.countAllUserEvents();
+	}
+
+	@Override
+	public long countLoginEventsForUser(long userId) {
+		return _userEventLocalService.countLoginEventsForUser(userId);
+	}
+
+	@Override
+	public long countRegistrationEventsForUser(long userId) {
+		return _userEventLocalService.countRegistrationEventsForUser(userId);
+	}
+
+	@Override
+	public long countUserEventsForUser(long userId) {
+		return _userEventLocalService.countUserEventsForUser(userId);
+	}
+
 	/**
 	 * @throws PortalException
 	 */
@@ -297,10 +327,9 @@ public class UserEventLocalServiceWrapper
 
 	@Override
 	public java.util.List<java.util.HashMap<String, Object>>
-		getLoginEventsForCurrentUser(int start, int end, long userId) {
+		getLoginEventsForUser(int start, int end, long userId) {
 
-		return _userEventLocalService.getLoginEventsForCurrentUser(
-			start, end, userId);
+		return _userEventLocalService.getLoginEventsForUser(start, end, userId);
 	}
 
 	/**
@@ -326,9 +355,9 @@ public class UserEventLocalServiceWrapper
 
 	@Override
 	public java.util.List<java.util.HashMap<String, Object>>
-		getRegistrationEventsForCurrentUser(int start, int end, long userId) {
+		getRegistrationEventsForUser(int start, int end, long userId) {
 
-		return _userEventLocalService.getRegistrationEventsForCurrentUser(
+		return _userEventLocalService.getRegistrationEventsForUser(
 			start, end, userId);
 	}
 
@@ -431,10 +460,9 @@ public class UserEventLocalServiceWrapper
 
 	@Override
 	public java.util.List<java.util.HashMap<String, Object>>
-		getUserEventsForCurrentUser(int start, int end, long userId) {
+		getUserEventsForUser(int start, int end, long userId) {
 
-		return _userEventLocalService.getUserEventsForCurrentUser(
-			start, end, userId);
+		return _userEventLocalService.getUserEventsForUser(start, end, userId);
 	}
 
 	/**

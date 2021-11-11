@@ -1,5 +1,6 @@
 package com.amf.registration.monitor.service.persistence.impl;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -45,6 +46,26 @@ public class UserEventFinderImpl extends UserEventFinderBaseImpl implements User
         }
     }
 
+    public long countAll() {
+        Session session = null;
+        try {
+
+            session = openSession();
+            String queryString = customSQL.get(getClass(), "countAll");
+
+            SQLQuery sqlQuery = session.createSQLQuery(queryString);
+            sqlQuery.setCacheable(false);
+            BigInteger count = (BigInteger) sqlQuery.uniqueResult();
+            return count.longValue();
+        } catch (
+
+        ORMException e) {
+            return 0;
+        } finally {
+            closeSession(session);
+        }
+    }
+
     public List<HashMap<String, Object>> findType(int start, int end, String type) {
         Session session = null;
         try {
@@ -72,12 +93,35 @@ public class UserEventFinderImpl extends UserEventFinderBaseImpl implements User
         }
     }
 
-    public List<HashMap<String, Object>> findAllForCurrentUser(int start, int end, long userId) {
+    public long countType(String type) {
         Session session = null;
         try {
 
             session = openSession();
-            String queryString = customSQL.get(getClass(), "findAllForCurrentUser");
+            String queryString = customSQL.get(getClass(), "countType");
+
+            SQLQuery sqlQuery = session.createSQLQuery(queryString);
+            sqlQuery.setCacheable(false);
+
+            QueryPos queryPos = QueryPos.getInstance(sqlQuery);
+            queryPos.add(type);
+            BigInteger result = (BigInteger) sqlQuery.uniqueResult();
+            return result.longValue();
+        } catch (
+
+        ORMException e) {
+            return 0;
+        } finally {
+            closeSession(session);
+        }
+    }
+
+    public List<HashMap<String, Object>> findAllForUser(int start, int end, long userId) {
+        Session session = null;
+        try {
+
+            session = openSession();
+            String queryString = customSQL.get(getClass(), "findAllForUser");
 
             SQLQuery sqlQuery = session.createSQLQuery(queryString);
             sqlQuery.setCacheable(false);
@@ -99,12 +143,37 @@ public class UserEventFinderImpl extends UserEventFinderBaseImpl implements User
         }
     }
 
-    public List<HashMap<String, Object>> findTypeForCurrentUser(int start, int end, long userId, String type) {
+    public long countAllForUser(long userId) {
         Session session = null;
         try {
 
             session = openSession();
-            String queryString = customSQL.get(getClass(), "findTypeForCurrentUser");
+            String queryString = customSQL.get(getClass(), "countAllForUser");
+
+            SQLQuery sqlQuery = session.createSQLQuery(queryString);
+            sqlQuery.setCacheable(false);
+
+            QueryPos queryPos = QueryPos.getInstance(sqlQuery);
+            queryPos.add(userId);
+
+            BigInteger result = (BigInteger) sqlQuery.uniqueResult();
+
+            return result.longValue();
+        } catch (
+
+        ORMException e) {
+            return 0;
+        } finally {
+            closeSession(session);
+        }
+    }
+
+    public List<HashMap<String, Object>> findTypeForUser(int start, int end, long userId, String type) {
+        Session session = null;
+        try {
+
+            session = openSession();
+            String queryString = customSQL.get(getClass(), "findTypeForUser");
 
             SQLQuery sqlQuery = session.createSQLQuery(queryString);
             sqlQuery.setCacheable(false);
@@ -122,6 +191,29 @@ public class UserEventFinderImpl extends UserEventFinderBaseImpl implements User
 
         ORMException e) {
             return new ArrayList<>();
+        } finally {
+            closeSession(session);
+        }
+    }
+
+    public long countTypeForUser(long userId, String type) {
+        Session session = null;
+        try {
+            session = openSession();
+            String queryString = customSQL.get(getClass(), "countTypeForUser");
+
+            SQLQuery sqlQuery = session.createSQLQuery(queryString);
+            sqlQuery.setCacheable(false);
+
+            QueryPos queryPos = QueryPos.getInstance(sqlQuery);
+            queryPos.add(userId);
+            queryPos.add(type);
+
+            BigInteger result = (BigInteger) sqlQuery.uniqueResult();
+
+            return result.longValue();
+        } catch (ORMException e) {
+            return 0;
         } finally {
             closeSession(session);
         }

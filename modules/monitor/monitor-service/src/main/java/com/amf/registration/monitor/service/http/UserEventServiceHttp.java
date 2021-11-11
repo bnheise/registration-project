@@ -94,6 +94,47 @@ public class UserEventServiceHttp {
 		}
 	}
 
+	public static long getUserEventsCount(
+			HttpPrincipal httpPrincipal,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				UserEventServiceUtil.class, "getUserEventsCount",
+				_getUserEventsCountParameterTypes1);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, serviceContext);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return ((Long)returnObj).longValue();
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
 	public static java.util.List<java.util.HashMap<String, Object>>
 			getLoginEvents(
 				HttpPrincipal httpPrincipal, int start, int end,
@@ -103,7 +144,7 @@ public class UserEventServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				UserEventServiceUtil.class, "getLoginEvents",
-				_getLoginEventsParameterTypes1);
+				_getLoginEventsParameterTypes2);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, start, end, serviceContext);
@@ -126,6 +167,47 @@ public class UserEventServiceHttp {
 			}
 
 			return (java.util.List<java.util.HashMap<String, Object>>)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static long getLoginEventsCount(
+			HttpPrincipal httpPrincipal,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				UserEventServiceUtil.class, "getLoginEventsCount",
+				_getLoginEventsCountParameterTypes3);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, serviceContext);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return ((Long)returnObj).longValue();
 		}
 		catch (com.liferay.portal.kernel.exception.SystemException
 					systemException) {
@@ -145,7 +227,7 @@ public class UserEventServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				UserEventServiceUtil.class, "getRegistrationEvents",
-				_getRegistrationEventsParameterTypes2);
+				_getRegistrationEventsParameterTypes4);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, start, end, serviceContext);
@@ -178,6 +260,47 @@ public class UserEventServiceHttp {
 		}
 	}
 
+	public static long getRegistrationEventsCount(
+			HttpPrincipal httpPrincipal,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				UserEventServiceUtil.class, "getRegistrationEventsCount",
+				_getRegistrationEventsCountParameterTypes5);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, serviceContext);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return ((Long)returnObj).longValue();
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
 	private static Log _log = LogFactoryUtil.getLog(UserEventServiceHttp.class);
 
 	private static final Class<?>[] _getUserEventsParameterTypes0 =
@@ -185,15 +308,21 @@ public class UserEventServiceHttp {
 			int.class, int.class,
 			com.liferay.portal.kernel.service.ServiceContext.class
 		};
-	private static final Class<?>[] _getLoginEventsParameterTypes1 =
+	private static final Class<?>[] _getUserEventsCountParameterTypes1 =
+		new Class[] {com.liferay.portal.kernel.service.ServiceContext.class};
+	private static final Class<?>[] _getLoginEventsParameterTypes2 =
 		new Class[] {
 			int.class, int.class,
 			com.liferay.portal.kernel.service.ServiceContext.class
 		};
-	private static final Class<?>[] _getRegistrationEventsParameterTypes2 =
+	private static final Class<?>[] _getLoginEventsCountParameterTypes3 =
+		new Class[] {com.liferay.portal.kernel.service.ServiceContext.class};
+	private static final Class<?>[] _getRegistrationEventsParameterTypes4 =
 		new Class[] {
 			int.class, int.class,
 			com.liferay.portal.kernel.service.ServiceContext.class
 		};
+	private static final Class<?>[] _getRegistrationEventsCountParameterTypes5 =
+		new Class[] {com.liferay.portal.kernel.service.ServiceContext.class};
 
 }

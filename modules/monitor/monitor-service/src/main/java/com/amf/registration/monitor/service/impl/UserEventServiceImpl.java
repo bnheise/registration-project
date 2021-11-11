@@ -69,7 +69,18 @@ public class UserEventServiceImpl extends UserEventServiceBaseImpl {
 		if (portletResourcePermission.contains(getPermissionChecker(), serviceContext.getScopeGroup(), "VIEW_ALL")) {
 			return userEventLocalService.getAllUserEvents(start, end);
 		} else {
-			return userEventLocalService.getUserEventsForCurrentUser(start, end, serviceContext.getUserId());
+			return userEventLocalService.getUserEventsForUser(start, end, serviceContext.getUserId());
+		}
+	}
+
+	@Override
+	public long getUserEventsCount(ServiceContext serviceContext)
+			throws PortalException {
+
+		if (portletResourcePermission.contains(getPermissionChecker(), serviceContext.getScopeGroup(), "VIEW_ALL")) {
+			return userEventLocalService.countAllUserEvents();
+		} else {
+			return userEventLocalService.countUserEventsForUser(serviceContext.getUserId());
 		}
 	}
 
@@ -80,7 +91,18 @@ public class UserEventServiceImpl extends UserEventServiceBaseImpl {
 		if (portletResourcePermission.contains(getPermissionChecker(), serviceContext.getScopeGroup(), "VIEW_ALL")) {
 			return userEventLocalService.getAllLoginEvents(start, end);
 		} else {
-			return userEventLocalService.getLoginEventsForCurrentUser(start, end, serviceContext.getUserId());
+			return userEventLocalService.getLoginEventsForUser(start, end, serviceContext.getUserId());
+		}
+	}
+
+	@Override
+	public long getLoginEventsCount(ServiceContext serviceContext)
+			throws PortalException {
+
+		if (portletResourcePermission.contains(getPermissionChecker(), serviceContext.getScopeGroup(), "VIEW_ALL")) {
+			return userEventLocalService.countAllLoginEvents();
+		} else {
+			return userEventLocalService.countLoginEventsForUser(serviceContext.getUserId());
 		}
 	}
 
@@ -91,7 +113,18 @@ public class UserEventServiceImpl extends UserEventServiceBaseImpl {
 		if (portletResourcePermission.contains(getPermissionChecker(), serviceContext.getScopeGroup(), "VIEW_ALL")) {
 			return userEventLocalService.getAllRegistrationEvents(start, end);
 		} else {
-			return userEventLocalService.getRegistrationEventsForCurrentUser(start, end, serviceContext.getUserId());
+			return userEventLocalService.getRegistrationEventsForUser(start, end, serviceContext.getUserId());
+		}
+	}
+
+	@Override
+	public long getRegistrationEventsCount(ServiceContext serviceContext)
+			throws PortalException {
+
+		if (portletResourcePermission.contains(getPermissionChecker(), serviceContext.getScopeGroup(), "VIEW_ALL")) {
+			return userEventLocalService.countAllRegistrationEvents();
+		} else {
+			return userEventLocalService.countRegistrationEventsForUser(serviceContext.getUserId());
 		}
 	}
 

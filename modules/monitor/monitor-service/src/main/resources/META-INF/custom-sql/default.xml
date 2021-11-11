@@ -17,6 +17,13 @@
             OFFSET ?;
         ]]>
     </sql>
+    <sql id="countAll">
+        <![CDATA[
+            SELECT
+                COUNT(*)
+            FROM monitor_userevent;
+        ]]>
+    </sql>
     <sql id="findType">
         <![CDATA[
             SELECT
@@ -35,7 +42,15 @@
             OFFSET ?;
         ]]>
     </sql>
-    <sql id="findAllForCurrentUser">
+    <sql id="countType">
+        <![CDATA[
+            SELECT
+                COUNT(*)
+            FROM monitor_userevent
+            WHERE type_ = ?;
+        ]]>
+    </sql>
+    <sql id="findAllForUser">
         <![CDATA[
             SELECT
                 m.ipaddress,
@@ -53,7 +68,15 @@
             OFFSET ?;
         ]]>
     </sql>
-    <sql id="findTypeForCurrentUser">
+    <sql id="countAllForUser">
+        <![CDATA[
+            SELECT
+                COUNT(*)
+            FROM monitor_userevent
+            WHERE userid = ?;
+        ]]>
+    </sql>
+    <sql id="findTypeForUser">
         <![CDATA[
             SELECT
                 m.ipaddress,
@@ -69,6 +92,14 @@
             ORDER BY m.createdate DESC
             LIMIT ?
             OFFSET ?;
+        ]]>
+    </sql>
+    <sql id="countTypeForUser">
+        <![CDATA[
+            SELECT
+                COUNT(*)
+            FROM monitor_userevent
+            WHERE userid = ? AND type_ = ?;
         ]]>
     </sql>
 </custom-sql>

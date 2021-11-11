@@ -119,10 +119,22 @@ public class UserEventLocalServiceImpl extends UserEventLocalServiceBaseImpl {
 	}
 
 	@Override
+	public long countAllUserEvents() {
+
+		return userEventFinder.countAll();
+	}
+
+	@Override
 	public List<HashMap<String, Object>> getAllRegistrationEvents(int start,
 			int end) {
 
 		return userEventFinder.findType(start, end, UserEventTypes.REGISTRATION);
+	}
+
+	@Override
+	public long countAllRegistrationEvents() {
+
+		return userEventFinder.countType(UserEventTypes.REGISTRATION);
 	}
 
 	@Override
@@ -133,21 +145,42 @@ public class UserEventLocalServiceImpl extends UserEventLocalServiceBaseImpl {
 	}
 
 	@Override
-	public List<HashMap<String, Object>> getUserEventsForCurrentUser(int start,
-			int end, long userId) {
-		return userEventFinder.findAllForCurrentUser(start, end, userId);
+	public long countAllLoginEvents() {
+
+		return userEventFinder.countType(UserEventTypes.LOGIN);
 	}
 
 	@Override
-	public List<HashMap<String, Object>> getRegistrationEventsForCurrentUser(int start,
+	public List<HashMap<String, Object>> getUserEventsForUser(int start,
 			int end, long userId) {
-		return userEventFinder.findTypeForCurrentUser(start, end, userId, UserEventTypes.REGISTRATION);
+		return userEventFinder.findAllForUser(start, end, userId);
 	}
 
 	@Override
-	public List<HashMap<String, Object>> getLoginEventsForCurrentUser(int start,
+	public long countUserEventsForUser(long userId) {
+		return userEventFinder.countAllForUser(userId);
+	}
+
+	@Override
+	public List<HashMap<String, Object>> getRegistrationEventsForUser(int start,
 			int end, long userId) {
-		return userEventFinder.findTypeForCurrentUser(start, end, userId, UserEventTypes.LOGIN);
+		return userEventFinder.findTypeForUser(start, end, userId, UserEventTypes.REGISTRATION);
+	}
+
+	@Override
+	public long countRegistrationEventsForUser(long userId) {
+		return userEventFinder.countTypeForUser(userId, UserEventTypes.REGISTRATION);
+	}
+
+	@Override
+	public List<HashMap<String, Object>> getLoginEventsForUser(int start,
+			int end, long userId) {
+		return userEventFinder.findTypeForUser(start, end, userId, UserEventTypes.LOGIN);
+	}
+
+	@Override
+	public long countLoginEventsForUser(long userId) {
+		return userEventFinder.countTypeForUser(userId, UserEventTypes.LOGIN);
 	}
 
 	@Override

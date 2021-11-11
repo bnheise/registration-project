@@ -57,6 +57,10 @@ public interface UserEventService extends BaseService {
 			int start, int end, ServiceContext serviceContext)
 		throws PortalException;
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public long getLoginEventsCount(ServiceContext serviceContext)
+		throws PortalException;
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *
@@ -70,8 +74,16 @@ public interface UserEventService extends BaseService {
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public long getRegistrationEventsCount(ServiceContext serviceContext)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<HashMap<String, Object>> getUserEvents(
 			int start, int end, ServiceContext serviceContext)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public long getUserEventsCount(ServiceContext serviceContext)
 		throws PortalException;
 
 }

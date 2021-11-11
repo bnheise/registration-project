@@ -86,6 +86,18 @@ public interface UserEventLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public UserEvent addUserEvent(UserEvent userEvent);
 
+	public long countAllLoginEvents();
+
+	public long countAllRegistrationEvents();
+
+	public long countAllUserEvents();
+
+	public long countLoginEventsForUser(long userId);
+
+	public long countRegistrationEventsForUser(long userId);
+
+	public long countUserEventsForUser(long userId);
+
 	/**
 	 * @throws PortalException
 	 */
@@ -237,7 +249,7 @@ public interface UserEventLocalService
 	public IndexableActionableDynamicQuery getIndexableActionableDynamicQuery();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<HashMap<String, Object>> getLoginEventsForCurrentUser(
+	public List<HashMap<String, Object>> getLoginEventsForUser(
 		int start, int end, long userId);
 
 	/**
@@ -256,7 +268,7 @@ public interface UserEventLocalService
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<HashMap<String, Object>> getRegistrationEventsForCurrentUser(
+	public List<HashMap<String, Object>> getRegistrationEventsForUser(
 		int start, int end, long userId);
 
 	/**
@@ -330,7 +342,7 @@ public interface UserEventLocalService
 	public int getUserEventsCount();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<HashMap<String, Object>> getUserEventsForCurrentUser(
+	public List<HashMap<String, Object>> getUserEventsForUser(
 		int start, int end, long userId);
 
 	/**

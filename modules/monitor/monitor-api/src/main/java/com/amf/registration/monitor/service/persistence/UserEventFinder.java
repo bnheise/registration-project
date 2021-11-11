@@ -26,13 +26,21 @@ public interface UserEventFinder {
 	public java.util.List<java.util.HashMap<String, Object>> findAll(
 		int start, int end);
 
+	public long countAll();
+
 	public java.util.List<java.util.HashMap<String, Object>> findType(
 		int start, int end, String type);
 
-	public java.util.List<java.util.HashMap<String, Object>>
-		findAllForCurrentUser(int start, int end, long userId);
+	public long countType(String type);
 
-	public java.util.List<java.util.HashMap<String, Object>>
-		findTypeForCurrentUser(int start, int end, long userId, String type);
+	public java.util.List<java.util.HashMap<String, Object>> findAllForUser(
+		int start, int end, long userId);
+
+	public long countAllForUser(long userId);
+
+	public java.util.List<java.util.HashMap<String, Object>> findTypeForUser(
+		int start, int end, long userId, String type);
+
+	public long countTypeForUser(long userId, String type);
 
 }
