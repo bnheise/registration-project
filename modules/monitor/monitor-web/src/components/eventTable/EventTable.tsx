@@ -23,7 +23,7 @@ const EventTable: FC<Props> = (): ReactElement => {
     useEffect(fetchEventCount(setUserEventsCount, GetToCountEnpointMap[currentGetEndpoint]), [currentGetEndpoint]);
     return (
         <div>
-            <EventTypeTabs setCurrentEndpoint={setCurrentEndpoint} />
+            <EventTypeTabs setCurrentEndpoint={setCurrentEndpoint} setPageStart={setPageStart} />
             <EventPagination pageStart={pageStart} pageIncrement={PAGE_END_INCREMENT} pageEnd={pageStart + PAGE_END_INCREMENT} userEventsCount={userEventsCount} setPageStart={setPageStart} />
             <EventTableDisplay userEvents={userEvents} />
         </div>

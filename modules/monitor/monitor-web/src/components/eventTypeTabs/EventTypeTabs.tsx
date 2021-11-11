@@ -5,9 +5,10 @@ import { TGetUserEventEndpoint, GetUserEventEndpoints } from "../../constants";
 
 interface Props {
     setCurrentEndpoint: (endpoint: TGetUserEventEndpoint) => void;
+    setPageStart: React.Dispatch<React.SetStateAction<number>>
 }
 
-const EventTypeTabs: FC<Props> = ({ setCurrentEndpoint }) => {
+const EventTypeTabs: FC<Props> = ({ setCurrentEndpoint, setPageStart }) => {
     const { REGISTRATION, ALL, LOGIN } = UserEventTypes;
     const { GET_USER_EVENTS, GET_REGISTRATION_EVENTS, GET_LOGIN_EVENTS } = GetUserEventEndpoints;
     const [activeTabKeyValue, setActiveTabKeyValue] = useState<TUserEventType>(
@@ -20,7 +21,8 @@ const EventTypeTabs: FC<Props> = ({ setCurrentEndpoint }) => {
                     active={activeTabKeyValue === ALL}
                     onClick={() => {
                         setActiveTabKeyValue(ALL);
-                        setCurrentEndpoint(GET_USER_EVENTS)
+                        setCurrentEndpoint(GET_USER_EVENTS);
+                        setPageStart(0);
                     }}
                     innerProps={{
                         "aria-controls": "tabpanel-1",
@@ -33,6 +35,7 @@ const EventTypeTabs: FC<Props> = ({ setCurrentEndpoint }) => {
                     onClick={() => {
                         setActiveTabKeyValue(REGISTRATION);
                         setCurrentEndpoint(GET_REGISTRATION_EVENTS);
+                        setPageStart(0);
                     }}
                     innerProps={{
                         "aria-controls": "tabpanel-2",
@@ -44,7 +47,8 @@ const EventTypeTabs: FC<Props> = ({ setCurrentEndpoint }) => {
                     active={activeTabKeyValue === LOGIN}
                     onClick={() => {
                         setActiveTabKeyValue(LOGIN);
-                        setCurrentEndpoint(GET_LOGIN_EVENTS)
+                        setCurrentEndpoint(GET_LOGIN_EVENTS);
+                        setPageStart(0);
                     }}
                     innerProps={{
                         "aria-controls": "tabpanel-3",
