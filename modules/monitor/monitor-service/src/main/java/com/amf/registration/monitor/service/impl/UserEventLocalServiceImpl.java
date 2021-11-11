@@ -112,8 +112,7 @@ public class UserEventLocalServiceImpl extends UserEventLocalServiceBaseImpl {
 	}
 
 	@Override
-	public List<HashMap<String, Object>> getAllUserEvents(int start,
-			int end) {
+	public List<HashMap<String, Object>> getAllUserEvents(int start, int end) {
 
 		return userEventFinder.findAll(start, end);
 	}
@@ -125,8 +124,7 @@ public class UserEventLocalServiceImpl extends UserEventLocalServiceBaseImpl {
 	}
 
 	@Override
-	public List<HashMap<String, Object>> getAllRegistrationEvents(int start,
-			int end) {
+	public List<HashMap<String, Object>> getAllRegistrationEvents(int start, int end) {
 
 		return userEventFinder.findType(start, end, UserEventTypes.REGISTRATION);
 	}
@@ -138,8 +136,7 @@ public class UserEventLocalServiceImpl extends UserEventLocalServiceBaseImpl {
 	}
 
 	@Override
-	public List<HashMap<String, Object>> getAllLoginEvents(int start,
-			int end) {
+	public List<HashMap<String, Object>> getAllLoginEvents(int start, int end) {
 
 		return userEventFinder.findType(start, end, UserEventTypes.LOGIN);
 	}
@@ -151,8 +148,7 @@ public class UserEventLocalServiceImpl extends UserEventLocalServiceBaseImpl {
 	}
 
 	@Override
-	public List<HashMap<String, Object>> getUserEventsForUser(int start,
-			int end, long userId) {
+	public List<HashMap<String, Object>> getUserEventsForUser(int start, int end, long userId) {
 		return userEventFinder.findAllForUser(start, end, userId);
 	}
 
@@ -162,8 +158,7 @@ public class UserEventLocalServiceImpl extends UserEventLocalServiceBaseImpl {
 	}
 
 	@Override
-	public List<HashMap<String, Object>> getRegistrationEventsForUser(int start,
-			int end, long userId) {
+	public List<HashMap<String, Object>> getRegistrationEventsForUser(int start, int end, long userId) {
 		return userEventFinder.findTypeForUser(start, end, userId, UserEventTypes.REGISTRATION);
 	}
 
@@ -173,8 +168,7 @@ public class UserEventLocalServiceImpl extends UserEventLocalServiceBaseImpl {
 	}
 
 	@Override
-	public List<HashMap<String, Object>> getLoginEventsForUser(int start,
-			int end, long userId) {
+	public List<HashMap<String, Object>> getLoginEventsForUser(int start, int end, long userId) {
 		return userEventFinder.findTypeForUser(start, end, userId, UserEventTypes.LOGIN);
 	}
 

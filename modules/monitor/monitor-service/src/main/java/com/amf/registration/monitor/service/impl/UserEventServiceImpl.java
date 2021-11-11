@@ -48,10 +48,8 @@ import org.osgi.service.component.annotations.ReferencePolicyOption;
  * @author Brian Wing Shun Chan
  * @see UserEventServiceBaseImpl
  */
-@Component(property = {
-		"json.web.service.context.name=monitor",
-		"json.web.service.context.path=UserEvent"
-}, service = AopService.class)
+@Component(property = { "json.web.service.context.name=monitor",
+		"json.web.service.context.path=UserEvent" }, service = AopService.class)
 public class UserEventServiceImpl extends UserEventServiceBaseImpl {
 
 	/*
@@ -74,8 +72,7 @@ public class UserEventServiceImpl extends UserEventServiceBaseImpl {
 	}
 
 	@Override
-	public long getUserEventsCount(ServiceContext serviceContext)
-			throws PortalException {
+	public long getUserEventsCount(ServiceContext serviceContext) throws PortalException {
 
 		if (portletResourcePermission.contains(getPermissionChecker(), serviceContext.getScopeGroup(), "VIEW_ALL")) {
 			return userEventLocalService.countAllUserEvents();
@@ -96,8 +93,7 @@ public class UserEventServiceImpl extends UserEventServiceBaseImpl {
 	}
 
 	@Override
-	public long getLoginEventsCount(ServiceContext serviceContext)
-			throws PortalException {
+	public long getLoginEventsCount(ServiceContext serviceContext) throws PortalException {
 
 		if (portletResourcePermission.contains(getPermissionChecker(), serviceContext.getScopeGroup(), "VIEW_ALL")) {
 			return userEventLocalService.countAllLoginEvents();
@@ -118,8 +114,7 @@ public class UserEventServiceImpl extends UserEventServiceBaseImpl {
 	}
 
 	@Override
-	public long getRegistrationEventsCount(ServiceContext serviceContext)
-			throws PortalException {
+	public long getRegistrationEventsCount(ServiceContext serviceContext) throws PortalException {
 
 		if (portletResourcePermission.contains(getPermissionChecker(), serviceContext.getScopeGroup(), "VIEW_ALL")) {
 			return userEventLocalService.countAllRegistrationEvents();
