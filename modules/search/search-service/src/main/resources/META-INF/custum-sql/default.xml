@@ -18,4 +18,16 @@
             OFFSET ?;
         ]]>
     </sql>
+    <sql id="countUsersByZip">
+        <![CDATA[
+            SELECT
+                count(*)
+            FROM address a
+            INNER JOIN user_ u
+                USING(userid)
+            WHERE
+                a.zip = ? AND
+                a.primary_ = true;
+        ]]>
+    </sql>
 </custom-sql>
