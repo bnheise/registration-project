@@ -1,0 +1,10 @@
+Bundle-Name: search-service-api
+Bundle-SymbolicName: com.amf.registration.search.api
+Bundle-Version: 1.0.0
+Export-Package:\
+	com.amf.registration.search.exception,\
+	com.amf.registration.search.model,\
+	com.amf.registration.search.service,\
+	com.amf.registration.search.service.persistence
+-check: EXPORTS
+-includeresource: META-INF/service.xml=../search-service-service/service.xml
