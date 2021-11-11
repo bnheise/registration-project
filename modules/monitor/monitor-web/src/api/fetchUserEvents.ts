@@ -6,8 +6,8 @@ export const fetchUserEvents =
   (
     setUserEvents: TSetterFunction<UserEvent[]>,
     currentEndpoint: TGetUserEventEndpoint,
-    start: number = 0,
-    pageEndIncrement: number
+    pageEndIncrement: number,
+    start: number = 0
   ) =>
   () => {
     let mounted = true;
