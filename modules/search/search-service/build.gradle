@@ -1,5 +1,5 @@
 dependencies {
-	compile project(":modules:search:search-service:search-service-api")
+	compile project(":modules:search:search-api")
 
 	compileOnly group: "com.liferay.portal", name: "release.dxp.api"
 }
