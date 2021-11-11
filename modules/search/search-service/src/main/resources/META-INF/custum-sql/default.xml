@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<custom-sql>
+    <sql id="findUsersByZip">
+        <![CDATA[
+            SELECT
+                u.firstname,
+                SUBSTRING(u.lastname, 1, 1) "lastInitial",
+                u.screenName,
+                u.emailaddress
+            FROM address a
+            INNER JOIN user_ u
+                USING(userid)
+            WHERE
+                a.zip = ? AND
+                a.primary_ = true
+            ORDER BY u.lastname DESC
+            LIMIT ?
+            OFFSET ?;
+        ]]>
+    </sql>
+</custom-sql>
