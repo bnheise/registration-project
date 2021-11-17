@@ -1,3 +1,12 @@
 <?xml version="1.0"?>
 
-<model-hints></model-hints>
+<model-hints>
+	<model name="com.amf.registration.search.model.UserAddress">
+		<field name="userId" type="long" />
+		<field name="copmanyId" type="long" />
+		<field name="name" type="String" />
+		<field name="screenName" type="String" />
+		<field name="emailAddress" type="String" />
+		<field name="zip" type="String" />
+	</model>
+</model-hints>

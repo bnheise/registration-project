@@ -27,7 +27,7 @@ import org.osgi.service.component.annotations.Component;
  * @generated
  */
 @Component(immediate = true, service = {})
-public class SearchPersistenceConstants {
+public class RegistrationSearchPersistenceConstants {
 
 	public static final String BUNDLE_SYMBOLIC_NAME =
 		"com.amf.registration.search.service";

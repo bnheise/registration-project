@@ -36,6 +36,7 @@ import com.liferay.portal.kernel.service.ListTypeLocalService;
 import com.liferay.portal.kernel.service.PhoneLocalService;
 import com.liferay.portal.kernel.service.RegionServiceUtil;
 import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.util.PortalUtil;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -57,10 +58,8 @@ import org.osgi.service.component.annotations.Reference;
  * @author Brian Wing Shun Chan
  * @see SignupServiceBaseImpl
  */
-@Component(property = {
-		"json.web.service.context.name=signup",
-		"json.web.service.context.path=Signup"
-}, service = AopService.class)
+@Component(property = { "json.web.service.context.name=signup",
+		"json.web.service.context.path=Signup" }, service = AopService.class)
 public class SignupServiceImpl extends SignupServiceBaseImpl {
 
 	/*
@@ -87,11 +86,9 @@ public class SignupServiceImpl extends SignupServiceBaseImpl {
 
 	@Override
 	public boolean signup(String password1, String password2, String screenName, String emailAddress, String firstName,
-			String lastName, boolean male, int birthdayMonth, int birthdayDay, int birthdayYear,
-			Address billingAddress, Phone homePhone, Phone mobilePhone, boolean agreedToTerms, String securityQuestion,
-			String securityAnswer,
-			ServiceContext serviceContext)
-			throws PortalException {
+			String lastName, boolean male, int birthdayMonth, int birthdayDay, int birthdayYear, Address billingAddress,
+			Phone homePhone, Phone mobilePhone, boolean agreedToTerms, String securityQuestion, String securityAnswer,
+			ServiceContext serviceContext) throws PortalException {
 		log.info("New user requesting signup with email " + emailAddress);
 
 		long creatorUserId = serviceContext.getGuestOrUserId();
@@ -114,9 +111,9 @@ public class SignupServiceImpl extends SignupServiceBaseImpl {
 				agreedToTerms, securityQuestion, securityAnswer);
 		log.info("Attempting to create user.");
 		User user = userLocalService.addUser(creatorUserId, companyId, autoPassword, password1, password2,
-				autoScreenName, screenName, emailAddress, locale, firstName, middleName, lastName, prefixId,
-				suffixId, male, birthdayMonth, birthdayDay, birthdayYear, jobTitle, groupIds, organizationIds,
-				roleIds, userGroupIds, sendEmail, serviceContext);
+				autoScreenName, screenName, emailAddress, locale, firstName, middleName, lastName, prefixId, suffixId,
+				male, birthdayMonth, birthdayDay, birthdayYear, jobTitle, groupIds, organizationIds, roleIds,
+				userGroupIds, sendEmail, serviceContext);
 
 		userLocalService.updateAgreedToTermsOfUse(user.getUserId(), agreedToTerms);
 		userLocalService.updateReminderQuery(user.getUserId(), securityQuestion, securityAnswer);
@@ -131,11 +128,6 @@ public class SignupServiceImpl extends SignupServiceBaseImpl {
 		mobilePhone.setTypeId(
 				listTypeLocalService.getListType("mobile-phone", Contact.class.getName() + ".phone").getListTypeId());
 		addPhone(mobilePhone, user, serviceContext);
-		billingAddress.setUserId(user.getUserId());
-		billingAddress.setClassName(Address.class.getName());
-		billingAddress.setTypeId(
-				listTypeLocalService.getListType("billing", Account.class.getName() + ".address").getListTypeId());
-		billingAddress.setPrimary(true);
 		addAddress(billingAddress, user, serviceContext);
 
 		return true;
@@ -144,12 +136,22 @@ public class SignupServiceImpl extends SignupServiceBaseImpl {
 	private void addAddress(Address address, User user, ServiceContext serviceContext) {
 		try {
 			log.info("Attempting to add address");
-			addressLocalService.addAddress(user.getUserId(), User.class.getName(), 39627, address.getStreet1(),
-					address.getStreet2(), "", address.getCity(), address.getZip(), address.getRegionId(),
-					CountryServiceUtil.getCountryByName("united-states").getCountryId(),
-					address.getTypeId(), false,
-					false, serviceContext);
-		} catch (Exception exception) {
+			long userId = user.getUserId();
+			String className = Address.class.getName();
+			long classPK = PortalUtil.getClassNameId(Address.class.getName());
+			String street1 = address.getStreet1();
+			String street2 = address.getStreet2();
+			String street3 = address.getStreet3();
+			String city = address.getCity();
+			String zip = address.getZip();
+			long regionId = address.getRegionId();
+			long countryId = CountryServiceUtil.getCountryByName("united-states").getCountryId();
+			long typeId = listTypeLocalService.getListType("billing", Account.class.getName() + ".address").getListTypeId();
+			boolean mailing = false;
+			boolean primary = true;
+			addressLocalService.addAddress(userId, className, classPK, street1, street2, street3, city, zip, regionId, countryId, typeId, mailing, primary, serviceContext);
+
+		} catch (PortalException exception) {
 			log.error(exception.toString());
 			deleteUser(user);
 		}
@@ -162,9 +164,7 @@ public class SignupServiceImpl extends SignupServiceBaseImpl {
 				log.info(phone.getNumber());
 				log.info(phone.getNumber().isBlank());
 				Phone newPhone = phoneLocalService.addPhone(user.getUserId(), Contact.class.getName(),
-						39627,
-						phone.getNumber(),
-						phone.getExtension(), phone.getTypeId(),
+						user.getContactId(), phone.getNumber(), phone.getExtension(), phone.getTypeId(),
 						phone.getPrimary(), serviceContext);
 				log.info(newPhone.toString());
 			} catch (Exception exception) {

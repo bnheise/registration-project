@@ -1,0 +1,30 @@
+### Registration Test
+POST http://localhost:8080/api/jsonws/signup.signup/signup
+Authorization: Basic default@liferay.com:password
+
+@random = {{$randomInt 0 9999}}
+{
+    "password1": "Password1!",
+    "password2": "Password1!",
+    "screenName": "TEST{{random}}",
+    "emailAddress": "testEmail{{random}}",
+    "firstName": "test",
+    "lastName": "test",
+    "male": true,
+    "birthdayMonth": "{{$randomInt 0 11}}",
+    "birthdayDay": "{{$randomInt 0 28}}",
+    "birthdayYear": "{{$randomInt 1950 2000}}",
+    "billingAddress": {
+        "street1": "Test Street {{$randomInt 0 9999}}",
+        "street2": "string",
+        "city": "Test City",
+        "regionId": 20,
+        "countryId": 20,
+        "zip": 55555
+        },
+    "homePhone": "",
+    "mobilePhone": "",
+    "agreedToTerms": true,
+    "securityQuestion": "What's your mom's maiden name?",
+    "securityAnswer": "Mom"
+}

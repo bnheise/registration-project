@@ -15,23 +15,23 @@
 package com.amf.registration.search.service;
 
 /**
- * Provides the local service utility for Search. This utility wraps
- * <code>com.amf.registration.search.service.impl.SearchLocalServiceImpl</code> and
- * is an access point for service operations in application layer code running
- * on the local server. Methods of this service will not have security checks
- * based on the propagated JAAS credentials because this service can only be
- * accessed from within the same VM.
+ * Provides the remote service utility for UserAddress. This utility wraps
+ * <code>com.amf.registration.search.service.impl.UserAddressServiceImpl</code> and is an
+ * access point for service operations in application layer code running on a
+ * remote server. Methods of this service are expected to have security checks
+ * based on the propagated JAAS credentials because this service can be
+ * accessed remotely.
  *
  * @author Brian Wing Shun Chan
- * @see SearchLocalService
+ * @see UserAddressService
  * @generated
  */
-public class SearchLocalServiceUtil {
+public class UserAddressServiceUtil {
 
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify this class directly. Add custom service methods to <code>com.amf.registration.search.service.impl.SearchLocalServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
+	 * Never modify this class directly. Add custom service methods to <code>com.amf.registration.search.service.impl.UserAddressServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
 
 	/**
@@ -43,10 +43,10 @@ public class SearchLocalServiceUtil {
 		return getService().getOSGiServiceIdentifier();
 	}
 
-	public static SearchLocalService getService() {
+	public static UserAddressService getService() {
 		return _service;
 	}
 
-	private static volatile SearchLocalService _service;
+	private static volatile UserAddressService _service;
 
 }

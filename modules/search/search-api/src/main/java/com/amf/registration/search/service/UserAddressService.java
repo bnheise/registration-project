@@ -25,12 +25,12 @@ import com.liferay.portal.kernel.transaction.Transactional;
 import org.osgi.annotation.versioning.ProviderType;
 
 /**
- * Provides the remote service interface for Search. Methods of this
+ * Provides the remote service interface for UserAddress. Methods of this
  * service are expected to have security checks based on the propagated JAAS
  * credentials because this service can be accessed remotely.
  *
  * @author Brian Wing Shun Chan
- * @see SearchServiceUtil
+ * @see UserAddressServiceUtil
  * @generated
  */
 @AccessControlled
@@ -40,12 +40,12 @@ import org.osgi.annotation.versioning.ProviderType;
 	isolation = Isolation.PORTAL,
 	rollbackFor = {PortalException.class, SystemException.class}
 )
-public interface SearchService extends BaseService {
+public interface UserAddressService extends BaseService {
 
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify this interface directly. Add custom service methods to <code>com.amf.registration.search.service.impl.SearchServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the search remote service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link SearchServiceUtil} if injection and service tracking are not available.
+	 * Never modify this interface directly. Add custom service methods to <code>com.amf.registration.search.service.impl.UserAddressServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the user address remote service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link UserAddressServiceUtil} if injection and service tracking are not available.
 	 */
 
 	/**

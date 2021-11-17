@@ -14,37 +14,37 @@
 
 package com.amf.registration.search.service.impl;
 
-import com.amf.registration.search.service.base.SearchServiceBaseImpl;
+import com.amf.registration.search.service.base.UserAddressServiceBaseImpl;
 
 import com.liferay.portal.aop.AopService;
 
 import org.osgi.service.component.annotations.Component;
 
 /**
- * The implementation of the search remote service.
+ * The implementation of the user address remote service.
  *
  * <p>
- * All custom service methods should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy their definitions into the <code>com.amf.registration.search.service.SearchService</code> interface.
+ * All custom service methods should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy their definitions into the <code>com.amf.registration.search.service.UserAddressService</code> interface.
  *
  * <p>
  * This is a remote service. Methods of this service are expected to have security checks based on the propagated JAAS credentials because this service can be accessed remotely.
  * </p>
  *
  * @author Brian Wing Shun Chan
- * @see SearchServiceBaseImpl
+ * @see UserAddressServiceBaseImpl
  */
 @Component(
 	property = {
-		"json.web.service.context.name=search",
-		"json.web.service.context.path=Search"
+		"json.web.service.context.name=registrationsearch",
+		"json.web.service.context.path=UserAddress"
 	},
 	service = AopService.class
 )
-public class SearchServiceImpl extends SearchServiceBaseImpl {
+public class UserAddressServiceImpl extends UserAddressServiceBaseImpl {
 
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never reference this class directly. Always use <code>com.amf.registration.search.service.SearchServiceUtil</code> to access the search remote service.
+	 * Never reference this class directly. Always use <code>com.amf.registration.search.service.UserAddressServiceUtil</code> to access the user address remote service.
 	 */
 }

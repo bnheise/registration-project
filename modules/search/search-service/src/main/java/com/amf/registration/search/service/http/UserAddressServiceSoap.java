@@ -16,10 +16,21 @@ package com.amf.registration.search.service.http;
 
 /**
  * Provides the SOAP utility for the
- * <code>com.amf.registration.search.service.SearchServiceUtil</code> service
+ * <code>com.amf.registration.search.service.UserAddressServiceUtil</code> service
  * utility. The static methods of this class call the same methods of the
  * service utility. However, the signatures are different because it is
  * difficult for SOAP to support certain types.
+ *
+ * <p>
+ * ServiceBuilder follows certain rules in translating the methods. For example,
+ * if the method in the service utility returns a <code>java.util.List</code>,
+ * that is translated to an array of
+ * <code>com.amf.registration.search.model.UserAddressSoap</code>. If the method in the
+ * service utility returns a
+ * <code>com.amf.registration.search.model.UserAddress</code>, that is translated to a
+ * <code>com.amf.registration.search.model.UserAddressSoap</code>. Methods that SOAP
+ * cannot safely wire are skipped.
+ * </p>
  *
  * <p>
  * The benefits of using the SOAP utility is that it is cross platform
@@ -39,10 +50,10 @@ package com.amf.registration.search.service.http;
  * </p>
  *
  * @author Brian Wing Shun Chan
- * @see SearchServiceHttp
+ * @see UserAddressServiceHttp
  * @deprecated As of Athanasius (7.3.x), with no direct replacement
  * @generated
  */
 @Deprecated
-public class SearchServiceSoap {
+public class UserAddressServiceSoap {
 }

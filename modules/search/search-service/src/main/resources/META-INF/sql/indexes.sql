@@ -1,0 +1,1 @@
+create index IX_A8EA080 on RegistrationSearch_UserAddress (zip[$COLUMN_LENGTH:75$]);

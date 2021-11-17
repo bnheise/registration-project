@@ -14,34 +14,35 @@
 
 package com.amf.registration.search.service.impl;
 
-import com.amf.registration.search.service.base.SearchLocalServiceBaseImpl;
+import com.amf.registration.search.service.base.UserAddressLocalServiceBaseImpl;
 
 import com.liferay.portal.aop.AopService;
 
 import org.osgi.service.component.annotations.Component;
 
 /**
- * The implementation of the search local service.
+ * The implementation of the user address local service.
  *
  * <p>
- * All custom service methods should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy their definitions into the <code>com.amf.registration.search.service.SearchLocalService</code> interface.
+ * All custom service methods should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy their definitions into the <code>com.amf.registration.search.service.UserAddressLocalService</code> interface.
  *
  * <p>
  * This is a local service. Methods of this service will not have security checks based on the propagated JAAS credentials because this service can only be accessed from within the same VM.
  * </p>
  *
  * @author Brian Wing Shun Chan
- * @see SearchLocalServiceBaseImpl
+ * @see UserAddressLocalServiceBaseImpl
  */
 @Component(
-	property = "model.class.name=com.amf.registration.search.model.Search",
+	property = "model.class.name=com.amf.registration.search.model.UserAddress",
 	service = AopService.class
 )
-public class SearchLocalServiceImpl extends SearchLocalServiceBaseImpl {
+public class UserAddressLocalServiceImpl
+	extends UserAddressLocalServiceBaseImpl {
 
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never reference this class directly. Use <code>com.amf.registration.search.service.SearchLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.amf.registration.search.service.SearchLocalServiceUtil</code>.
+	 * Never reference this class directly. Use <code>com.amf.registration.search.service.UserAddressLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.amf.registration.search.service.UserAddressLocalServiceUtil</code>.
 	 */
 }

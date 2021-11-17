@@ -17,17 +17,17 @@ package com.amf.registration.search.service;
 import com.liferay.portal.kernel.service.ServiceWrapper;
 
 /**
- * Provides a wrapper for {@link SearchService}.
+ * Provides a wrapper for {@link UserAddressService}.
  *
  * @author Brian Wing Shun Chan
- * @see SearchService
+ * @see UserAddressService
  * @generated
  */
-public class SearchServiceWrapper
-	implements SearchService, ServiceWrapper<SearchService> {
+public class UserAddressServiceWrapper
+	implements ServiceWrapper<UserAddressService>, UserAddressService {
 
-	public SearchServiceWrapper(SearchService searchService) {
-		_searchService = searchService;
+	public UserAddressServiceWrapper(UserAddressService userAddressService) {
+		_userAddressService = userAddressService;
 	}
 
 	/**
@@ -37,19 +37,19 @@ public class SearchServiceWrapper
 	 */
 	@Override
 	public String getOSGiServiceIdentifier() {
-		return _searchService.getOSGiServiceIdentifier();
+		return _userAddressService.getOSGiServiceIdentifier();
 	}
 
 	@Override
-	public SearchService getWrappedService() {
-		return _searchService;
+	public UserAddressService getWrappedService() {
+		return _userAddressService;
 	}
 
 	@Override
-	public void setWrappedService(SearchService searchService) {
-		_searchService = searchService;
+	public void setWrappedService(UserAddressService userAddressService) {
+		_userAddressService = userAddressService;
 	}
 
-	private SearchService _searchService;
+	private UserAddressService _userAddressService;
 
 }

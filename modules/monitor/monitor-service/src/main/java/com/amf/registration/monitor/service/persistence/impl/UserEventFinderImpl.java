@@ -26,7 +26,6 @@ public class UserEventFinderImpl extends UserEventFinderBaseImpl implements User
 
             session = openSession();
             String queryString = customSQL.get(getClass(), "findAll");
-
             SQLQuery sqlQuery = session.createSQLQuery(queryString);
             sqlQuery.setCacheable(false);
 
