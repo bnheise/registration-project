@@ -2,10 +2,7 @@
 <custom-sql>
     <sql id="findByZip">
         <![CDATA[
-            SELECT
-                emailaddress,
-                name,
-                screenname
+            SELECT *
             FROM useraddress
             WHERE zip = ?
             LIMIT ?
