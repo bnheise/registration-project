@@ -1,0 +1,13 @@
+{
+	"translatorTextKey": "",
+	"supportedLocales": [],
+	"liferayDir": "/Users/brianheise/liferay/training/backend/registration-project/bundles",
+	"webpack": {
+		"rules": [
+			{
+				"test": "src\\/.*\\.js$",
+				"use": "babel-loader"
+			}
+		]
+	}
+}
