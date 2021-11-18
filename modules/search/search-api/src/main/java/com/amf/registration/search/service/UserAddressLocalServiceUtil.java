@@ -33,7 +33,7 @@ import java.util.List;
  * based on the propagated JAAS credentials because this service can only be
  * accessed from within the same VM.
  *
- * @author Brian Wing Shun Chan
+ * @author Brian Heise
  * @see UserAddressLocalService
  * @generated
  */
@@ -277,6 +277,12 @@ public class UserAddressLocalServiceUtil {
 	 */
 	public static int getUserAddressesCount() {
 		return getService().getUserAddressesCount();
+	}
+
+	public static List<UserAddress> getUsersByZip(
+		String zip, int start, int end) {
+
+		return getService().getUsersByZip(zip, start, end);
 	}
 
 	/**

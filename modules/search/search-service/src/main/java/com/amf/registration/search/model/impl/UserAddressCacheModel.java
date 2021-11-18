@@ -29,7 +29,7 @@ import java.io.ObjectOutput;
 /**
  * The cache model class for representing UserAddress in entity cache.
  *
- * @author Brian Wing Shun Chan
+ * @author Brian Heise
  * @generated
  */
 public class UserAddressCacheModel
@@ -66,8 +66,8 @@ public class UserAddressCacheModel
 
 		sb.append("{userId=");
 		sb.append(userId);
-		sb.append(", copmanyId=");
-		sb.append(copmanyId);
+		sb.append(", companyId=");
+		sb.append(companyId);
 		sb.append(", name=");
 		sb.append(name);
 		sb.append(", screenName=");
@@ -86,7 +86,7 @@ public class UserAddressCacheModel
 		UserAddressImpl userAddressImpl = new UserAddressImpl();
 
 		userAddressImpl.setUserId(userId);
-		userAddressImpl.setCopmanyId(copmanyId);
+		userAddressImpl.setCompanyId(companyId);
 
 		if (name == null) {
 			userAddressImpl.setName("");
@@ -125,20 +125,20 @@ public class UserAddressCacheModel
 	public void readExternal(ObjectInput objectInput) throws IOException {
 		userId = objectInput.readLong();
 
-		copmanyId = objectInput.readLong();
+		companyId = objectInput.readLong();
 		name = objectInput.readUTF();
 		screenName = objectInput.readUTF();
 		emailAddress = objectInput.readUTF();
 		zip = objectInput.readUTF();
 
-		userAddressPK = new UserAddressPK(userId, copmanyId);
+		userAddressPK = new UserAddressPK(userId, companyId);
 	}
 
 	@Override
 	public void writeExternal(ObjectOutput objectOutput) throws IOException {
 		objectOutput.writeLong(userId);
 
-		objectOutput.writeLong(copmanyId);
+		objectOutput.writeLong(companyId);
 
 		if (name == null) {
 			objectOutput.writeUTF("");
@@ -170,7 +170,7 @@ public class UserAddressCacheModel
 	}
 
 	public long userId;
-	public long copmanyId;
+	public long companyId;
 	public String name;
 	public String screenName;
 	public String emailAddress;

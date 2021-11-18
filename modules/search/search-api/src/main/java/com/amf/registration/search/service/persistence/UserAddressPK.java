@@ -20,20 +20,20 @@ import com.liferay.petra.string.StringBundler;
 import java.io.Serializable;
 
 /**
- * @author Brian Wing Shun Chan
+ * @author Brian Heise
  * @generated
  */
 public class UserAddressPK implements Comparable<UserAddressPK>, Serializable {
 
 	public long userId;
-	public long copmanyId;
+	public long companyId;
 
 	public UserAddressPK() {
 	}
 
-	public UserAddressPK(long userId, long copmanyId) {
+	public UserAddressPK(long userId, long companyId) {
 		this.userId = userId;
-		this.copmanyId = copmanyId;
+		this.companyId = companyId;
 	}
 
 	public long getUserId() {
@@ -44,12 +44,12 @@ public class UserAddressPK implements Comparable<UserAddressPK>, Serializable {
 		this.userId = userId;
 	}
 
-	public long getCopmanyId() {
-		return copmanyId;
+	public long getCompanyId() {
+		return companyId;
 	}
 
-	public void setCopmanyId(long copmanyId) {
-		this.copmanyId = copmanyId;
+	public void setCompanyId(long companyId) {
+		this.companyId = companyId;
 	}
 
 	@Override
@@ -74,10 +74,10 @@ public class UserAddressPK implements Comparable<UserAddressPK>, Serializable {
 			return value;
 		}
 
-		if (copmanyId < pk.copmanyId) {
+		if (companyId < pk.companyId) {
 			value = -1;
 		}
-		else if (copmanyId > pk.copmanyId) {
+		else if (companyId > pk.companyId) {
 			value = 1;
 		}
 		else {
@@ -103,7 +103,7 @@ public class UserAddressPK implements Comparable<UserAddressPK>, Serializable {
 
 		UserAddressPK pk = (UserAddressPK)object;
 
-		if ((userId == pk.userId) && (copmanyId == pk.copmanyId)) {
+		if ((userId == pk.userId) && (companyId == pk.companyId)) {
 			return true;
 		}
 		else {
@@ -116,7 +116,7 @@ public class UserAddressPK implements Comparable<UserAddressPK>, Serializable {
 		int hashCode = 0;
 
 		hashCode = HashUtil.hash(hashCode, userId);
-		hashCode = HashUtil.hash(hashCode, copmanyId);
+		hashCode = HashUtil.hash(hashCode, companyId);
 
 		return hashCode;
 	}
@@ -130,9 +130,9 @@ public class UserAddressPK implements Comparable<UserAddressPK>, Serializable {
 		sb.append("userId=");
 
 		sb.append(userId);
-		sb.append(", copmanyId=");
+		sb.append(", companyId=");
 
-		sb.append(copmanyId);
+		sb.append(companyId);
 
 		sb.append("}");
 

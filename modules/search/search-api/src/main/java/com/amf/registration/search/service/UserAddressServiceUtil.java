@@ -14,6 +14,10 @@
 
 package com.amf.registration.search.service;
 
+import com.amf.registration.search.model.UserAddress;
+
+import java.util.List;
+
 /**
  * Provides the remote service utility for UserAddress. This utility wraps
  * <code>com.amf.registration.search.service.impl.UserAddressServiceImpl</code> and is an
@@ -22,7 +26,7 @@ package com.amf.registration.search.service;
  * based on the propagated JAAS credentials because this service can be
  * accessed remotely.
  *
- * @author Brian Wing Shun Chan
+ * @author Brian Heise
  * @see UserAddressService
  * @generated
  */
@@ -39,8 +43,18 @@ public class UserAddressServiceUtil {
 	 *
 	 * @return the OSGi service identifier
 	 */
-	public static java.lang.String getOSGiServiceIdentifier() {
+	public static String getOSGiServiceIdentifier() {
 		return getService().getOSGiServiceIdentifier();
+	}
+
+	public static List<UserAddress> getUsersByZip(
+		String zip, int start, int end) {
+
+		return getService().getUsersByZip(zip, start, end);
+	}
+
+	public static String test1() {
+		return getService().test1();
 	}
 
 	public static UserAddressService getService() {

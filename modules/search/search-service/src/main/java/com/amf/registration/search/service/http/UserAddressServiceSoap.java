@@ -14,9 +14,16 @@
 
 package com.amf.registration.search.service.http;
 
+import com.amf.registration.search.service.UserAddressServiceUtil;
+
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+
+import java.rmi.RemoteException;
+
 /**
  * Provides the SOAP utility for the
- * <code>com.amf.registration.search.service.UserAddressServiceUtil</code> service
+ * <code>UserAddressServiceUtil</code> service
  * utility. The static methods of this class call the same methods of the
  * service utility. However, the signatures are different because it is
  * difficult for SOAP to support certain types.
@@ -49,11 +56,47 @@ package com.amf.registration.search.service.http;
  * The SOAP utility is only generated for remote services.
  * </p>
  *
- * @author Brian Wing Shun Chan
+ * @author Brian Heise
  * @see UserAddressServiceHttp
  * @deprecated As of Athanasius (7.3.x), with no direct replacement
  * @generated
  */
 @Deprecated
 public class UserAddressServiceSoap {
+
+	public static com.amf.registration.search.model.UserAddressSoap[]
+			getUsersByZip(String zip, int start, int end)
+		throws RemoteException {
+
+		try {
+			java.util.List<com.amf.registration.search.model.UserAddress>
+				returnValue = UserAddressServiceUtil.getUsersByZip(
+					zip, start, end);
+
+			return com.amf.registration.search.model.UserAddressSoap.
+				toSoapModels(returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static String test1() throws RemoteException {
+		try {
+			String returnValue = UserAddressServiceUtil.test1();
+
+			return returnValue;
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	private static Log _log = LogFactoryUtil.getLog(
+		UserAddressServiceSoap.class);
+
 }

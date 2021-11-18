@@ -25,7 +25,7 @@ import java.util.Map;
  * This class is a wrapper for {@link UserAddress}.
  * </p>
  *
- * @author Brian Wing Shun Chan
+ * @author Brian Heise
  * @see UserAddress
  * @generated
  */
@@ -42,7 +42,7 @@ public class UserAddressWrapper
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("userId", getUserId());
-		attributes.put("copmanyId", getCopmanyId());
+		attributes.put("companyId", getCompanyId());
 		attributes.put("name", getName());
 		attributes.put("screenName", getScreenName());
 		attributes.put("emailAddress", getEmailAddress());
@@ -59,10 +59,10 @@ public class UserAddressWrapper
 			setUserId(userId);
 		}
 
-		Long copmanyId = (Long)attributes.get("copmanyId");
+		Long companyId = (Long)attributes.get("companyId");
 
-		if (copmanyId != null) {
-			setCopmanyId(copmanyId);
+		if (companyId != null) {
+			setCompanyId(companyId);
 		}
 
 		String name = (String)attributes.get("name");
@@ -91,13 +91,13 @@ public class UserAddressWrapper
 	}
 
 	/**
-	 * Returns the copmany ID of this user address.
+	 * Returns the company ID of this user address.
 	 *
-	 * @return the copmany ID of this user address
+	 * @return the company ID of this user address
 	 */
 	@Override
-	public long getCopmanyId() {
-		return model.getCopmanyId();
+	public long getCompanyId() {
+		return model.getCompanyId();
 	}
 
 	/**
@@ -178,13 +178,13 @@ public class UserAddressWrapper
 	}
 
 	/**
-	 * Sets the copmany ID of this user address.
+	 * Sets the company ID of this user address.
 	 *
-	 * @param copmanyId the copmany ID of this user address
+	 * @param companyId the company ID of this user address
 	 */
 	@Override
-	public void setCopmanyId(long copmanyId) {
-		model.setCopmanyId(copmanyId);
+	public void setCompanyId(long companyId) {
+		model.setCompanyId(companyId);
 	}
 
 	/**

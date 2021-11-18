@@ -11,28 +11,19 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
-package com.amf.registration.search.exception;
 
-import com.liferay.portal.kernel.exception.NoSuchModelException;
+package com.amf.registration.search.service.persistence;
+
+import org.osgi.annotation.versioning.ProviderType;
 
 /**
  * @author Brian Heise
+ * @generated
  */
-public class NoSuchUserAddressException extends NoSuchModelException {
+@ProviderType
+public interface UserAddressFinder {
 
-	public NoSuchUserAddressException() {
-	}
-
-	public NoSuchUserAddressException(String msg) {
-		super(msg);
-	}
-
-	public NoSuchUserAddressException(String msg, Throwable throwable) {
-		super(msg, throwable);
-	}
-
-	public NoSuchUserAddressException(Throwable throwable) {
-		super(throwable);
-	}
+	public java.util.List<com.amf.registration.search.model.UserAddress>
+		findByZip(String zip, int start, int end);
 
 }

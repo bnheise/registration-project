@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * This class is used by SOAP remote services, specifically {@link com.amf.registration.search.service.http.UserAddressServiceSoap}.
  *
- * @author Brian Wing Shun Chan
+ * @author Brian Heise
  * @deprecated As of Athanasius (7.3.x), with no direct replacement
  * @generated
  */
@@ -35,7 +35,7 @@ public class UserAddressSoap implements Serializable {
 		UserAddressSoap soapModel = new UserAddressSoap();
 
 		soapModel.setUserId(model.getUserId());
-		soapModel.setCopmanyId(model.getCopmanyId());
+		soapModel.setCompanyId(model.getCompanyId());
 		soapModel.setName(model.getName());
 		soapModel.setScreenName(model.getScreenName());
 		soapModel.setEmailAddress(model.getEmailAddress());
@@ -86,12 +86,12 @@ public class UserAddressSoap implements Serializable {
 	}
 
 	public UserAddressPK getPrimaryKey() {
-		return new UserAddressPK(_userId, _copmanyId);
+		return new UserAddressPK(_userId, _companyId);
 	}
 
 	public void setPrimaryKey(UserAddressPK pk) {
 		setUserId(pk.userId);
-		setCopmanyId(pk.copmanyId);
+		setCompanyId(pk.companyId);
 	}
 
 	public long getUserId() {
@@ -102,12 +102,12 @@ public class UserAddressSoap implements Serializable {
 		_userId = userId;
 	}
 
-	public long getCopmanyId() {
-		return _copmanyId;
+	public long getCompanyId() {
+		return _companyId;
 	}
 
-	public void setCopmanyId(long copmanyId) {
-		_copmanyId = copmanyId;
+	public void setCompanyId(long companyId) {
+		_companyId = companyId;
 	}
 
 	public String getName() {
@@ -143,7 +143,7 @@ public class UserAddressSoap implements Serializable {
 	}
 
 	private long _userId;
-	private long _copmanyId;
+	private long _companyId;
 	private String _name;
 	private String _screenName;
 	private String _emailAddress;

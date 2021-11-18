@@ -14,8 +14,10 @@
 
 package com.amf.registration.search.service.impl;
 
-import com.amf.registration.search.service.base.UserAddressLocalServiceBaseImpl;
+import java.util.List;
 
+import com.amf.registration.search.model.UserAddress;
+import com.amf.registration.search.service.base.UserAddressLocalServiceBaseImpl;
 import com.liferay.portal.aop.AopService;
 
 import org.osgi.service.component.annotations.Component;
@@ -30,7 +32,7 @@ import org.osgi.service.component.annotations.Component;
  * This is a local service. Methods of this service will not have security checks based on the propagated JAAS credentials because this service can only be accessed from within the same VM.
  * </p>
  *
- * @author Brian Wing Shun Chan
+ * @author Brian Heise
  * @see UserAddressLocalServiceBaseImpl
  */
 @Component(
@@ -45,4 +47,9 @@ public class UserAddressLocalServiceImpl
 	 *
 	 * Never reference this class directly. Use <code>com.amf.registration.search.service.UserAddressLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.amf.registration.search.service.UserAddressLocalServiceUtil</code>.
 	 */
+
+	@Override
+	public List<UserAddress> getUsersByZip(String zip, int start, int end) {
+		return userAddressFinder.findByZip(zip, start, end);
+	}
 }

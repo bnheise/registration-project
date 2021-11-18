@@ -35,6 +35,7 @@ import com.liferay.portal.kernel.dao.orm.SessionFactory;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.BaseModel;
+import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
 import com.liferay.portal.kernel.service.persistence.impl.BasePersistenceImpl;
 import com.liferay.portal.kernel.util.MapUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
@@ -68,7 +69,7 @@ import org.osgi.service.component.annotations.Reference;
  * Caching information and settings can be found in <code>portal.properties</code>
  * </p>
  *
- * @author Brian Wing Shun Chan
+ * @author Brian Heise
  * @generated
  */
 @Component(service = UserAddressPersistence.class)
@@ -716,6 +717,8 @@ public class UserAddressPersistenceImpl
 		userAddress.setNew(true);
 		userAddress.setPrimaryKey(userAddressPK);
 
+		userAddress.setCompanyId(CompanyThreadLocal.getCompanyId());
+
 		return userAddress;
 	}
 
@@ -1218,7 +1221,7 @@ public class UserAddressPersistenceImpl
 		UserAddressPersistenceImpl.class);
 
 	private static final Set<String> _compoundPKColumnNames = SetUtil.fromArray(
-		new String[] {"userId", "copmanyId"});
+		new String[] {"userId", "companyId"});
 
 	private FinderPath _createFinderPath(
 		String cacheName, String methodName, String[] params,

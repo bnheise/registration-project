@@ -23,7 +23,7 @@ import org.osgi.annotation.versioning.ProviderType;
 /**
  * The extended model interface for the UserAddress service. Represents a row in the &quot;RegistrationSearch_UserAddress&quot; database table, with each column mapped to a property of this class.
  *
- * @author Brian Wing Shun Chan
+ * @author Brian Heise
  * @see UserAddressModel
  * @generated
  */
@@ -57,12 +57,12 @@ public interface UserAddress extends PersistedModel, UserAddressModel {
 			}
 
 		};
-	public static final Accessor<UserAddress, Long> COPMANY_ID_ACCESSOR =
+	public static final Accessor<UserAddress, Long> COMPANY_ID_ACCESSOR =
 		new Accessor<UserAddress, Long>() {
 
 			@Override
 			public Long get(UserAddress userAddress) {
-				return userAddress.getCopmanyId();
+				return userAddress.getCompanyId();
 			}
 
 			@Override

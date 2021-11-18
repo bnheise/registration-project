@@ -19,7 +19,7 @@ import com.liferay.portal.kernel.service.ServiceWrapper;
 /**
  * Provides a wrapper for {@link UserAddressService}.
  *
- * @author Brian Wing Shun Chan
+ * @author Brian Heise
  * @see UserAddressService
  * @generated
  */
@@ -38,6 +38,18 @@ public class UserAddressServiceWrapper
 	@Override
 	public String getOSGiServiceIdentifier() {
 		return _userAddressService.getOSGiServiceIdentifier();
+	}
+
+	@Override
+	public java.util.List<com.amf.registration.search.model.UserAddress>
+		getUsersByZip(String zip, int start, int end) {
+
+		return _userAddressService.getUsersByZip(zip, start, end);
+	}
+
+	@Override
+	public String test1() {
+		return _userAddressService.test1();
 	}
 
 	@Override

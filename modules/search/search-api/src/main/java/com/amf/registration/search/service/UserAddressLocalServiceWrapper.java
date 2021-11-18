@@ -19,7 +19,7 @@ import com.liferay.portal.kernel.service.ServiceWrapper;
 /**
  * Provides a wrapper for {@link UserAddressLocalService}.
  *
- * @author Brian Wing Shun Chan
+ * @author Brian Heise
  * @see UserAddressLocalService
  * @generated
  */
@@ -298,6 +298,13 @@ public class UserAddressLocalServiceWrapper
 	@Override
 	public int getUserAddressesCount() {
 		return _userAddressLocalService.getUserAddressesCount();
+	}
+
+	@Override
+	public java.util.List<com.amf.registration.search.model.UserAddress>
+		getUsersByZip(String zip, int start, int end) {
+
+		return _userAddressLocalService.getUsersByZip(zip, start, end);
 	}
 
 	/**

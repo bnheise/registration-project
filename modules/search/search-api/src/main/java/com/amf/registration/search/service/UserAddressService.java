@@ -14,13 +14,18 @@
 
 package com.amf.registration.search.service;
 
+import com.amf.registration.search.model.UserAddress;
+
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.jsonwebservice.JSONWebService;
 import com.liferay.portal.kernel.security.access.control.AccessControlled;
 import com.liferay.portal.kernel.service.BaseService;
 import com.liferay.portal.kernel.transaction.Isolation;
+import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
+
+import java.util.List;
 
 import org.osgi.annotation.versioning.ProviderType;
 
@@ -29,7 +34,7 @@ import org.osgi.annotation.versioning.ProviderType;
  * service are expected to have security checks based on the propagated JAAS
  * credentials because this service can be accessed remotely.
  *
- * @author Brian Wing Shun Chan
+ * @author Brian Heise
  * @see UserAddressServiceUtil
  * @generated
  */
@@ -54,5 +59,10 @@ public interface UserAddressService extends BaseService {
 	 * @return the OSGi service identifier
 	 */
 	public String getOSGiServiceIdentifier();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<UserAddress> getUsersByZip(String zip, int start, int end);
+
+	public String test1();
 
 }

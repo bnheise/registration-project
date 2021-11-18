@@ -45,7 +45,7 @@ import org.osgi.annotation.versioning.ProviderType;
  * credentials because this service can only be accessed from within the same
  * VM.
  *
- * @author Brian Wing Shun Chan
+ * @author Brian Heise
  * @see UserAddressLocalServiceUtil
  * @generated
  */
@@ -248,6 +248,9 @@ public interface UserAddressLocalService
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getUserAddressesCount();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<UserAddress> getUsersByZip(String zip, int start, int end);
 
 	/**
 	 * Updates the user address in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.

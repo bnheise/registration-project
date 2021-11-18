@@ -14,8 +14,10 @@
 
 package com.amf.registration.search.service.impl;
 
-import com.amf.registration.search.service.base.UserAddressServiceBaseImpl;
+import java.util.List;
 
+import com.amf.registration.search.model.UserAddress;
+import com.amf.registration.search.service.base.UserAddressServiceBaseImpl;
 import com.liferay.portal.aop.AopService;
 
 import org.osgi.service.component.annotations.Component;
@@ -30,7 +32,7 @@ import org.osgi.service.component.annotations.Component;
  * This is a remote service. Methods of this service are expected to have security checks based on the propagated JAAS credentials because this service can be accessed remotely.
  * </p>
  *
- * @author Brian Wing Shun Chan
+ * @author Brian Heise
  * @see UserAddressServiceBaseImpl
  */
 @Component(
@@ -47,4 +49,13 @@ public class UserAddressServiceImpl extends UserAddressServiceBaseImpl {
 	 *
 	 * Never reference this class directly. Always use <code>com.amf.registration.search.service.UserAddressServiceUtil</code> to access the user address remote service.
 	 */
+
+	 @Override
+	 public List<UserAddress> getUsersByZip(String zip, int start, int end) {
+		 return userAddressLocalService.getUsersByZip(zip, start, end);
+	 }
+	 @Override
+	 public String test1() {
+		 return "TEST SUCCESS";
+	 }
 }
