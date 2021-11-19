@@ -40,6 +40,28 @@ public class UserAddressFinderImpl extends UserAddressFinderBaseImpl implements 
             closeSession(session);
         }
     }
+
+    public long getCountByZip(String zip) {
+        Session session = null;
+
+        try {
+            session = openSession();
+
+            String sql = customSQL.get(getClass(), "getCountByZip");
+            SQLQuery sqlQuery = session.createSQLQuery(sql);
+            sqlQuery.setCacheable(false);
+
+            sqlQuery.addEntity("UserAddress", UserAddressImpl.class);
+            QueryPos queryPos = QueryPos.getInstance(sqlQuery);
+            queryPos.add(zip);
+
+            return (long) sqlQuery.uniqueResult();
+        } catch (Exception e) {
+            return 0;
+        } finally {
+            closeSession(session);
+        }
+    }
     
     @Reference
     private CustomSQL customSQL;

@@ -9,4 +9,12 @@
             OFFSET ?;
         ]]>
     </sql>
+    <sql id="getCountByZip">
+        <![CDATA[
+            SELECT
+                COUNT(*)
+            FROM useraddress
+            WHERE zip = ?;
+        ]]>
+    </sql>
 </custom-sql>

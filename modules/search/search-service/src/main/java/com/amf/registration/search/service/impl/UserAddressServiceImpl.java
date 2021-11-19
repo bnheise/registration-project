@@ -54,8 +54,9 @@ public class UserAddressServiceImpl extends UserAddressServiceBaseImpl {
 	 public List<UserAddress> getUsersByZip(String zip, int start, int end) {
 		 return userAddressLocalService.getUsersByZip(zip, start, end);
 	 }
+	 
 	 @Override
-	 public String test1() {
-		 return "TEST SUCCESS";
+	 public long getUserCountByZip(String zip) {
+		 return userAddressLocalService.getUserCountByZip(zip);
 	 }
 }

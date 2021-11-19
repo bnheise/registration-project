@@ -83,9 +83,9 @@ public class UserAddressServiceSoap {
 		}
 	}
 
-	public static String test1() throws RemoteException {
+	public static long getUserCountByZip(String zip) throws RemoteException {
 		try {
-			String returnValue = UserAddressServiceUtil.test1();
+			long returnValue = UserAddressServiceUtil.getUserCountByZip(zip);
 
 			return returnValue;
 		}

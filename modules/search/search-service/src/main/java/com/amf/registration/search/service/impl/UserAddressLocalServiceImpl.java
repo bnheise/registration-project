@@ -52,4 +52,9 @@ public class UserAddressLocalServiceImpl
 	public List<UserAddress> getUsersByZip(String zip, int start, int end) {
 		return userAddressFinder.findByZip(zip, start, end);
 	}
+
+	@Override
+	public long getUserCountByZip(String zip) {
+		return userAddressFinder.getCountByZip(zip);
+	}
 }

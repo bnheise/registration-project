@@ -86,12 +86,15 @@ public class UserAddressServiceHttp {
 		}
 	}
 
-	public static String test1(HttpPrincipal httpPrincipal) {
+	public static long getUserCountByZip(
+		HttpPrincipal httpPrincipal, String zip) {
+
 		try {
 			MethodKey methodKey = new MethodKey(
-				UserAddressServiceUtil.class, "test1", _test1ParameterTypes1);
+				UserAddressServiceUtil.class, "getUserCountByZip",
+				_getUserCountByZipParameterTypes1);
 
-			MethodHandler methodHandler = new MethodHandler(methodKey);
+			MethodHandler methodHandler = new MethodHandler(methodKey, zip);
 
 			Object returnObj = null;
 
@@ -103,7 +106,7 @@ public class UserAddressServiceHttp {
 					exception);
 			}
 
-			return (String)returnObj;
+			return ((Long)returnObj).longValue();
 		}
 		catch (com.liferay.portal.kernel.exception.SystemException
 					systemException) {
@@ -119,6 +122,7 @@ public class UserAddressServiceHttp {
 
 	private static final Class<?>[] _getUsersByZipParameterTypes0 =
 		new Class[] {String.class, int.class, int.class};
-	private static final Class<?>[] _test1ParameterTypes1 = new Class[] {};
+	private static final Class<?>[] _getUserCountByZipParameterTypes1 =
+		new Class[] {String.class};
 
 }
