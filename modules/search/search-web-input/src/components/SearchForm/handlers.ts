@@ -6,6 +6,7 @@ export const handleClick = (zip: string, start: number, end: number) => () => {
     "/registrationsearch.useraddress/get-users-by-zip",
     { zip, start, end },
     (users: UserAddress[]) => {
+      Liferay.fire("zipReceived", zip as any);
       Liferay.fire("usersReceived", users);
     },
     (error) => {

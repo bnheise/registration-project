@@ -1,8 +1,8 @@
 
 import { EventFacade } from 'liferay/src/events/eventFacade';
-import React, { useEffect } from 'react';
-import ReactDOM from 'react-dom';
+import React, { useEffect, useState } from 'react';
 import { PortletProps } from '.';
+import UserSearchResults from './components/UserSearchResults/UserSearchResults';
 import { UserAddress } from './domain/UserAddress';
 
 interface Props {
@@ -10,31 +10,10 @@ interface Props {
 }
 
 const AppComponent = ({ portletElementId, portletNamespace, contextPath, configuration }: PortletProps) => {
-	useEffect(() => {
-		Liferay.on("usersReceived", ({ details: [users] }: EventFacade<UserAddress>) => {
-			console.log(users);
-		})
-	})
+
 	return (
 		<div >
-			<div>
-				<span className="tag">{Liferay.Language.get('portlet-namespace')}:</span>
-				<span className="value">{portletNamespace}</span>
-			</div>
-			<div>
-				<span className="tag">{Liferay.Language.get('context-path')}:</span>
-				<span className="value">{contextPath}</span>
-			</div>
-			<div>
-				<span className="tag">{Liferay.Language.get('portlet-element-id')}:</span>
-				<span className="value">{portletElementId}</span>
-			</div>
-
-			<div>
-				<span className="tag">{Liferay.Language.get('configuration')}:</span>
-				<span className="value pre">{JSON.stringify(configuration, null, 2)}</span>
-			</div>
-
+			<UserSearchResults />
 		</div >
 	)
 }
