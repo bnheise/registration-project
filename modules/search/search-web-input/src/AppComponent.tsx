@@ -1,34 +1,23 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { PortletProps } from '.';
+import React, {
+	FC,
+	ReactElement,
+} from "react";
 
-interface Props {
+import { PortletProps } from ".";
+import SearchForm from "./components/SearchForm/SearchForm";
 
-}
-
-const AppComponent = ({ portletElementId, portletNamespace, contextPath, configuration }: PortletProps) => {
+const AppComponent: FC<PortletProps> = ({
+	portletElementId,
+	portletNamespace,
+	contextPath,
+	configuration,
+}: PortletProps): ReactElement => {
 	return (
-		<div >
-			<div>
-				<span className="tag">{Liferay.Language.get('portlet-namespace')}:</span>
-				<span className="value">{portletNamespace}</span>
-			</div>
-			<div>
-				<span className="tag">{Liferay.Language.get('context-path')}:</span>
-				<span className="value">{contextPath}</span>
-			</div>
-			<div>
-				<span className="tag">{Liferay.Language.get('portlet-element-id')}:</span>
-				<span className="value">{portletElementId}</span>
-			</div>
+		<div>
+			<p>{Liferay.Language.get("instructions")}</p>
+			<SearchForm />
+		</div>
+	);
+};
 
-			<div>
-				<span className="tag">{Liferay.Language.get('configuration')}:</span>
-				<span className="value pre">{JSON.stringify(configuration, null, 2)}</span>
-			</div>
-
-		</div >
-	)
-}
-
-export default AppComponent
+export default AppComponent;
