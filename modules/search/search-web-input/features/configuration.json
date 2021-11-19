@@ -1,35 +1,11 @@
 {
-	"$schema": "https://raw.githubusercontent.com/liferay/liferay-js-toolkit/master/resources/schemas/configuration.schema.json",
-	"system": {
-		"category": "search-web-input",
-		"name": "search-web-input",
-		"fields": {
-			"fruit": {
-				"type": "string",
-				"name": "fruit",
-				"description": "fruit-help",
-				"default": "orange",
-				"options": {
-					"orange": "an-orange",
-					"pear": "a-pear",
-					"apple": "an-apple"
-				}
-			}
-		}
-	},
-	"portletInstance": {
-		"fields": {
-			"drink": {
-				"type": "string",
-				"name": "drink",
-				"description": "drink-help",
-				"default": "water",
-				"options": {
-					"water": "water",
-					"wine": "wine",
-					"beer": "beer"
-				}
-			}
-		}
-	}
+  "$schema": "https://raw.githubusercontent.com/liferay/liferay-js-toolkit/master/resources/schemas/configuration.schema.json",
+  "system": {
+    "category": "search-web-input",
+    "name": "search-web-input",
+    "fields": {}
+  },
+  "portletInstance": {
+    "fields": {}
+  }
 }
