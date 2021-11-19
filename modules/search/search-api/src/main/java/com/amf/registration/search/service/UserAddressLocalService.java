@@ -250,6 +250,9 @@ public interface UserAddressLocalService
 	public int getUserAddressesCount();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public long getUserCountByZip(String zip);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<UserAddress> getUsersByZip(String zip, int start, int end);
 
 	/**

@@ -61,8 +61,9 @@ public interface UserAddressService extends BaseService {
 	public String getOSGiServiceIdentifier();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<UserAddress> getUsersByZip(String zip, int start, int end);
+	public long getUserCountByZip(String zip);
 
-	public String test1();
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<UserAddress> getUsersByZip(String zip, int start, int end);
 
 }

@@ -41,15 +41,15 @@ public class UserAddressServiceWrapper
 	}
 
 	@Override
+	public long getUserCountByZip(String zip) {
+		return _userAddressService.getUserCountByZip(zip);
+	}
+
+	@Override
 	public java.util.List<com.amf.registration.search.model.UserAddress>
 		getUsersByZip(String zip, int start, int end) {
 
 		return _userAddressService.getUsersByZip(zip, start, end);
-	}
-
-	@Override
-	public String test1() {
-		return _userAddressService.test1();
 	}
 
 	@Override

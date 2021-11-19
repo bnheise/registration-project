@@ -47,14 +47,14 @@ public class UserAddressServiceUtil {
 		return getService().getOSGiServiceIdentifier();
 	}
 
+	public static long getUserCountByZip(String zip) {
+		return getService().getUserCountByZip(zip);
+	}
+
 	public static List<UserAddress> getUsersByZip(
 		String zip, int start, int end) {
 
 		return getService().getUsersByZip(zip, start, end);
-	}
-
-	public static String test1() {
-		return getService().test1();
 	}
 
 	public static UserAddressService getService() {

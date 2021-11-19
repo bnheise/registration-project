@@ -279,6 +279,10 @@ public class UserAddressLocalServiceUtil {
 		return getService().getUserAddressesCount();
 	}
 
+	public static long getUserCountByZip(String zip) {
+		return getService().getUserCountByZip(zip);
+	}
+
 	public static List<UserAddress> getUsersByZip(
 		String zip, int start, int end) {
 

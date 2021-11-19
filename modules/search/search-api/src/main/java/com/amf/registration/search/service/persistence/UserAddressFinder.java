@@ -26,4 +26,6 @@ public interface UserAddressFinder {
 	public java.util.List<com.amf.registration.search.model.UserAddress>
 		findByZip(String zip, int start, int end);
 
+	public long getCountByZip(String zip);
+
 }
