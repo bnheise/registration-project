@@ -1,33 +1,36 @@
 package com.amf.service.signup.exception;
 
-import java.util.List;
-
 import com.liferay.portal.kernel.exception.PortalException;
 
+import java.util.List;
+
 public class SignupServiceValidationException extends PortalException {
-    public SignupServiceValidationException() {
-    }
 
-    public SignupServiceValidationException(String msg) {
-        super(msg);
-    }
+	public SignupServiceValidationException() {
+	}
 
-    public SignupServiceValidationException(String msg, Throwable throwable) {
-        super(msg, throwable);
-    }
+	public SignupServiceValidationException(List<String> errors) {
+		super("{" + String.join(",", errors) + "}");
 
-    public SignupServiceValidationException(Throwable throwable) {
-        super(throwable);
-    }
+		this.errors = errors;
+	}
 
-    public SignupServiceValidationException(List<String> errors) {
-        super("{" + String.join(",", errors) + "}");
-        this.errors = errors;
-    }
+	public SignupServiceValidationException(String msg) {
+		super(msg);
+	}
 
-    public List<String> getErrors() {
-        return errors;
-    }
+	public SignupServiceValidationException(String msg, Throwable throwable) {
+		super(msg, throwable);
+	}
 
-    private List<String> errors;
+	public SignupServiceValidationException(Throwable throwable) {
+		super(throwable);
+	}
+
+	public List<String> getErrors() {
+		return errors;
+	}
+
+	private List<String> errors;
+
 }
