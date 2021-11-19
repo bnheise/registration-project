@@ -1,12 +1,20 @@
-import React from 'react';
+
+import { EventFacade } from 'liferay/src/events/eventFacade';
+import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { PortletProps } from '.';
+import { UserAddress } from './domain/UserAddress';
 
 interface Props {
 
 }
 
 const AppComponent = ({ portletElementId, portletNamespace, contextPath, configuration }: PortletProps) => {
+	useEffect(() => {
+		Liferay.on("usersReceived", ({ details: [users] }: EventFacade<UserAddress>) => {
+			console.log(users);
+		})
+	})
 	return (
 		<div >
 			<div>
