@@ -16,6 +16,8 @@ package com.amf.registration.search.service;
 
 import com.amf.registration.search.model.UserAddress;
 
+import com.liferay.portal.kernel.exception.PortalException;
+
 import java.util.List;
 
 /**
@@ -47,12 +49,13 @@ public class UserAddressServiceUtil {
 		return getService().getOSGiServiceIdentifier();
 	}
 
-	public static long getUserCountByZip(String zip) {
+	public static long getUserCountByZip(String zip) throws PortalException {
 		return getService().getUserCountByZip(zip);
 	}
 
 	public static List<UserAddress> getUsersByZip(
-		String zip, int start, int end) {
+			String zip, int start, int end)
+		throws PortalException {
 
 		return getService().getUsersByZip(zip, start, end);
 	}

@@ -250,10 +250,11 @@ public interface UserAddressLocalService
 	public int getUserAddressesCount();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public long getUserCountByZip(String zip);
+	public long getUserCountByZip(String zip) throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<UserAddress> getUsersByZip(String zip, int start, int end);
+	public List<UserAddress> getUsersByZip(String zip, int start, int end)
+		throws PortalException;
 
 	/**
 	 * Updates the user address in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.

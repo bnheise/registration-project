@@ -61,9 +61,10 @@ public interface UserAddressService extends BaseService {
 	public String getOSGiServiceIdentifier();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public long getUserCountByZip(String zip);
+	public long getUserCountByZip(String zip) throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<UserAddress> getUsersByZip(String zip, int start, int end);
+	public List<UserAddress> getUsersByZip(String zip, int start, int end)
+		throws PortalException;
 
 }

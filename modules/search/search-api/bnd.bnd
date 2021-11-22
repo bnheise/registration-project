@@ -5,6 +5,7 @@ Export-Package:\
 	com.amf.registration.search.exception,\
 	com.amf.registration.search.model,\
 	com.amf.registration.search.service,\
-	com.amf.registration.search.service.persistence
+	com.amf.registration.search.service.persistence,\
+	com.amf.registration.search.validator
 -check: EXPORTS
 -includeresource: META-INF/service.xml=../search-service/service.xml

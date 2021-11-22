@@ -279,12 +279,13 @@ public class UserAddressLocalServiceUtil {
 		return getService().getUserAddressesCount();
 	}
 
-	public static long getUserCountByZip(String zip) {
+	public static long getUserCountByZip(String zip) throws PortalException {
 		return getService().getUserCountByZip(zip);
 	}
 
 	public static List<UserAddress> getUsersByZip(
-		String zip, int start, int end) {
+			String zip, int start, int end)
+		throws PortalException {
 
 		return getService().getUsersByZip(zip, start, end);
 	}

@@ -41,13 +41,16 @@ public class UserAddressServiceWrapper
 	}
 
 	@Override
-	public long getUserCountByZip(String zip) {
+	public long getUserCountByZip(String zip)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
 		return _userAddressService.getUserCountByZip(zip);
 	}
 
 	@Override
 	public java.util.List<com.amf.registration.search.model.UserAddress>
-		getUsersByZip(String zip, int start, int end) {
+			getUsersByZip(String zip, int start, int end)
+		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _userAddressService.getUsersByZip(zip, start, end);
 	}
