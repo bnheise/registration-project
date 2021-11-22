@@ -53,8 +53,9 @@ import com.liferay.portal.kernel.util.MethodKey;
 public class UserAddressServiceHttp {
 
 	public static java.util.List<com.amf.registration.search.model.UserAddress>
-		getUsersByZip(
-			HttpPrincipal httpPrincipal, String zip, int start, int end) {
+			getUsersByZip(
+				HttpPrincipal httpPrincipal, String zip, int start, int end)
+		throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
 			MethodKey methodKey = new MethodKey(
@@ -70,6 +71,13 @@ public class UserAddressServiceHttp {
 				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
 			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
 				throw new com.liferay.portal.kernel.exception.SystemException(
 					exception);
 			}
@@ -87,7 +95,8 @@ public class UserAddressServiceHttp {
 	}
 
 	public static long getUserCountByZip(
-		HttpPrincipal httpPrincipal, String zip) {
+			HttpPrincipal httpPrincipal, String zip)
+		throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
 			MethodKey methodKey = new MethodKey(
@@ -102,6 +111,13 @@ public class UserAddressServiceHttp {
 				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
 			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
 				throw new com.liferay.portal.kernel.exception.SystemException(
 					exception);
 			}

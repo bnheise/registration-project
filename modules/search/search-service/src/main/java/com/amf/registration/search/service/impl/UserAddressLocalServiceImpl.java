@@ -18,9 +18,12 @@ import java.util.List;
 
 import com.amf.registration.search.model.UserAddress;
 import com.amf.registration.search.service.base.UserAddressLocalServiceBaseImpl;
+import com.amf.registration.search.validator.ZipValidator;
 import com.liferay.portal.aop.AopService;
+import com.liferay.portal.kernel.exception.PortalException;
 
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * The implementation of the user address local service.
@@ -49,12 +52,17 @@ public class UserAddressLocalServiceImpl
 	 */
 
 	@Override
-	public List<UserAddress> getUsersByZip(String zip, int start, int end) {
+	public List<UserAddress> getUsersByZip(String zip, int start, int end) throws PortalException {
+		zipValidator.validate(zip);
 		return userAddressFinder.findByZip(zip, start, end);
 	}
 
 	@Override
-	public long getUserCountByZip(String zip) {
+	public long getUserCountByZip(String zip) throws PortalException {
+		zipValidator.validate(zip);
 		return userAddressFinder.getCountByZip(zip);
 	}
+
+	@Reference
+	ZipValidator zipValidator;
 }

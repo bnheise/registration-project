@@ -1,5 +1,6 @@
 package com.amf.registration.search.service.persistence.impl;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,13 +52,12 @@ public class UserAddressFinderImpl extends UserAddressFinderBaseImpl implements 
             SQLQuery sqlQuery = session.createSQLQuery(sql);
             sqlQuery.setCacheable(false);
 
-            sqlQuery.addEntity("UserAddress", UserAddressImpl.class);
             QueryPos queryPos = QueryPos.getInstance(sqlQuery);
             queryPos.add(zip);
-
-            return (long) sqlQuery.uniqueResult();
+            BigInteger count = (BigInteger) sqlQuery.uniqueResult();
+            return count.longValue();
         } catch (Exception e) {
-            return 0;
+            return -1;
         } finally {
             closeSession(session);
         }
@@ -65,4 +65,5 @@ public class UserAddressFinderImpl extends UserAddressFinderBaseImpl implements 
     
     @Reference
     private CustomSQL customSQL;
+
 }

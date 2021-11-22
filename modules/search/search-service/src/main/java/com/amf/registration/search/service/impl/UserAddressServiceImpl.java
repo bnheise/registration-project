@@ -19,6 +19,7 @@ import java.util.List;
 import com.amf.registration.search.model.UserAddress;
 import com.amf.registration.search.service.base.UserAddressServiceBaseImpl;
 import com.liferay.portal.aop.AopService;
+import com.liferay.portal.kernel.exception.PortalException;
 
 import org.osgi.service.component.annotations.Component;
 
@@ -51,12 +52,12 @@ public class UserAddressServiceImpl extends UserAddressServiceBaseImpl {
 	 */
 
 	 @Override
-	 public List<UserAddress> getUsersByZip(String zip, int start, int end) {
+	 public List<UserAddress> getUsersByZip(String zip, int start, int end) throws PortalException {
 		 return userAddressLocalService.getUsersByZip(zip, start, end);
 	 }
 	 
 	 @Override
-	 public long getUserCountByZip(String zip) {
+	 public long getUserCountByZip(String zip) throws PortalException {
 		 return userAddressLocalService.getUserCountByZip(zip);
 	 }
 }
