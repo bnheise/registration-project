@@ -1,20 +1,36 @@
-import { EventFacade } from "liferay/src/events/eventFacade";
+import { EventFacade } from "liferay-types/src/events/eventFacade";
 import { Dispatch, SetStateAction } from "react";
 import { UserAddress } from "../../domain/UserAddress";
 
-export const handleUsersReceived =
-  (setUsers: Dispatch<SetStateAction<UserAddress[]>>) => () => {
+interface SearchResults {
+  users: UserAddress[];
+  count: number;
+  zip: string;
+}
+
+export const handleSearchResultReceived =
+  (
+    setUsers: Dispatch<SetStateAction<UserAddress[]>>,
+    setZip: Dispatch<SetStateAction<string>>,
+    setCount: Dispatch<SetStateAction<number>>
+  ) =>
+  () => {
     Liferay.on(
-      "usersReceived",
-      ({ details: [users] }: EventFacade<UserAddress[]>) => {
-        setUsers(users);
+      "searchResultsReceived",
+      ({ users, zip, count }: EventFacade<SearchResults>) => {
+        setUsers(users as UserAddress[]);
+        setCount(count as number);
+        setZip(zip as string);
       }
     );
   };
 
-export const handleZipReceived =
-  (setZip: Dispatch<SetStateAction<string>>) => () => {
-    Liferay.on("zipReceived", ({ details: [zipCode] }: EventFacade<string>) => {
-      setZip(zipCode);
-    });
-  };
+export const handlePageChangeRequested = (
+  delta: number,
+  newActivePage: number,
+  zip: string
+) => {
+  const start = delta * (newActivePage - 1);
+  const end = start + delta;
+  Liferay.fire("pageChangeRequested", { start, end, zip });
+};
