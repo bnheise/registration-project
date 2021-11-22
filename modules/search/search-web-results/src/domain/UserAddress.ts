@@ -4,4 +4,5 @@ export interface UserAddress {
   name: string;
   userId: string;
   zip: string;
+  screenName: string;
 }

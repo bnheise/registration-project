@@ -1,5 +1,5 @@
-import React, { FC } from "react";
-import { Liferay } from "liferay/src/globalObject/Liferay";
+import React from "react";
+import { Liferay } from "liferay-types/src/globalObject/Liferay";
 import ReactDOM from "react-dom";
 
 import AppComponent from "./AppComponent";
