@@ -1,7 +1,5 @@
-import React, { FC } from "react";
-import { Liferay } from "liferay-types/src/globalObject/Liferay";
+import React from "react";
 import ReactDOM from "react-dom";
-
 import AppComponent from "./AppComponent";
 
 /**
@@ -19,10 +17,6 @@ export interface PortletProps {
   contextPath: string;
   portletElementId: string;
   configuration: object;
-}
-
-declare global {
-  const Liferay: Liferay;
 }
 
 const main = ({

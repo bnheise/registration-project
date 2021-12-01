@@ -273,6 +273,13 @@ public class MovieInterestLocalServiceWrapper
 		return _movieInterestLocalService.getMovieInterest(movieInterestId);
 	}
 
+	@Override
+	public com.amf.registration.profile.model.MovieInterest
+		getMovieInterestByUserId(long userId) {
+
+		return _movieInterestLocalService.getMovieInterestByUserId(userId);
+	}
+
 	/**
 	 * Returns the movie interest matching the UUID and group.
 	 *

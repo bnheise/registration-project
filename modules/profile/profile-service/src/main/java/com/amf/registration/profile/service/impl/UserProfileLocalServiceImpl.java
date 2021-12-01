@@ -14,11 +14,23 @@
 
 package com.amf.registration.profile.service.impl;
 
-import com.amf.registration.profile.service.base.UserProfileLocalServiceBaseImpl;
+import java.time.LocalDate;
+import java.time.ZoneId;
 
+import com.amf.registration.profile.model.GeneralProfile;
+import com.amf.registration.profile.model.MovieInterest;
+import com.amf.registration.profile.model.UserProfile;
+import com.amf.registration.profile.service.GeneralProfileLocalService;
+import com.amf.registration.profile.service.MovieInterestLocalService;
+import com.amf.registration.profile.service.base.UserProfileLocalServiceBaseImpl;
 import com.liferay.portal.aop.AopService;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * The implementation of the user profile local service.
@@ -45,4 +57,34 @@ public class UserProfileLocalServiceImpl
 	 *
 	 * Never reference this class directly. Use <code>com.amf.registration.profile.service.UserProfileLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.amf.registration.profile.service.UserProfileLocalServiceUtil</code>.
 	 */
+
+	@Override
+	public UserProfile getUserProfile(String screenname, ServiceContext serviceContext) throws PortalException {
+		User user = UserLocalServiceUtil.getUserByScreenName(serviceContext.getCompanyId(), screenname);
+		UserProfile userProfile = userProfilePersistence.create(user.getUserId());
+		userProfile.setFirstName(user.getFirstName());
+		userProfile.setLastName(user.getLastName());
+		userProfile.setMale(user.getMale());
+		LocalDate birthdate = user.getBirthday().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		userProfile.setBirthYear(birthdate.getYear());
+		userProfile.setBirthMonth(birthdate.getMonthValue());
+		userProfile.setBirthDay(birthdate.getDayOfWeek().getValue());
+
+		GeneralProfile generalProfile = generalProfileLocalService.getGeneralProfileByUserId(user.getUserId());
+		userProfile.setAboutMe(generalProfile.getAboutMe());
+		userProfile.setFavoriteQuotes(generalProfile.getFavoriteQuotes());
+
+		MovieInterest movieInterest = movieInterestLocalService.getMovieInterestByUserId(user.getUserId());
+		userProfile.setFavoriteActor(movieInterest.getFavoriteActor());
+		userProfile.setFavoriteGenre(movieInterest.getFavoriteGenre());
+		userProfile.setFavoriteMovie(movieInterest.getFavoriteMovie());
+		userProfile.setLeastFavMovie(movieInterest.getLeastFavMovie());
+		return userProfile;
+	}
+
+	@Reference
+	GeneralProfileLocalService generalProfileLocalService;
+
+	@Reference
+	MovieInterestLocalService movieInterestLocalService;
 }

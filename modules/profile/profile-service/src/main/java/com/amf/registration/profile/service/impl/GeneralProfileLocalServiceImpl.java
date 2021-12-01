@@ -14,8 +14,8 @@
 
 package com.amf.registration.profile.service.impl;
 
+import com.amf.registration.profile.model.GeneralProfile;
 import com.amf.registration.profile.service.base.GeneralProfileLocalServiceBaseImpl;
-
 import com.liferay.portal.aop.AopService;
 
 import org.osgi.service.component.annotations.Component;
@@ -45,4 +45,10 @@ public class GeneralProfileLocalServiceImpl
 	 *
 	 * Never reference this class directly. Use <code>com.amf.registration.profile.service.GeneralProfileLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.amf.registration.profile.service.GeneralProfileLocalServiceUtil</code>.
 	 */
+
+	@Override
+	public GeneralProfile getGeneralProfileByUserId(long userId) {
+		GeneralProfile generalProfile = generalProfilePersistence.fetchByUserId(userId);
+		return generalProfile != null ? generalProfile : generalProfilePersistence.create(-1);
+	}
 }

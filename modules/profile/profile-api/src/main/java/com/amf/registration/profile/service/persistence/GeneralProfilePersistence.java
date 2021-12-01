@@ -391,6 +391,50 @@ public interface GeneralProfilePersistence
 	public int countByUuid_C(String uuid, long companyId);
 
 	/**
+	 * Returns the general profile where userId = &#63; or throws a <code>NoSuchGeneralProfileException</code> if it could not be found.
+	 *
+	 * @param userId the user ID
+	 * @return the matching general profile
+	 * @throws NoSuchGeneralProfileException if a matching general profile could not be found
+	 */
+	public GeneralProfile findByUserId(long userId)
+		throws NoSuchGeneralProfileException;
+
+	/**
+	 * Returns the general profile where userId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param userId the user ID
+	 * @return the matching general profile, or <code>null</code> if a matching general profile could not be found
+	 */
+	public GeneralProfile fetchByUserId(long userId);
+
+	/**
+	 * Returns the general profile where userId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param userId the user ID
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching general profile, or <code>null</code> if a matching general profile could not be found
+	 */
+	public GeneralProfile fetchByUserId(long userId, boolean useFinderCache);
+
+	/**
+	 * Removes the general profile where userId = &#63; from the database.
+	 *
+	 * @param userId the user ID
+	 * @return the general profile that was removed
+	 */
+	public GeneralProfile removeByUserId(long userId)
+		throws NoSuchGeneralProfileException;
+
+	/**
+	 * Returns the number of general profiles where userId = &#63;.
+	 *
+	 * @param userId the user ID
+	 * @return the number of matching general profiles
+	 */
+	public int countByUserId(long userId);
+
+	/**
 	 * Caches the general profile in the entity cache if it is enabled.
 	 *
 	 * @param generalProfile the general profile

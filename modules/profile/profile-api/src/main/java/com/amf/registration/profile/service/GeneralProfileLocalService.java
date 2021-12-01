@@ -225,6 +225,9 @@ public interface GeneralProfileLocalService
 	public GeneralProfile getGeneralProfile(long generalProfileId)
 		throws PortalException;
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public GeneralProfile getGeneralProfileByUserId(long userId);
+
 	/**
 	 * Returns the general profile matching the UUID and group.
 	 *

@@ -14,12 +14,11 @@
 
 package com.amf.registration.profile.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.amf.registration.profile.model.UserProfile;
 import com.amf.registration.profile.service.base.UserProfileServiceBaseImpl;
 import com.liferay.portal.aop.AopService;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.service.ServiceContext;
 
 import org.osgi.service.component.annotations.Component;
 
@@ -52,7 +51,8 @@ public class UserProfileServiceImpl extends UserProfileServiceBaseImpl {
 	 */
 
 	 @Override
-	 public List<UserProfile> getUserProfile(String screenname) {
-		 return new ArrayList<UserProfile>();
+	 public UserProfile getUserProfile(String screenname, ServiceContext serviceContext) throws PortalException {
+		 return userProfileLocalService.getUserProfile(screenname, serviceContext);
 	 }
+
 }

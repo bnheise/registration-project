@@ -546,6 +546,66 @@ public class MovieInterestUtil {
 	}
 
 	/**
+	 * Returns the movie interest where userId = &#63; or throws a <code>NoSuchMovieInterestException</code> if it could not be found.
+	 *
+	 * @param userId the user ID
+	 * @return the matching movie interest
+	 * @throws NoSuchMovieInterestException if a matching movie interest could not be found
+	 */
+	public static MovieInterest findByUserId(long userId)
+		throws com.amf.registration.profile.exception.
+			NoSuchMovieInterestException {
+
+		return getPersistence().findByUserId(userId);
+	}
+
+	/**
+	 * Returns the movie interest where userId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param userId the user ID
+	 * @return the matching movie interest, or <code>null</code> if a matching movie interest could not be found
+	 */
+	public static MovieInterest fetchByUserId(long userId) {
+		return getPersistence().fetchByUserId(userId);
+	}
+
+	/**
+	 * Returns the movie interest where userId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param userId the user ID
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching movie interest, or <code>null</code> if a matching movie interest could not be found
+	 */
+	public static MovieInterest fetchByUserId(
+		long userId, boolean useFinderCache) {
+
+		return getPersistence().fetchByUserId(userId, useFinderCache);
+	}
+
+	/**
+	 * Removes the movie interest where userId = &#63; from the database.
+	 *
+	 * @param userId the user ID
+	 * @return the movie interest that was removed
+	 */
+	public static MovieInterest removeByUserId(long userId)
+		throws com.amf.registration.profile.exception.
+			NoSuchMovieInterestException {
+
+		return getPersistence().removeByUserId(userId);
+	}
+
+	/**
+	 * Returns the number of movie interests where userId = &#63;.
+	 *
+	 * @param userId the user ID
+	 * @return the number of matching movie interests
+	 */
+	public static int countByUserId(long userId) {
+		return getPersistence().countByUserId(userId);
+	}
+
+	/**
 	 * Caches the movie interest in the entity cache if it is enabled.
 	 *
 	 * @param movieInterest the movie interest

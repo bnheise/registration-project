@@ -64,16 +64,19 @@ import java.rmi.RemoteException;
 @Deprecated
 public class UserProfileServiceSoap {
 
-	public static com.amf.registration.profile.model.UserProfileSoap[]
-			getUserProfile(String screenname)
+	public static com.amf.registration.profile.model.UserProfileSoap
+			getUserProfile(
+				String screenname,
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws RemoteException {
 
 		try {
-			java.util.List<com.amf.registration.profile.model.UserProfile>
-				returnValue = UserProfileServiceUtil.getUserProfile(screenname);
+			com.amf.registration.profile.model.UserProfile returnValue =
+				UserProfileServiceUtil.getUserProfile(
+					screenname, serviceContext);
 
 			return com.amf.registration.profile.model.UserProfileSoap.
-				toSoapModels(returnValue);
+				toSoapModel(returnValue);
 		}
 		catch (Exception exception) {
 			_log.error(exception, exception);

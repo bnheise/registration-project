@@ -4,7 +4,7 @@
 <service-builder dependency-injector="ds" package-path="com.amf.registration.profile">
 	<author>Brian Heise</author>
 	<namespace>UserProfile</namespace>
-	<entity local-service="true" name="GeneralProfile" remote-service="true" uuid="true">
+	<entity local-service="true" name="GeneralProfile" remote-service="false" uuid="true">
 
 		<!-- PK fields -->
 		<column name="generalProfileId" primary="true" type="long" />
@@ -32,9 +32,13 @@
 			<order-column name="userName" />
 		</order>
 
+		<finder name="UserId" return-type="GeneralProfile">
+			<finder-column name="userId"/>
+		</finder>
+
 	</entity>
 
-	<entity local-service="true" name="MovieInterest" remote-service="true" uuid="true">
+	<entity local-service="true" name="MovieInterest" remote-service="false" uuid="true">
 
 		<!-- PK fields -->
 
@@ -64,6 +68,10 @@
 		<order by="asc">
 			<order-column name="userName" />
 		</order>
+
+		<finder name="UserId" return-type="MovieInterest">
+			<finder-column name="userId"/>
+		</finder>
 
 	</entity>
 

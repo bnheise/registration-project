@@ -228,6 +228,9 @@ public interface MovieInterestLocalService
 	public MovieInterest getMovieInterest(long movieInterestId)
 		throws PortalException;
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public MovieInterest getMovieInterestByUserId(long userId);
+
 	/**
 	 * Returns the movie interest matching the UUID and group.
 	 *

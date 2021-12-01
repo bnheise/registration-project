@@ -14,8 +14,8 @@
 
 package com.amf.registration.profile.service.impl;
 
+import com.amf.registration.profile.model.MovieInterest;
 import com.amf.registration.profile.service.base.MovieInterestLocalServiceBaseImpl;
-
 import com.liferay.portal.aop.AopService;
 
 import org.osgi.service.component.annotations.Component;
@@ -45,4 +45,10 @@ public class MovieInterestLocalServiceImpl
 	 *
 	 * Never reference this class directly. Use <code>com.amf.registration.profile.service.MovieInterestLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.amf.registration.profile.service.MovieInterestLocalServiceUtil</code>.
 	 */
+
+	@Override
+	public MovieInterest getMovieInterestByUserId(long userId) {
+		MovieInterest movieInterest = movieInterestPersistence.fetchByUserId(userId);
+		return movieInterest != null ? movieInterest : movieInterestPersistence.create(-1);
+	}
 }

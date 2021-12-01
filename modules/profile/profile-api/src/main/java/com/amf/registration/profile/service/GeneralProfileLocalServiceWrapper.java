@@ -270,6 +270,13 @@ public class GeneralProfileLocalServiceWrapper
 		return _generalProfileLocalService.getGeneralProfile(generalProfileId);
 	}
 
+	@Override
+	public com.amf.registration.profile.model.GeneralProfile
+		getGeneralProfileByUserId(long userId) {
+
+		return _generalProfileLocalService.getGeneralProfileByUserId(userId);
+	}
+
 	/**
 	 * Returns the general profile matching the UUID and group.
 	 *

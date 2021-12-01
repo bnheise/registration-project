@@ -391,6 +391,50 @@ public interface MovieInterestPersistence
 	public int countByUuid_C(String uuid, long companyId);
 
 	/**
+	 * Returns the movie interest where userId = &#63; or throws a <code>NoSuchMovieInterestException</code> if it could not be found.
+	 *
+	 * @param userId the user ID
+	 * @return the matching movie interest
+	 * @throws NoSuchMovieInterestException if a matching movie interest could not be found
+	 */
+	public MovieInterest findByUserId(long userId)
+		throws NoSuchMovieInterestException;
+
+	/**
+	 * Returns the movie interest where userId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param userId the user ID
+	 * @return the matching movie interest, or <code>null</code> if a matching movie interest could not be found
+	 */
+	public MovieInterest fetchByUserId(long userId);
+
+	/**
+	 * Returns the movie interest where userId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param userId the user ID
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching movie interest, or <code>null</code> if a matching movie interest could not be found
+	 */
+	public MovieInterest fetchByUserId(long userId, boolean useFinderCache);
+
+	/**
+	 * Removes the movie interest where userId = &#63; from the database.
+	 *
+	 * @param userId the user ID
+	 * @return the movie interest that was removed
+	 */
+	public MovieInterest removeByUserId(long userId)
+		throws NoSuchMovieInterestException;
+
+	/**
+	 * Returns the number of movie interests where userId = &#63;.
+	 *
+	 * @param userId the user ID
+	 * @return the number of matching movie interests
+	 */
+	public int countByUserId(long userId);
+
+	/**
 	 * Caches the movie interest in the entity cache if it is enabled.
 	 *
 	 * @param movieInterest the movie interest

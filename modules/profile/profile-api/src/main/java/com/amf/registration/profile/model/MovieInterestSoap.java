@@ -21,7 +21,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * This class is used by SOAP remote services, specifically {@link com.amf.registration.profile.service.http.MovieInterestServiceSoap}.
+ * This class is used by SOAP remote services.
  *
  * @author Brian Heise
  * @deprecated As of Athanasius (7.3.x), with no direct replacement

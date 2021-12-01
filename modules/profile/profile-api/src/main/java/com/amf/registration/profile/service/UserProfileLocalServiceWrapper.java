@@ -268,6 +268,16 @@ public class UserProfileLocalServiceWrapper
 		return _userProfileLocalService.getUserProfile(userId);
 	}
 
+	@Override
+	public com.amf.registration.profile.model.UserProfile getUserProfile(
+			String screenname,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _userProfileLocalService.getUserProfile(
+			screenname, serviceContext);
+	}
+
 	/**
 	 * Returns a range of all the user profiles.
 	 *

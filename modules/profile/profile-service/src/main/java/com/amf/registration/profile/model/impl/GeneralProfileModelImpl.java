@@ -16,7 +16,6 @@ package com.amf.registration.profile.model.impl;
 
 import com.amf.registration.profile.model.GeneralProfile;
 import com.amf.registration.profile.model.GeneralProfileModel;
-import com.amf.registration.profile.model.GeneralProfileSoap;
 
 import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.expando.kernel.util.ExpandoBridgeFactoryUtil;
@@ -24,7 +23,6 @@ import com.liferay.exportimport.kernel.lar.StagedModelType;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.json.JSON;
 import com.liferay.portal.kernel.model.CacheModel;
 import com.liferay.portal.kernel.model.ModelWrapper;
 import com.liferay.portal.kernel.model.User;
@@ -42,12 +40,10 @@ import java.lang.reflect.InvocationHandler;
 
 import java.sql.Types;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.BiConsumer;
@@ -64,7 +60,6 @@ import java.util.function.Function;
  * @see GeneralProfileImpl
  * @generated
  */
-@JSON(strict = true)
 public class GeneralProfileModelImpl
 	extends BaseModelImpl<GeneralProfile> implements GeneralProfileModel {
 
@@ -133,14 +128,20 @@ public class GeneralProfileModelImpl
 	 * @deprecated As of Athanasius (7.3.x), replaced by {@link #getColumnBitmask(String)}
 	 */
 	@Deprecated
-	public static final long UUID_COLUMN_BITMASK = 4L;
+	public static final long USERID_COLUMN_BITMASK = 4L;
+
+	/**
+	 * @deprecated As of Athanasius (7.3.x), replaced by {@link #getColumnBitmask(String)}
+	 */
+	@Deprecated
+	public static final long UUID_COLUMN_BITMASK = 8L;
 
 	/**
 	 * @deprecated As of Athanasius (7.3.x), replaced by {@link
 	 *		#getColumnBitmask(String)}
 	 */
 	@Deprecated
-	public static final long USERNAME_COLUMN_BITMASK = 8L;
+	public static final long USERNAME_COLUMN_BITMASK = 16L;
 
 	/**
 	 * @deprecated As of Athanasius (7.3.x), with no direct replacement
@@ -154,60 +155,6 @@ public class GeneralProfileModelImpl
 	 */
 	@Deprecated
 	public static void setFinderCacheEnabled(boolean finderCacheEnabled) {
-	}
-
-	/**
-	 * Converts the soap model instance into a normal model instance.
-	 *
-	 * @param soapModel the soap model instance to convert
-	 * @return the normal model instance
-	 * @deprecated As of Athanasius (7.3.x), with no direct replacement
-	 */
-	@Deprecated
-	public static GeneralProfile toModel(GeneralProfileSoap soapModel) {
-		if (soapModel == null) {
-			return null;
-		}
-
-		GeneralProfile model = new GeneralProfileImpl();
-
-		model.setUuid(soapModel.getUuid());
-		model.setGeneralProfileId(soapModel.getGeneralProfileId());
-		model.setGroupId(soapModel.getGroupId());
-		model.setCompanyId(soapModel.getCompanyId());
-		model.setUserId(soapModel.getUserId());
-		model.setUserName(soapModel.getUserName());
-		model.setCreateDate(soapModel.getCreateDate());
-		model.setModifiedDate(soapModel.getModifiedDate());
-		model.setAboutMe(soapModel.getAboutMe());
-		model.setFavoriteQuotes(soapModel.getFavoriteQuotes());
-
-		return model;
-	}
-
-	/**
-	 * Converts the soap model instances into normal model instances.
-	 *
-	 * @param soapModels the soap model instances to convert
-	 * @return the normal model instances
-	 * @deprecated As of Athanasius (7.3.x), with no direct replacement
-	 */
-	@Deprecated
-	public static List<GeneralProfile> toModels(
-		GeneralProfileSoap[] soapModels) {
-
-		if (soapModels == null) {
-			return null;
-		}
-
-		List<GeneralProfile> models = new ArrayList<GeneralProfile>(
-			soapModels.length);
-
-		for (GeneralProfileSoap soapModel : soapModels) {
-			models.add(toModel(soapModel));
-		}
-
-		return models;
 	}
 
 	public GeneralProfileModelImpl() {
@@ -387,7 +334,6 @@ public class GeneralProfileModelImpl
 			(Map)attributeSetterBiConsumers);
 	}
 
-	@JSON
 	@Override
 	public String getUuid() {
 		if (_uuid == null) {
@@ -416,7 +362,6 @@ public class GeneralProfileModelImpl
 		return getColumnOriginalValue("uuid_");
 	}
 
-	@JSON
 	@Override
 	public long getGeneralProfileId() {
 		return _generalProfileId;
@@ -431,7 +376,6 @@ public class GeneralProfileModelImpl
 		_generalProfileId = generalProfileId;
 	}
 
-	@JSON
 	@Override
 	public long getGroupId() {
 		return _groupId;
@@ -455,7 +399,6 @@ public class GeneralProfileModelImpl
 		return GetterUtil.getLong(this.<Long>getColumnOriginalValue("groupId"));
 	}
 
-	@JSON
 	@Override
 	public long getCompanyId() {
 		return _companyId;
@@ -480,7 +423,6 @@ public class GeneralProfileModelImpl
 			this.<Long>getColumnOriginalValue("companyId"));
 	}
 
-	@JSON
 	@Override
 	public long getUserId() {
 		return _userId;
@@ -511,7 +453,15 @@ public class GeneralProfileModelImpl
 	public void setUserUuid(String userUuid) {
 	}
 
-	@JSON
+	/**
+	 * @deprecated As of Athanasius (7.3.x), replaced by {@link
+	 *             #getColumnOriginalValue(String)}
+	 */
+	@Deprecated
+	public long getOriginalUserId() {
+		return GetterUtil.getLong(this.<Long>getColumnOriginalValue("userId"));
+	}
+
 	@Override
 	public String getUserName() {
 		if (_userName == null) {
@@ -531,7 +481,6 @@ public class GeneralProfileModelImpl
 		_userName = userName;
 	}
 
-	@JSON
 	@Override
 	public Date getCreateDate() {
 		return _createDate;
@@ -546,7 +495,6 @@ public class GeneralProfileModelImpl
 		_createDate = createDate;
 	}
 
-	@JSON
 	@Override
 	public Date getModifiedDate() {
 		return _modifiedDate;
@@ -567,7 +515,6 @@ public class GeneralProfileModelImpl
 		_modifiedDate = modifiedDate;
 	}
 
-	@JSON
 	@Override
 	public String getAboutMe() {
 		if (_aboutMe == null) {
@@ -587,7 +534,6 @@ public class GeneralProfileModelImpl
 		_aboutMe = aboutMe;
 	}
 
-	@JSON
 	@Override
 	public String getFavoriteQuotes() {
 		if (_favoriteQuotes == null) {

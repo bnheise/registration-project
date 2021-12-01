@@ -24,12 +24,10 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
   },
   "include": [
-    "src/**/*"
+    "src/**/*",
+    "node_modules/liferay-types/**/*"
   ],
-  "exclude": [
-    "node_modules"
-  ]
 }  

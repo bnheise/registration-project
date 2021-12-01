@@ -245,6 +245,10 @@ public class GeneralProfileLocalServiceUtil {
 		return getService().getGeneralProfile(generalProfileId);
 	}
 
+	public static GeneralProfile getGeneralProfileByUserId(long userId) {
+		return getService().getGeneralProfileByUserId(userId);
+	}
+
 	/**
 	 * Returns the general profile matching the UUID and group.
 	 *

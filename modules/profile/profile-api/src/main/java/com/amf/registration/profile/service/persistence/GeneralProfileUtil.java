@@ -546,6 +546,66 @@ public class GeneralProfileUtil {
 	}
 
 	/**
+	 * Returns the general profile where userId = &#63; or throws a <code>NoSuchGeneralProfileException</code> if it could not be found.
+	 *
+	 * @param userId the user ID
+	 * @return the matching general profile
+	 * @throws NoSuchGeneralProfileException if a matching general profile could not be found
+	 */
+	public static GeneralProfile findByUserId(long userId)
+		throws com.amf.registration.profile.exception.
+			NoSuchGeneralProfileException {
+
+		return getPersistence().findByUserId(userId);
+	}
+
+	/**
+	 * Returns the general profile where userId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param userId the user ID
+	 * @return the matching general profile, or <code>null</code> if a matching general profile could not be found
+	 */
+	public static GeneralProfile fetchByUserId(long userId) {
+		return getPersistence().fetchByUserId(userId);
+	}
+
+	/**
+	 * Returns the general profile where userId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param userId the user ID
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching general profile, or <code>null</code> if a matching general profile could not be found
+	 */
+	public static GeneralProfile fetchByUserId(
+		long userId, boolean useFinderCache) {
+
+		return getPersistence().fetchByUserId(userId, useFinderCache);
+	}
+
+	/**
+	 * Removes the general profile where userId = &#63; from the database.
+	 *
+	 * @param userId the user ID
+	 * @return the general profile that was removed
+	 */
+	public static GeneralProfile removeByUserId(long userId)
+		throws com.amf.registration.profile.exception.
+			NoSuchGeneralProfileException {
+
+		return getPersistence().removeByUserId(userId);
+	}
+
+	/**
+	 * Returns the number of general profiles where userId = &#63;.
+	 *
+	 * @param userId the user ID
+	 * @return the number of matching general profiles
+	 */
+	public static int countByUserId(long userId) {
+		return getPersistence().countByUserId(userId);
+	}
+
+	/**
 	 * Caches the general profile in the entity cache if it is enabled.
 	 *
 	 * @param generalProfile the general profile

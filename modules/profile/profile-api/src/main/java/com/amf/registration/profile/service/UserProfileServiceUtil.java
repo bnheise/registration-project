@@ -16,7 +16,7 @@ package com.amf.registration.profile.service;
 
 import com.amf.registration.profile.model.UserProfile;
 
-import java.util.List;
+import com.liferay.portal.kernel.exception.PortalException;
 
 /**
  * Provides the remote service utility for UserProfile. This utility wraps
@@ -47,8 +47,12 @@ public class UserProfileServiceUtil {
 		return getService().getOSGiServiceIdentifier();
 	}
 
-	public static List<UserProfile> getUserProfile(String screenname) {
-		return getService().getUserProfile(screenname);
+	public static UserProfile getUserProfile(
+			String screenname,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
+
+		return getService().getUserProfile(screenname, serviceContext);
 	}
 
 	public static UserProfileService getService() {

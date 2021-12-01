@@ -41,10 +41,12 @@ public class UserProfileServiceWrapper
 	}
 
 	@Override
-	public java.util.List<com.amf.registration.profile.model.UserProfile>
-		getUserProfile(String screenname) {
+	public com.amf.registration.profile.model.UserProfile getUserProfile(
+			String screenname,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
 
-		return _userProfileService.getUserProfile(screenname);
+		return _userProfileService.getUserProfile(screenname, serviceContext);
 	}
 
 	@Override

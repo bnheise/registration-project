@@ -250,6 +250,10 @@ public class MovieInterestLocalServiceUtil {
 		return getService().getMovieInterest(movieInterestId);
 	}
 
+	public static MovieInterest getMovieInterestByUserId(long userId) {
+		return getService().getMovieInterestByUserId(userId);
+	}
+
 	/**
 	 * Returns the movie interest matching the UUID and group.
 	 *

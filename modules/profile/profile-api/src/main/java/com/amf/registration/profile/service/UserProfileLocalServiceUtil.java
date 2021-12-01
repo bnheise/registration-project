@@ -245,6 +245,14 @@ public class UserProfileLocalServiceUtil {
 		return getService().getUserProfile(userId);
 	}
 
+	public static UserProfile getUserProfile(
+			String screenname,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
+
+		return getService().getUserProfile(screenname, serviceContext);
+	}
+
 	/**
 	 * Returns a range of all the user profiles.
 	 *

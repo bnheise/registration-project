@@ -43,6 +43,7 @@ import com.liferay.portal.kernel.util.MapUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.SetUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.uuid.PortalUUIDUtil;
 
@@ -50,6 +51,7 @@ import java.io.Serializable;
 
 import java.lang.reflect.InvocationHandler;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -1461,6 +1463,217 @@ public class MovieInterestPersistenceImpl
 	private static final String _FINDER_COLUMN_UUID_C_COMPANYID_2 =
 		"movieInterest.companyId = ?";
 
+	private FinderPath _finderPathFetchByUserId;
+	private FinderPath _finderPathCountByUserId;
+
+	/**
+	 * Returns the movie interest where userId = &#63; or throws a <code>NoSuchMovieInterestException</code> if it could not be found.
+	 *
+	 * @param userId the user ID
+	 * @return the matching movie interest
+	 * @throws NoSuchMovieInterestException if a matching movie interest could not be found
+	 */
+	@Override
+	public MovieInterest findByUserId(long userId)
+		throws NoSuchMovieInterestException {
+
+		MovieInterest movieInterest = fetchByUserId(userId);
+
+		if (movieInterest == null) {
+			StringBundler sb = new StringBundler(4);
+
+			sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+			sb.append("userId=");
+			sb.append(userId);
+
+			sb.append("}");
+
+			if (_log.isDebugEnabled()) {
+				_log.debug(sb.toString());
+			}
+
+			throw new NoSuchMovieInterestException(sb.toString());
+		}
+
+		return movieInterest;
+	}
+
+	/**
+	 * Returns the movie interest where userId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param userId the user ID
+	 * @return the matching movie interest, or <code>null</code> if a matching movie interest could not be found
+	 */
+	@Override
+	public MovieInterest fetchByUserId(long userId) {
+		return fetchByUserId(userId, true);
+	}
+
+	/**
+	 * Returns the movie interest where userId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param userId the user ID
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching movie interest, or <code>null</code> if a matching movie interest could not be found
+	 */
+	@Override
+	public MovieInterest fetchByUserId(long userId, boolean useFinderCache) {
+		Object[] finderArgs = null;
+
+		if (useFinderCache) {
+			finderArgs = new Object[] {userId};
+		}
+
+		Object result = null;
+
+		if (useFinderCache) {
+			result = finderCache.getResult(
+				_finderPathFetchByUserId, finderArgs, this);
+		}
+
+		if (result instanceof MovieInterest) {
+			MovieInterest movieInterest = (MovieInterest)result;
+
+			if (userId != movieInterest.getUserId()) {
+				result = null;
+			}
+		}
+
+		if (result == null) {
+			StringBundler sb = new StringBundler(3);
+
+			sb.append(_SQL_SELECT_MOVIEINTEREST_WHERE);
+
+			sb.append(_FINDER_COLUMN_USERID_USERID_2);
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				queryPos.add(userId);
+
+				List<MovieInterest> list = query.list();
+
+				if (list.isEmpty()) {
+					if (useFinderCache) {
+						finderCache.putResult(
+							_finderPathFetchByUserId, finderArgs, list);
+					}
+				}
+				else {
+					if (list.size() > 1) {
+						Collections.sort(list, Collections.reverseOrder());
+
+						if (_log.isWarnEnabled()) {
+							if (!useFinderCache) {
+								finderArgs = new Object[] {userId};
+							}
+
+							_log.warn(
+								"MovieInterestPersistenceImpl.fetchByUserId(long, boolean) with parameters (" +
+									StringUtil.merge(finderArgs) +
+										") yields a result set with more than 1 result. This violates the logical unique restriction. There is no order guarantee on which result is returned by this finder.");
+						}
+					}
+
+					MovieInterest movieInterest = list.get(0);
+
+					result = movieInterest;
+
+					cacheResult(movieInterest);
+				}
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		if (result instanceof List<?>) {
+			return null;
+		}
+		else {
+			return (MovieInterest)result;
+		}
+	}
+
+	/**
+	 * Removes the movie interest where userId = &#63; from the database.
+	 *
+	 * @param userId the user ID
+	 * @return the movie interest that was removed
+	 */
+	@Override
+	public MovieInterest removeByUserId(long userId)
+		throws NoSuchMovieInterestException {
+
+		MovieInterest movieInterest = findByUserId(userId);
+
+		return remove(movieInterest);
+	}
+
+	/**
+	 * Returns the number of movie interests where userId = &#63;.
+	 *
+	 * @param userId the user ID
+	 * @return the number of matching movie interests
+	 */
+	@Override
+	public int countByUserId(long userId) {
+		FinderPath finderPath = _finderPathCountByUserId;
+
+		Object[] finderArgs = new Object[] {userId};
+
+		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
+
+		if (count == null) {
+			StringBundler sb = new StringBundler(2);
+
+			sb.append(_SQL_COUNT_MOVIEINTEREST_WHERE);
+
+			sb.append(_FINDER_COLUMN_USERID_USERID_2);
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				queryPos.add(userId);
+
+				count = (Long)query.uniqueResult();
+
+				finderCache.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_USERID_USERID_2 =
+		"movieInterest.userId = ?";
+
 	public MovieInterestPersistenceImpl() {
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
@@ -1488,6 +1701,10 @@ public class MovieInterestPersistenceImpl
 		finderCache.putResult(
 			_finderPathFetchByUUID_G,
 			new Object[] {movieInterest.getUuid(), movieInterest.getGroupId()},
+			movieInterest);
+
+		finderCache.putResult(
+			_finderPathFetchByUserId, new Object[] {movieInterest.getUserId()},
 			movieInterest);
 	}
 
@@ -1566,6 +1783,13 @@ public class MovieInterestPersistenceImpl
 			_finderPathCountByUUID_G, args, Long.valueOf(1), false);
 		finderCache.putResult(
 			_finderPathFetchByUUID_G, args, movieInterestModelImpl, false);
+
+		args = new Object[] {movieInterestModelImpl.getUserId()};
+
+		finderCache.putResult(
+			_finderPathCountByUserId, args, Long.valueOf(1), false);
+		finderCache.putResult(
+			_finderPathFetchByUserId, args, movieInterestModelImpl, false);
 	}
 
 	/**
@@ -2087,6 +2311,15 @@ public class MovieInterestPersistenceImpl
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByUuid_C",
 			new String[] {String.class.getName(), Long.class.getName()},
 			new String[] {"uuid_", "companyId"}, false);
+
+		_finderPathFetchByUserId = _createFinderPath(
+			FINDER_CLASS_NAME_ENTITY, "fetchByUserId",
+			new String[] {Long.class.getName()}, new String[] {"userId"}, true);
+
+		_finderPathCountByUserId = _createFinderPath(
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByUserId",
+			new String[] {Long.class.getName()}, new String[] {"userId"},
+			false);
 	}
 
 	@Deactivate

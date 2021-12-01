@@ -52,8 +52,10 @@ import com.liferay.portal.kernel.util.MethodKey;
  */
 public class UserProfileServiceHttp {
 
-	public static java.util.List<com.amf.registration.profile.model.UserProfile>
-		getUserProfile(HttpPrincipal httpPrincipal, String screenname) {
+	public static com.amf.registration.profile.model.UserProfile getUserProfile(
+			HttpPrincipal httpPrincipal, String screenname,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
 			MethodKey methodKey = new MethodKey(
@@ -61,7 +63,7 @@ public class UserProfileServiceHttp {
 				_getUserProfileParameterTypes0);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, screenname);
+				methodKey, screenname, serviceContext);
 
 			Object returnObj = null;
 
@@ -69,12 +71,18 @@ public class UserProfileServiceHttp {
 				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
 			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
 				throw new com.liferay.portal.kernel.exception.SystemException(
 					exception);
 			}
 
-			return (java.util.List
-				<com.amf.registration.profile.model.UserProfile>)returnObj;
+			return (com.amf.registration.profile.model.UserProfile)returnObj;
 		}
 		catch (com.liferay.portal.kernel.exception.SystemException
 					systemException) {
@@ -89,6 +97,8 @@ public class UserProfileServiceHttp {
 		UserProfileServiceHttp.class);
 
 	private static final Class<?>[] _getUserProfileParameterTypes0 =
-		new Class[] {String.class};
+		new Class[] {
+			String.class, com.liferay.portal.kernel.service.ServiceContext.class
+		};
 
 }
