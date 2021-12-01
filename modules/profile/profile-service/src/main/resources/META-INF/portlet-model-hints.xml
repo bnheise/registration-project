@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+
+<model-hints>
+	<model name="com.amf.registration.profile.model.GeneralProfile">
+		<field name="uuid" type="String" />
+		<field name="generalProfileId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="aboutMe" type="String" />
+		<field name="favoriteQuotes" type="String" />
+	</model>
+	<model name="com.amf.registration.profile.model.MovieInterest">
+		<field name="uuid" type="String" />
+		<field name="movieInterestId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="favoriteGenre" type="String" />
+		<field name="favoriteMovie" type="String" />
+		<field name="leastFavMovie" type="String" />
+		<field name="favoriteActor" type="String" />
+	</model>
+	<model name="com.amf.registration.profile.model.UserProfile">
+		<field name="uuid" type="String" />
+		<field name="userId" type="long" />
+		<field name="firstName" type="String" />
+		<field name="lastName" type="String" />
+		<field name="male" type="boolean" />
+		<field name="birthYear" type="int" />
+		<field name="birthMonth" type="int" />
+		<field name="birthDay" type="int" />
+		<field name="basicInfoVisible" type="boolean" />
+		<field name="aboutMe" type="String" />
+		<field name="favoriteQuotes" type="String" />
+		<field name="generalProfileVisible" type="boolean" />
+		<field name="favoriteMovie" type="String" />
+		<field name="favoriteGenre" type="String" />
+		<field name="leastFavMovie" type="String" />
+		<field name="favoriteActor" type="String" />
+		<field name="movieInterestsVisible" type="boolean" />
+	</model>
+</model-hints>

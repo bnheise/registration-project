@@ -1,0 +1,10 @@
+Bundle-Name: profile-api
+Bundle-SymbolicName: com.amf.registration.profile.api
+Bundle-Version: 1.0.0
+Export-Package:\
+	com.amf.registration.profile.exception,\
+	com.amf.registration.profile.model,\
+	com.amf.registration.profile.service,\
+	com.amf.registration.profile.service.persistence
+-check: EXPORTS
+-includeresource: META-INF/service.xml=../profile-service/service.xml

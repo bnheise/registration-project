@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 7.3.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_7_3_0.dtd">
+
+<service-builder dependency-injector="ds" package-path="com.amf.registration.profile">
+	<author>Brian Heise</author>
+	<namespace>UserProfile</namespace>
+	<entity local-service="true" name="GeneralProfile" remote-service="true" uuid="true">
+
+		<!-- PK fields -->
+		<column name="generalProfileId" primary="true" type="long" />
+
+		<!-- Group instance -->
+
+		<column name="groupId" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="aboutMe" type="String" />
+		<column name="favoriteQuotes" type="String" />
+
+		<!-- Order -->
+
+		<order by="asc">
+			<order-column name="userName" />
+		</order>
+
+	</entity>
+
+	<entity local-service="true" name="MovieInterest" remote-service="true" uuid="true">
+
+		<!-- PK fields -->
+
+		<column name="movieInterestId" primary="true" type="long" />
+
+		<!-- Group instance -->
+
+		<column name="groupId" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="favoriteGenre" type="String" />
+		<column name="favoriteMovie" type="String" />
+		<column name="leastFavMovie" type="String" />
+		<column name="favoriteActor" type="String" />
+
+		<!-- Order -->
+
+		<order by="asc">
+			<order-column name="userName" />
+		</order>
+
+	</entity>
+
+	<entity local-service="true" name="UserProfile" remote-service="true" uuid="true">
+		<column name="userId" primary="true" type="long" />
+
+		<!-- Basic Info -->
+		<column name="firstName" type="String" />
+		<column name="lastName" type="String" />
+		<column name="male" type="boolean" />
+		<column name="birthYear" type="int" />
+		<column name="birthMonth" type="int" />
+		<column name="birthDay" type="int" />
+		<column name="basicInfoVisible" type="boolean" />
+		
+		<!-- General Profile -->
+		<column name="aboutMe" type="String" />
+		<column name="favoriteQuotes" type="String" />
+		<column name="generalProfileVisible" type="boolean" />
+
+		<!-- Movie Interests -->
+		<column name="favoriteMovie" type="String" />
+		<column name="favoriteGenre" type="String" />
+		<column name="leastFavMovie" type="String" />
+		<column name="favoriteActor" type="String" />
+		<column name="movieInterestsVisible" type="boolean" />
+
+		<!-- Order -->
+
+		<order by="asc">
+			<order-column name="lastName" />
+			<order-column name="firstName" />
+		</order>
+
+	</entity>
+</service-builder>
