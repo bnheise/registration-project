@@ -1,5 +1,6 @@
 {
     "java.configuration.updateBuildConfiguration": "automatic",
     "java.format.settings.url": "eclipse-formatter.xml",
-    "java.checkstyle.configuration": "${workspaceFolder}/checkstyle.xml"
+    "java.checkstyle.configuration": "${workspaceFolder}/checkstyle.xml",
+    "java.checkstyle.version": "6.0"
 }
