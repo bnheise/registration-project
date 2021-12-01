@@ -53,7 +53,7 @@ import com.liferay.portal.kernel.util.MethodKey;
 public class UserProfileServiceHttp {
 
 	public static com.amf.registration.profile.model.UserProfile getUserProfile(
-			HttpPrincipal httpPrincipal, String screenname,
+			HttpPrincipal httpPrincipal, String screenName,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -63,7 +63,56 @@ public class UserProfileServiceHttp {
 				_getUserProfileParameterTypes0);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, screenname, serviceContext);
+				methodKey, screenName, serviceContext);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (com.amf.registration.profile.model.UserProfile)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static com.amf.registration.profile.model.UserProfile
+			updateUserProfile(
+				HttpPrincipal httpPrincipal, String screenName,
+				String firstName, String lastName, boolean male, int birthYear,
+				int birthMonth, int birthDay, String aboutMe,
+				String favoriteQuotes, String favoriteMovie,
+				String favoriteGenre, String leastFavMovie,
+				String favoriteActor,
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				UserProfileServiceUtil.class, "updateUserProfile",
+				_updateUserProfileParameterTypes1);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, screenName, firstName, lastName, male, birthYear,
+				birthMonth, birthDay, aboutMe, favoriteQuotes, favoriteMovie,
+				favoriteGenre, leastFavMovie, favoriteActor, serviceContext);
 
 			Object returnObj = null;
 
@@ -99,6 +148,13 @@ public class UserProfileServiceHttp {
 	private static final Class<?>[] _getUserProfileParameterTypes0 =
 		new Class[] {
 			String.class, com.liferay.portal.kernel.service.ServiceContext.class
+		};
+	private static final Class<?>[] _updateUserProfileParameterTypes1 =
+		new Class[] {
+			String.class, String.class, String.class, boolean.class, int.class,
+			int.class, int.class, String.class, String.class, String.class,
+			String.class, String.class, String.class,
+			com.liferay.portal.kernel.service.ServiceContext.class
 		};
 
 }

@@ -66,14 +66,42 @@ public class UserProfileServiceSoap {
 
 	public static com.amf.registration.profile.model.UserProfileSoap
 			getUserProfile(
-				String screenname,
+				String screenName,
 				com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws RemoteException {
 
 		try {
 			com.amf.registration.profile.model.UserProfile returnValue =
 				UserProfileServiceUtil.getUserProfile(
-					screenname, serviceContext);
+					screenName, serviceContext);
+
+			return com.amf.registration.profile.model.UserProfileSoap.
+				toSoapModel(returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static com.amf.registration.profile.model.UserProfileSoap
+			updateUserProfile(
+				String screenName, String firstName, String lastName,
+				boolean male, int birthYear, int birthMonth, int birthDay,
+				String aboutMe, String favoriteQuotes, String favoriteMovie,
+				String favoriteGenre, String leastFavMovie,
+				String favoriteActor,
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws RemoteException {
+
+		try {
+			com.amf.registration.profile.model.UserProfile returnValue =
+				UserProfileServiceUtil.updateUserProfile(
+					screenName, firstName, lastName, male, birthYear,
+					birthMonth, birthDay, aboutMe, favoriteQuotes,
+					favoriteMovie, favoriteGenre, leastFavMovie, favoriteActor,
+					serviceContext);
 
 			return com.amf.registration.profile.model.UserProfileSoap.
 				toSoapModel(returnValue);

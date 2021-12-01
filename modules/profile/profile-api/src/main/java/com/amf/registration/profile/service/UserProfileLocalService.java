@@ -227,7 +227,7 @@ public interface UserProfileLocalService
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public UserProfile getUserProfile(
-			String screenname, ServiceContext serviceContext)
+			String screenName, ServiceContext serviceContext)
 		throws PortalException;
 
 	/**
@@ -251,6 +251,14 @@ public interface UserProfileLocalService
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getUserProfilesCount();
+
+	public UserProfile updateUserProfile(
+			String screenName, String firstName, String lastName, boolean male,
+			int birthYear, int birthMonth, int birthDay, String aboutMe,
+			String favoriteQuotes, String favoriteMovie, String favoriteGenre,
+			String leastFavMovie, String favoriteActor,
+			ServiceContext serviceContext)
+		throws PortalException;
 
 	/**
 	 * Updates the user profile in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.

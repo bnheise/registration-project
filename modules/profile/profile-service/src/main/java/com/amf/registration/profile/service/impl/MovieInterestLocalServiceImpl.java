@@ -16,6 +16,7 @@ package com.amf.registration.profile.service.impl;
 
 import com.amf.registration.profile.model.MovieInterest;
 import com.amf.registration.profile.service.base.MovieInterestLocalServiceBaseImpl;
+import com.liferay.counter.kernel.service.CounterLocalServiceUtil;
 import com.liferay.portal.aop.AopService;
 
 import org.osgi.service.component.annotations.Component;
@@ -49,6 +50,9 @@ public class MovieInterestLocalServiceImpl
 	@Override
 	public MovieInterest getMovieInterestByUserId(long userId) {
 		MovieInterest movieInterest = movieInterestPersistence.fetchByUserId(userId);
-		return movieInterest != null ? movieInterest : movieInterestPersistence.create(-1);
+		if (movieInterest == null) {
+			movieInterest = addMovieInterest(movieInterestPersistence.create(CounterLocalServiceUtil.increment(MovieInterest.class.getName())));
+		}
+		return movieInterest;
 	}
 }

@@ -48,11 +48,25 @@ public class UserProfileServiceUtil {
 	}
 
 	public static UserProfile getUserProfile(
-			String screenname,
+			String screenName,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws PortalException {
 
-		return getService().getUserProfile(screenname, serviceContext);
+		return getService().getUserProfile(screenName, serviceContext);
+	}
+
+	public static UserProfile updateUserProfile(
+			String screenName, String firstName, String lastName, boolean male,
+			int birthYear, int birthMonth, int birthDay, String aboutMe,
+			String favoriteQuotes, String favoriteMovie, String favoriteGenre,
+			String leastFavMovie, String favoriteActor,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
+
+		return getService().updateUserProfile(
+			screenName, firstName, lastName, male, birthYear, birthMonth,
+			birthDay, aboutMe, favoriteQuotes, favoriteMovie, favoriteGenre,
+			leastFavMovie, favoriteActor, serviceContext);
 	}
 
 	public static UserProfileService getService() {

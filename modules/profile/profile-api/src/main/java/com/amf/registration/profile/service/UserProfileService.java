@@ -61,7 +61,15 @@ public interface UserProfileService extends BaseService {
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public UserProfile getUserProfile(
-			String screenname, ServiceContext serviceContext)
+			String screenName, ServiceContext serviceContext)
+		throws PortalException;
+
+	public UserProfile updateUserProfile(
+			String screenName, String firstName, String lastName, boolean male,
+			int birthYear, int birthMonth, int birthDay, String aboutMe,
+			String favoriteQuotes, String favoriteMovie, String favoriteGenre,
+			String leastFavMovie, String favoriteActor,
+			ServiceContext serviceContext)
 		throws PortalException;
 
 }

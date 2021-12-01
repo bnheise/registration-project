@@ -42,11 +42,26 @@ public class UserProfileServiceWrapper
 
 	@Override
 	public com.amf.registration.profile.model.UserProfile getUserProfile(
-			String screenname,
+			String screenName,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
-		return _userProfileService.getUserProfile(screenname, serviceContext);
+		return _userProfileService.getUserProfile(screenName, serviceContext);
+	}
+
+	@Override
+	public com.amf.registration.profile.model.UserProfile updateUserProfile(
+			String screenName, String firstName, String lastName, boolean male,
+			int birthYear, int birthMonth, int birthDay, String aboutMe,
+			String favoriteQuotes, String favoriteMovie, String favoriteGenre,
+			String leastFavMovie, String favoriteActor,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _userProfileService.updateUserProfile(
+			screenName, firstName, lastName, male, birthYear, birthMonth,
+			birthDay, aboutMe, favoriteQuotes, favoriteMovie, favoriteGenre,
+			leastFavMovie, favoriteActor, serviceContext);
 	}
 
 	@Override
