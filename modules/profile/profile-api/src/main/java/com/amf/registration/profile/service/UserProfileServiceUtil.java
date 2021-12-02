@@ -18,6 +18,8 @@ import com.amf.registration.profile.model.UserProfile;
 
 import com.liferay.portal.kernel.exception.PortalException;
 
+import java.util.Map;
+
 /**
  * Provides the remote service utility for UserProfile. This utility wraps
  * <code>com.amf.registration.profile.service.impl.UserProfileServiceImpl</code> and is an
@@ -45,6 +47,15 @@ public class UserProfileServiceUtil {
 	 */
 	public static String getOSGiServiceIdentifier() {
 		return getService().getOSGiServiceIdentifier();
+	}
+
+	public static Map<String, Boolean> getPermissions(
+			String screenName,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.security.auth.PrincipalException,
+			   PortalException {
+
+		return getService().getPermissions(screenName, serviceContext);
 	}
 
 	public static UserProfile getUserProfile(
