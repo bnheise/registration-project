@@ -3,8 +3,8 @@ package com.amf.registration.profile.internal.security.permission.resource;
 import java.util.function.Consumer;
 
 import com.amf.registration.profile.constants.ProfileConstants;
-import com.amf.registration.profile.model.GeneralProfile;
-import com.amf.registration.profile.service.GeneralProfileLocalService;
+import com.amf.registration.profile.model.MovieInterest;
+import com.amf.registration.profile.service.MovieInterestLocalService;
 import com.liferay.exportimport.kernel.staging.permission.StagingPermission;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
@@ -17,28 +17,28 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 @Component(immediate = true, service = ModelResourcePermissionDefinition.class)
-public class GeneralProfileModelResourcePermissionDefinition implements ModelResourcePermissionDefinition<GeneralProfile> {
+public class MovieInterestModelResourcePermissionDefinition implements ModelResourcePermissionDefinition<MovieInterest> {
 
     @Override
-    public GeneralProfile getModel(long generalProfileId) throws PortalException {
-        return generalProfileLocalService.getGeneralProfile(generalProfileId);
+    public MovieInterest getModel(long movieInterestId) throws PortalException {
+        return movieInterestLocalService.getMovieInterest(movieInterestId);
     }
 
     @Override
     public void registerModelResourcePermissionLogics(
-            ModelResourcePermission<GeneralProfile> modelResourcePermission,
-            Consumer<ModelResourcePermissionLogic<GeneralProfile>> modelResourcePermissionLogicConsumer) {
+            ModelResourcePermission<MovieInterest> modelResourcePermission,
+            Consumer<ModelResourcePermissionLogic<MovieInterest>> modelResourcePermissionLogicConsumer) {
         modelResourcePermissionLogicConsumer
                 .accept(
                         new StagedModelPermissionLogic<>(stagingPermission,
                                 "com_amf_registration_profile_profileweb",
-                                GeneralProfile::getGeneralProfileId));
+                                MovieInterest::getMovieInterestId));
 
     }
 
     @Override
-    public Class<GeneralProfile> getModelClass() {
-        return GeneralProfile.class;
+    public Class<MovieInterest> getModelClass() {
+        return MovieInterest.class;
     }
 
     @Override
@@ -47,12 +47,12 @@ public class GeneralProfileModelResourcePermissionDefinition implements ModelRes
     }
 
     @Override
-    public long getPrimaryKey(GeneralProfile generalProfile) {
-        return generalProfile.getGeneralProfileId();
+    public long getPrimaryKey(MovieInterest movieInterest) {
+        return movieInterest.getMovieInterestId();
     }
 
     @Reference
-    private GeneralProfileLocalService generalProfileLocalService;
+    private MovieInterestLocalService movieInterestLocalService;
 
     @Reference(target = "(resource.name=" + ProfileConstants.RESOURCE_NAME + ")")
     private PortletResourcePermission portletResourcePermission;

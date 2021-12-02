@@ -1,6 +1,5 @@
-/.liferay.json
-/node_modules
-
-/build
-/dist
+build/*
+dist/*
+node_modules/*
 liferay-npm-bundler-report.html
+.webpack/*

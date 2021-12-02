@@ -142,6 +142,56 @@ public class UserProfileServiceHttp {
 		}
 	}
 
+	public static java.util.Map<String, Boolean> getPermissions(
+			HttpPrincipal httpPrincipal, String screenName,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			   com.liferay.portal.kernel.security.auth.PrincipalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				UserProfileServiceUtil.class, "getPermissions",
+				_getPermissionsParameterTypes2);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, screenName, serviceContext);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.security.auth.
+							PrincipalException) {
+
+					throw (com.liferay.portal.kernel.security.auth.
+						PrincipalException)exception;
+				}
+
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (java.util.Map<String, Boolean>)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
 	private static Log _log = LogFactoryUtil.getLog(
 		UserProfileServiceHttp.class);
 
@@ -155,6 +205,10 @@ public class UserProfileServiceHttp {
 			int.class, int.class, String.class, String.class, String.class,
 			String.class, String.class, String.class,
 			com.liferay.portal.kernel.service.ServiceContext.class
+		};
+	private static final Class<?>[] _getPermissionsParameterTypes2 =
+		new Class[] {
+			String.class, com.liferay.portal.kernel.service.ServiceContext.class
 		};
 
 }
