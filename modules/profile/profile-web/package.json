@@ -11,6 +11,7 @@
 		"@types/node": "^16.11.11",
 		"@types/react": "^17.0.37",
 		"@types/react-dom": "^17.0.11",
+		"@types/react-router-dom": "^5.3.2",
 		"copy-webpack-plugin": "^10.0.0",
 		"liferay-npm-build-support": "^2.28.0",
 		"liferay-npm-bundler": "^2.15.1",
@@ -23,7 +24,8 @@
 	"dependencies": {
 		"react": "16.8.6",
 		"react-dom": "16.8.6",
-		"react-router-dom": "^6.0.2"
+		"react-router": "^5.2.1",
+		"react-router-dom": "^5.3.0"
 	},
 	"scripts": {
 		"build": "npm run check-types && npx babel src -d build src --extensions '.ts,.tsx' && npm run copy-assets && liferay-npm-bundler",

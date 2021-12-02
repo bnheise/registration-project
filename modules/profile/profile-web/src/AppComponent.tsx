@@ -1,29 +1,19 @@
 import React, { FC, ReactElement } from 'react';
+import { Switch, HashRouter } from 'react-router-dom';
 
 import { PortletProps } from '.';
+import RouteWithSubRoutes from './routes/Route';
+import routes from './routes/routes';
 
-export const AppComponent: FC<PortletProps<object>> = ({ portletElementId, portletNamespace, configuration, contextPath }): ReactElement => {
+const AppComponent: FC<PortletProps<object>> = (): ReactElement => {
 	return (
-		<div>
-			<div>
-				<span className="tag">{Liferay.Language.get('portlet-namespace')}:</span>
-				<span className="value">{portletNamespace}</span>
-			</div>
-			<div>
-				<span className="tag">{Liferay.Language.get('context-path')}:</span>
-				<span className="value">{contextPath}</span>
-			</div>
-			<div>
-				<span className="tag">{Liferay.Language.get('portlet-element-id')}:</span>
-				<span className="value">{portletElementId}</span>
-			</div>
-
-			<div>
-				<span className="tag">{Liferay.Language.get('configuration')}:</span>
-				<span className="value pre">{JSON.stringify(configuration, null, 2)}</span>
-			</div>
-
-		</div>
+		<HashRouter>
+			<Switch>
+				{routes.map((route, i) => (
+					<RouteWithSubRoutes key={i} {...route} />
+				))}
+			</Switch>
+		</HashRouter>
 	);
 }
 
