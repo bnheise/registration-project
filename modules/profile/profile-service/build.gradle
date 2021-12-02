@@ -2,6 +2,9 @@ dependencies {
 	compile project(":modules:profile:profile-api")
 
 	compileOnly group: "com.liferay.portal", name: "release.dxp.api"
+	compileOnly group: "com.liferay", name: "com.liferay.petra.function"
+	compileOnly group: "com.liferay", name: "com.liferay.petra.model.adapter"
+	compileOnly group: "com.liferay", name: "com.liferay.petra.reflect"
 }
 
 buildService {

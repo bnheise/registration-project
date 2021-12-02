@@ -14,10 +14,17 @@
 
 package com.amf.registration.profile.service.impl;
 
+import java.util.Date;
+
 import com.amf.registration.profile.model.GeneralProfile;
 import com.amf.registration.profile.service.base.GeneralProfileLocalServiceBaseImpl;
 import com.liferay.counter.kernel.service.CounterLocalServiceUtil;
 import com.liferay.portal.aop.AopService;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.service.ResourceLocalServiceUtil;
+import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 
 import org.osgi.service.component.annotations.Component;
 
@@ -25,34 +32,51 @@ import org.osgi.service.component.annotations.Component;
  * The implementation of the general profile local service.
  *
  * <p>
- * All custom service methods should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy their definitions into the <code>com.amf.registration.profile.service.GeneralProfileLocalService</code> interface.
+ * All custom service methods should be put in this class. Whenever methods are
+ * added, rerun ServiceBuilder to copy their definitions into the
+ * <code>com.amf.registration.profile.service.GeneralProfileLocalService</code>
+ * interface.
  *
  * <p>
- * This is a local service. Methods of this service will not have security checks based on the propagated JAAS credentials because this service can only be accessed from within the same VM.
+ * This is a local service. Methods of this service will not have security
+ * checks based on the propagated JAAS credentials because this service can only
+ * be accessed from within the same VM.
  * </p>
  *
  * @author Brian Heise
  * @see GeneralProfileLocalServiceBaseImpl
  */
-@Component(
-	property = "model.class.name=com.amf.registration.profile.model.GeneralProfile",
-	service = AopService.class
-)
+@Component(property = "model.class.name=com.amf.registration.profile.model.GeneralProfile", service = AopService.class)
 public class GeneralProfileLocalServiceImpl
-	extends GeneralProfileLocalServiceBaseImpl {
+		extends GeneralProfileLocalServiceBaseImpl {
 
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never reference this class directly. Use <code>com.amf.registration.profile.service.GeneralProfileLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>com.amf.registration.profile.service.GeneralProfileLocalServiceUtil</code>.
+	 * Never reference this class directly. Use
+	 * <code>com.amf.registration.profile.service.GeneralProfileLocalService</code>
+	 * via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use
+	 * <code>com.amf.registration.profile.service.GeneralProfileLocalServiceUtil</
+	 * code>.
 	 */
 
 	@Override
-	public GeneralProfile getGeneralProfileByUserId(long userId) {
+	public GeneralProfile getGeneralProfileByUserId(long userId, ServiceContext serviceContext) throws PortalException {
 		GeneralProfile generalProfile = generalProfilePersistence.fetchByUserId(userId);
 		if (generalProfile == null) {
-			generalProfile = addGeneralProfile(generalProfilePersistence.create(CounterLocalServiceUtil.increment(GeneralProfile.class.getName())));
+			generalProfile = addGeneralProfile(generalProfilePersistence
+					.create(CounterLocalServiceUtil.increment(GeneralProfile.class.getName())));
+			User user = UserLocalServiceUtil.getUser(userId);
+			generalProfile.setCompanyId(user.getCompanyId());
+			generalProfile.setCreateDate(new Date());
+			generalProfile.setGroupId(user.getGroupId());
+			generalProfile.setModifiedDate(new Date());
+			generalProfile.setUserId(user.getUserId());
+			generalProfile.setUserName(user.getScreenName());
+			ResourceLocalServiceUtil.addResources(serviceContext.getCompanyId(), user.getGroupId(),
+					userId, GeneralProfile.class.getName(), generalProfile.getGeneralProfileId(), true, true, true);
 		}
+
 		return generalProfile;
 	}
 }

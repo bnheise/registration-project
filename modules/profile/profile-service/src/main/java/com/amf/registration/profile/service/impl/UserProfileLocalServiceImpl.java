@@ -29,6 +29,7 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.Contact;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.service.ContactLocalServiceUtil;
+import com.liferay.portal.kernel.service.ResourceLocalServiceUtil;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 
@@ -79,11 +80,13 @@ public class UserProfileLocalServiceImpl
 		userProfile.setBirthMonth(birthdate.getMonthValue());
 		userProfile.setBirthDay(birthdate.getDayOfMonth());
 
-		GeneralProfile generalProfile = generalProfileLocalService.getGeneralProfileByUserId(user.getUserId());
+		GeneralProfile generalProfile = generalProfileLocalService.getGeneralProfileByUserId(user.getUserId(),
+				serviceContext);
 		userProfile.setAboutMe(generalProfile.getAboutMe());
 		userProfile.setFavoriteQuotes(generalProfile.getFavoriteQuotes());
 
-		MovieInterest movieInterest = movieInterestLocalService.getMovieInterestByUserId(user.getUserId());
+		MovieInterest movieInterest = movieInterestLocalService.getMovieInterestByUserId(user.getUserId(),
+				serviceContext);
 		userProfile.setFavoriteActor(movieInterest.getFavoriteActor());
 		userProfile.setFavoriteGenre(movieInterest.getFavoriteGenre());
 		userProfile.setFavoriteMovie(movieInterest.getFavoriteMovie());
@@ -92,17 +95,19 @@ public class UserProfileLocalServiceImpl
 	}
 
 	@Override
-	public UserProfile updateUserProfile(String screenName, String firstName, String lastName, boolean male, int birthYear,
+	public UserProfile updateUserProfile(String screenName, String firstName, String lastName, boolean male,
+			int birthYear,
 			int birthMonth, int birthDay, String aboutMe, String favoriteQuotes, String favoriteMovie,
-			String favoriteGenre, String leastFavMovie, String favoriteActor, ServiceContext serviceContext) throws PortalException {
-		
+			String favoriteGenre, String leastFavMovie, String favoriteActor, ServiceContext serviceContext)
+			throws PortalException {
+
 		User user = UserLocalServiceUtil.getUserByScreenName(serviceContext.getCompanyId(), screenName);
 		user.setFirstName(firstName);
 		user.setLastName(lastName);
 		UserLocalServiceUtil.updateUser(user);
 
 		Contact contact = ContactLocalServiceUtil.fetchContact(user.getContactId());
-		
+
 		LocalDate birthdate = LocalDate.of(birthYear, birthMonth, birthDay);
 		contact.setBirthday(Date.from(birthdate.atStartOfDay()
 				.atZone(ZoneId.systemDefault())
@@ -110,19 +115,27 @@ public class UserProfileLocalServiceImpl
 		contact.setMale(male);
 		ContactLocalServiceUtil.updateContact(contact);
 
-		GeneralProfile generalProfile = generalProfileLocalService.getGeneralProfileByUserId(user.getUserId());
+		GeneralProfile generalProfile = generalProfileLocalService.getGeneralProfileByUserId(user.getUserId(),
+				serviceContext);
 		generalProfile.setAboutMe(aboutMe);
 		generalProfile.setFavoriteQuotes(favoriteQuotes);
 		generalProfile.setUserId(user.getUserId());
 		generalProfileLocalService.updateGeneralProfile(generalProfile);
+		ResourceLocalServiceUtil.updateResources(serviceContext.getCompanyId(), serviceContext.getScopeGroupId(),
+				GeneralProfile.class.getName(), generalProfile.getGeneralProfileId(),
+				serviceContext.getModelPermissions());
 
-		MovieInterest movieInterest = movieInterestLocalService.getMovieInterestByUserId(user.getUserId());
+		MovieInterest movieInterest = movieInterestLocalService.getMovieInterestByUserId(user.getUserId(),
+				serviceContext);
 		movieInterest.setFavoriteMovie(favoriteMovie);
 		movieInterest.setFavoriteGenre(favoriteGenre);
 		movieInterest.setFavoriteActor(favoriteActor);
 		movieInterest.setLeastFavMovie(leastFavMovie);
 		movieInterest.setUserId(user.getUserId());
 		movieInterestLocalService.updateMovieInterest(movieInterest);
+		ResourceLocalServiceUtil.updateResources(serviceContext.getCompanyId(), serviceContext.getScopeGroupId(),
+				MovieInterest.class.getName(), generalProfile.getGeneralProfileId(),
+				serviceContext.getModelPermissions());
 
 		return getUserProfile(screenName, serviceContext);
 	}

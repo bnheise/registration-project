@@ -14,10 +14,17 @@
 
 package com.amf.registration.profile.service.impl;
 
+import java.util.Date;
+
 import com.amf.registration.profile.model.MovieInterest;
 import com.amf.registration.profile.service.base.MovieInterestLocalServiceBaseImpl;
 import com.liferay.counter.kernel.service.CounterLocalServiceUtil;
 import com.liferay.portal.aop.AopService;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.service.ResourceLocalServiceUtil;
+import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 
 import org.osgi.service.component.annotations.Component;
 
@@ -48,10 +55,19 @@ public class MovieInterestLocalServiceImpl
 	 */
 
 	@Override
-	public MovieInterest getMovieInterestByUserId(long userId) {
+	public MovieInterest getMovieInterestByUserId(long userId, ServiceContext serviceContext) throws PortalException {
 		MovieInterest movieInterest = movieInterestPersistence.fetchByUserId(userId);
 		if (movieInterest == null) {
 			movieInterest = addMovieInterest(movieInterestPersistence.create(CounterLocalServiceUtil.increment(MovieInterest.class.getName())));
+			User user = UserLocalServiceUtil.getUser(userId);
+			movieInterest.setCompanyId(user.getCompanyId());
+			movieInterest.setCreateDate(new Date());
+			movieInterest.setGroupId(user.getGroupId());
+			movieInterest.setModifiedDate(new Date());
+			movieInterest.setUserId(user.getUserId());
+			movieInterest.setUserName(user.getScreenName());
+			ResourceLocalServiceUtil.addResources(serviceContext.getCompanyId(), user.getGroupId(), userId,
+				MovieInterest.class.getName(), movieInterest.getMovieInterestId(), true, true, true);
 		}
 		return movieInterest;
 	}

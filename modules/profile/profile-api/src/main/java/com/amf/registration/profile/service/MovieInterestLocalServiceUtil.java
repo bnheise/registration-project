@@ -250,8 +250,12 @@ public class MovieInterestLocalServiceUtil {
 		return getService().getMovieInterest(movieInterestId);
 	}
 
-	public static MovieInterest getMovieInterestByUserId(long userId) {
-		return getService().getMovieInterestByUserId(userId);
+	public static MovieInterest getMovieInterestByUserId(
+			long userId,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
+
+		return getService().getMovieInterestByUserId(userId, serviceContext);
 	}
 
 	/**

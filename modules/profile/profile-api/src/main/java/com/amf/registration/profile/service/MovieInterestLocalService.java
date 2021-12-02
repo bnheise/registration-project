@@ -29,6 +29,7 @@ import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.BaseLocalService;
 import com.liferay.portal.kernel.service.PersistedModelLocalService;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
@@ -229,7 +230,9 @@ public interface MovieInterestLocalService
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public MovieInterest getMovieInterestByUserId(long userId);
+	public MovieInterest getMovieInterestByUserId(
+			long userId, ServiceContext serviceContext)
+		throws PortalException;
 
 	/**
 	 * Returns the movie interest matching the UUID and group.

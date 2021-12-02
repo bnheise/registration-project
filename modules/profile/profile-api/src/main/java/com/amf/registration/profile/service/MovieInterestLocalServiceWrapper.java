@@ -275,9 +275,13 @@ public class MovieInterestLocalServiceWrapper
 
 	@Override
 	public com.amf.registration.profile.model.MovieInterest
-		getMovieInterestByUserId(long userId) {
+			getMovieInterestByUserId(
+				long userId,
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
 
-		return _movieInterestLocalService.getMovieInterestByUserId(userId);
+		return _movieInterestLocalService.getMovieInterestByUserId(
+			userId, serviceContext);
 	}
 
 	/**

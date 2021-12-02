@@ -245,8 +245,12 @@ public class GeneralProfileLocalServiceUtil {
 		return getService().getGeneralProfile(generalProfileId);
 	}
 
-	public static GeneralProfile getGeneralProfileByUserId(long userId) {
-		return getService().getGeneralProfileByUserId(userId);
+	public static GeneralProfile getGeneralProfileByUserId(
+			long userId,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
+
+		return getService().getGeneralProfileByUserId(userId, serviceContext);
 	}
 
 	/**

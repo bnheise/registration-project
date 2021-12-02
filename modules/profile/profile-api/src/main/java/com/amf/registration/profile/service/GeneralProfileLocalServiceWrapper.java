@@ -272,9 +272,13 @@ public class GeneralProfileLocalServiceWrapper
 
 	@Override
 	public com.amf.registration.profile.model.GeneralProfile
-		getGeneralProfileByUserId(long userId) {
+			getGeneralProfileByUserId(
+				long userId,
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
 
-		return _generalProfileLocalService.getGeneralProfileByUserId(userId);
+		return _generalProfileLocalService.getGeneralProfileByUserId(
+			userId, serviceContext);
 	}
 
 	/**

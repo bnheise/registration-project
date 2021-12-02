@@ -14,13 +14,28 @@
 
 package com.amf.registration.profile.service.impl;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+
+import com.amf.registration.profile.constants.ProfileConstants;
+import com.amf.registration.profile.model.GeneralProfile;
+import com.amf.registration.profile.model.MovieInterest;
 import com.amf.registration.profile.model.UserProfile;
+import com.amf.registration.profile.service.GeneralProfileLocalService;
+import com.amf.registration.profile.service.MovieInterestLocalService;
 import com.amf.registration.profile.service.base.UserProfileServiceBaseImpl;
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
+import com.liferay.portal.kernel.security.permission.resource.PortletResourcePermission;
 import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.component.annotations.ReferencePolicy;
+import org.osgi.service.component.annotations.ReferencePolicyOption;
 
 /**
  * The implementation of the user profile remote service.
@@ -56,7 +71,30 @@ public class UserProfileServiceImpl extends UserProfileServiceBaseImpl {
 
 	@Override
 	public UserProfile getUserProfile(String screenName, ServiceContext serviceContext) throws PortalException {
-		return userProfileLocalService.getUserProfile(screenName, serviceContext);
+		User user = UserLocalServiceUtil.getUserByScreenName(serviceContext.getCompanyId(), screenName);
+		UserProfile userProfile = userProfilePersistence.create(user.getUserId());
+		userProfile.setFirstName(user.getFirstName());
+		userProfile.setLastName(user.getLastName());
+		userProfile.setMale(user.getMale());
+		LocalDate birthdate = user.getBirthday().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+		userProfile.setBirthYear(birthdate.getYear());
+		userProfile.setBirthMonth(birthdate.getMonthValue());
+		userProfile.setBirthDay(birthdate.getDayOfMonth());
+
+		GeneralProfile generalProfile = generalProfileLocalService.getGeneralProfileByUserId(user.getUserId(),
+				serviceContext);
+		System.out.println(generalProfileModelResourcePermission.contains(getPermissionChecker(), generalProfile.getGeneralProfileId(), "VIEW_ABOUT_ME"));
+		userProfile.setAboutMe(generalProfile.getAboutMe());
+		userProfile.setFavoriteQuotes(generalProfile.getFavoriteQuotes());
+
+		MovieInterest movieInterest = movieInterestLocalService.getMovieInterestByUserId(user.getUserId(),
+				serviceContext);
+		userProfile.setFavoriteActor(movieInterest.getFavoriteActor());
+		userProfile.setFavoriteGenre(movieInterest.getFavoriteGenre());
+		userProfile.setFavoriteMovie(movieInterest.getFavoriteMovie());
+		userProfile.setLeastFavMovie(movieInterest.getLeastFavMovie());
+		return userProfile;
 	}
 
 	@Override
@@ -69,4 +107,17 @@ public class UserProfileServiceImpl extends UserProfileServiceBaseImpl {
 				birthDay, aboutMe, favoriteQuotes, favoriteMovie, favoriteGenre, leastFavMovie, favoriteActor,
 				serviceContext);
 	}
+
+	@Reference
+	GeneralProfileLocalService generalProfileLocalService;
+
+	@Reference
+	MovieInterestLocalService movieInterestLocalService;
+
+	@Reference(policy = ReferencePolicy.DYNAMIC, policyOption = ReferencePolicyOption.GREEDY, target = "(model.class.name=com.amf.registration.profile.model.GeneralProfile)")
+	private volatile ModelResourcePermission<GeneralProfile> generalProfileModelResourcePermission;
+
+	@Reference(policy = ReferencePolicy.DYNAMIC, policyOption = ReferencePolicyOption.GREEDY, target = "(resource.name="
+			+ ProfileConstants.RESOURCE_NAME + ")")
+	private volatile PortletResourcePermission portletResourcePermission;
 }

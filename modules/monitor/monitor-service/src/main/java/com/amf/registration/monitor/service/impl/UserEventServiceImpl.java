@@ -83,7 +83,7 @@ public class UserEventServiceImpl extends UserEventServiceBaseImpl {
 
 	@Override
 	public List<HashMap<String, Object>> getLoginEvents(int start, int end, ServiceContext serviceContext)
-			throws PortalException {
+			throws PortalException {	
 
 		if (portletResourcePermission.contains(getPermissionChecker(), serviceContext.getScopeGroup(), "VIEW_ALL")) {
 			return userEventLocalService.getAllLoginEvents(start, end);
