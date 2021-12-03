@@ -28,10 +28,20 @@ const ProfileViewDisplay: FC<Props> = ({
         lastName: viewLastName,
         birthday: viewBirthday,
         generalProfile,
+        aboutMe: viewAboutMe,
+        favoriteQuotes: viewFavQuotes,
         movieInterest,
     } = viewPermissions;
-    const { firstName, lastName, male, birthMonth, birthYear, birthDay } =
-        userProfile;
+    const {
+        firstName,
+        lastName,
+        male,
+        birthMonth,
+        birthYear,
+        birthDay,
+        aboutMe,
+        favoriteQuotes,
+    } = userProfile;
     if (isEditContent && isEditPermissions)
         throw new Error(
             "Values for isEditContent and isEditPermissions cannot both be true"
@@ -78,7 +88,11 @@ const ProfileViewDisplay: FC<Props> = ({
                                 birthYear,
                                 birthMonth,
                                 birthDay
-                            ).toLocaleDateString([], { year: 'numeric', month: 'long', day: 'numeric' })}
+                            ).toLocaleDateString([], {
+                                year: "numeric",
+                                month: "long",
+                                day: "numeric",
+                            })}
                         />
                     </ClayForm.Group>
                 </ClayForm>
@@ -87,10 +101,61 @@ const ProfileViewDisplay: FC<Props> = ({
                 heading="General Information"
                 hasPermission={generalProfile}
             ></PermissionedSection>
+            <ClayForm.Group>
+                <PermissionedInput
+                    label="About Me"
+                    hasPermission={viewAboutMe}
+                    component="textarea"
+                    isEdit={isEditContent}
+                    value={aboutMe}
+                />
+            </ClayForm.Group>
+            <ClayForm.Group>
+                <PermissionedInput
+                    label="Favorite Quotes"
+                    hasPermission={viewFavQuotes}
+                    component="textarea"
+                    isEdit={isEditContent}
+                    value={favoriteQuotes}
+                />
+            </ClayForm.Group>
             <PermissionedSection
                 heading="Movie Interest"
                 hasPermission={movieInterest}
-            ></PermissionedSection>
+            >
+                <ClayForm.Group>
+                    <PermissionedInput
+                        label="Favorite Movie"
+                        hasPermission={viewFavQuotes}
+                        isEdit={isEditContent}
+                        value={favoriteQuotes}
+                    />
+                </ClayForm.Group>
+                <ClayForm.Group>
+                    <PermissionedInput
+                        label="Favorite Genre"
+                        hasPermission={viewFavQuotes}
+                        isEdit={isEditContent}
+                        value={favoriteQuotes}
+                    />
+                </ClayForm.Group>
+                <ClayForm.Group>
+                    <PermissionedInput
+                        label="Least Favorite Movie"
+                        hasPermission={viewFavQuotes}
+                        isEdit={isEditContent}
+                        value={favoriteQuotes}
+                    />
+                </ClayForm.Group>
+                <ClayForm.Group>
+                    <PermissionedInput
+                        label="Favorite Actor/Actress"
+                        hasPermission={viewFavQuotes}
+                        isEdit={isEditContent}
+                        value={favoriteQuotes}
+                    />
+                </ClayForm.Group>
+            </PermissionedSection>
         </>
     );
 };

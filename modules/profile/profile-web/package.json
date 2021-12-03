@@ -16,6 +16,7 @@
 		"liferay-npm-build-support": "^2.28.0",
 		"liferay-npm-bundler": "^2.15.1",
 		"liferay-types": "file:../../../../liferay-types",
+		"patch-package": "^6.4.7",
 		"typescript": "^4.5.2",
 		"webpack": "^5.64.4",
 		"webpack-cli": "^4.9.1",
@@ -37,7 +38,8 @@
 		"copy-assets": "lnbs-copy-assets",
 		"translate": "lnbs-translate",
 		"deploy": "npm run build && lnbs-deploy",
-		"start": "lnbs-start"
+		"start": "lnbs-start",
+		"postinstall": "patch-package"
 	},
 	"portlet": {
 		"com.liferay.portlet.display-category": "amf custom",

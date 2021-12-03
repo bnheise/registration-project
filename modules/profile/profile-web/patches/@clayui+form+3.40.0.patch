@@ -1,0 +1,13 @@
+diff --git a/node_modules/@clayui/form/lib/Input.d.ts b/node_modules/@clayui/form/lib/Input.d.ts
+index 5f731b8..9b90298 100644
+--- a/node_modules/@clayui/form/lib/Input.d.ts
++++ b/node_modules/@clayui/form/lib/Input.d.ts
+@@ -14,7 +14,7 @@ interface IGroupInsetProps extends React.HTMLAttributes<HTMLDivElement | HTMLSpa
+     tag?: 'div' | 'span' | 'label';
+ }
+ interface IProps extends React.InputHTMLAttributes<HTMLInputElement> {
+-    component?: 'input' | React.ForwardRefExoticComponent<any>;
++    component?: 'input' | 'textarea' | React.ForwardRefExoticComponent<any>;
+     insetAfter?: boolean;
+     insetBefore?: boolean;
+     sizing?: 'lg' | 'sm';

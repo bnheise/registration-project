@@ -6,16 +6,18 @@ interface Props {
     isEdit: boolean;
     label: string;
     value: string | number | readonly string[] | undefined;
+    type?: string;
+    component?: "input" | "textarea"
 }
 
-const PermissionedInput: FC<Props> = ({ hasPermission, isEdit, label, value }): ReactElement => {
+const PermissionedInput: FC<Props> = ({ hasPermission, isEdit, label, value, component = "input", type = "text" }): ReactElement => {
     return (
         <>
             {
                 hasPermission ?
                     <>
                         <label>{label}</label>
-                        <ClayInput value={value} disabled={!isEdit} />
+                        <ClayInput component={component} type={type} value={value} disabled={!isEdit} />
                     </> :
                     null
             }
