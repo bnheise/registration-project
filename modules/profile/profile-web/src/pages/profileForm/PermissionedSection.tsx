@@ -8,7 +8,7 @@ interface Props {
 
 const PermissionedSection: FC<Props> = ({ hasPermission, heading, children }) => {
     return (
-        <ContentSection>
+        <ContentSection style={{ marginBottom: "20px" }}>
             <h2>{heading}</h2>
             {
                 hasPermission ?
