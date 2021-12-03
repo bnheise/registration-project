@@ -44,8 +44,7 @@ public class UserProfileServiceWrapper
 	public java.util.Map<String, Boolean> getPermissions(
 			String screenName,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			   com.liferay.portal.kernel.security.auth.PrincipalException {
+		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _userProfileService.getPermissions(screenName, serviceContext);
 	}

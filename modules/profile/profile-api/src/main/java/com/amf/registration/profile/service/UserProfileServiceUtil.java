@@ -52,8 +52,7 @@ public class UserProfileServiceUtil {
 	public static Map<String, Boolean> getPermissions(
 			String screenName,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.security.auth.PrincipalException,
-			   PortalException {
+		throws PortalException {
 
 		return getService().getPermissions(screenName, serviceContext);
 	}
