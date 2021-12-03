@@ -49,15 +49,12 @@ public class UserProfileWrapper
 		attributes.put("birthYear", getBirthYear());
 		attributes.put("birthMonth", getBirthMonth());
 		attributes.put("birthDay", getBirthDay());
-		attributes.put("basicInfoVisible", isBasicInfoVisible());
 		attributes.put("aboutMe", getAboutMe());
 		attributes.put("favoriteQuotes", getFavoriteQuotes());
-		attributes.put("generalProfileVisible", isGeneralProfileVisible());
 		attributes.put("favoriteMovie", getFavoriteMovie());
 		attributes.put("favoriteGenre", getFavoriteGenre());
 		attributes.put("leastFavMovie", getLeastFavMovie());
 		attributes.put("favoriteActor", getFavoriteActor());
-		attributes.put("movieInterestsVisible", isMovieInterestsVisible());
 
 		return attributes;
 	}
@@ -112,12 +109,6 @@ public class UserProfileWrapper
 			setBirthDay(birthDay);
 		}
 
-		Boolean basicInfoVisible = (Boolean)attributes.get("basicInfoVisible");
-
-		if (basicInfoVisible != null) {
-			setBasicInfoVisible(basicInfoVisible);
-		}
-
 		String aboutMe = (String)attributes.get("aboutMe");
 
 		if (aboutMe != null) {
@@ -128,13 +119,6 @@ public class UserProfileWrapper
 
 		if (favoriteQuotes != null) {
 			setFavoriteQuotes(favoriteQuotes);
-		}
-
-		Boolean generalProfileVisible = (Boolean)attributes.get(
-			"generalProfileVisible");
-
-		if (generalProfileVisible != null) {
-			setGeneralProfileVisible(generalProfileVisible);
 		}
 
 		String favoriteMovie = (String)attributes.get("favoriteMovie");
@@ -160,13 +144,6 @@ public class UserProfileWrapper
 		if (favoriteActor != null) {
 			setFavoriteActor(favoriteActor);
 		}
-
-		Boolean movieInterestsVisible = (Boolean)attributes.get(
-			"movieInterestsVisible");
-
-		if (movieInterestsVisible != null) {
-			setMovieInterestsVisible(movieInterestsVisible);
-		}
 	}
 
 	/**
@@ -177,16 +154,6 @@ public class UserProfileWrapper
 	@Override
 	public String getAboutMe() {
 		return model.getAboutMe();
-	}
-
-	/**
-	 * Returns the basic info visible of this user profile.
-	 *
-	 * @return the basic info visible of this user profile
-	 */
-	@Override
-	public boolean getBasicInfoVisible() {
-		return model.getBasicInfoVisible();
 	}
 
 	/**
@@ -270,16 +237,6 @@ public class UserProfileWrapper
 	}
 
 	/**
-	 * Returns the general profile visible of this user profile.
-	 *
-	 * @return the general profile visible of this user profile
-	 */
-	@Override
-	public boolean getGeneralProfileVisible() {
-		return model.getGeneralProfileVisible();
-	}
-
-	/**
 	 * Returns the last name of this user profile.
 	 *
 	 * @return the last name of this user profile
@@ -307,16 +264,6 @@ public class UserProfileWrapper
 	@Override
 	public boolean getMale() {
 		return model.getMale();
-	}
-
-	/**
-	 * Returns the movie interests visible of this user profile.
-	 *
-	 * @return the movie interests visible of this user profile
-	 */
-	@Override
-	public boolean getMovieInterestsVisible() {
-		return model.getMovieInterestsVisible();
 	}
 
 	/**
@@ -360,26 +307,6 @@ public class UserProfileWrapper
 	}
 
 	/**
-	 * Returns <code>true</code> if this user profile is basic info visible.
-	 *
-	 * @return <code>true</code> if this user profile is basic info visible; <code>false</code> otherwise
-	 */
-	@Override
-	public boolean isBasicInfoVisible() {
-		return model.isBasicInfoVisible();
-	}
-
-	/**
-	 * Returns <code>true</code> if this user profile is general profile visible.
-	 *
-	 * @return <code>true</code> if this user profile is general profile visible; <code>false</code> otherwise
-	 */
-	@Override
-	public boolean isGeneralProfileVisible() {
-		return model.isGeneralProfileVisible();
-	}
-
-	/**
 	 * Returns <code>true</code> if this user profile is male.
 	 *
 	 * @return <code>true</code> if this user profile is male; <code>false</code> otherwise
@@ -387,16 +314,6 @@ public class UserProfileWrapper
 	@Override
 	public boolean isMale() {
 		return model.isMale();
-	}
-
-	/**
-	 * Returns <code>true</code> if this user profile is movie interests visible.
-	 *
-	 * @return <code>true</code> if this user profile is movie interests visible; <code>false</code> otherwise
-	 */
-	@Override
-	public boolean isMovieInterestsVisible() {
-		return model.isMovieInterestsVisible();
 	}
 
 	@Override
@@ -412,16 +329,6 @@ public class UserProfileWrapper
 	@Override
 	public void setAboutMe(String aboutMe) {
 		model.setAboutMe(aboutMe);
-	}
-
-	/**
-	 * Sets whether this user profile is basic info visible.
-	 *
-	 * @param basicInfoVisible the basic info visible of this user profile
-	 */
-	@Override
-	public void setBasicInfoVisible(boolean basicInfoVisible) {
-		model.setBasicInfoVisible(basicInfoVisible);
 	}
 
 	/**
@@ -505,16 +412,6 @@ public class UserProfileWrapper
 	}
 
 	/**
-	 * Sets whether this user profile is general profile visible.
-	 *
-	 * @param generalProfileVisible the general profile visible of this user profile
-	 */
-	@Override
-	public void setGeneralProfileVisible(boolean generalProfileVisible) {
-		model.setGeneralProfileVisible(generalProfileVisible);
-	}
-
-	/**
 	 * Sets the last name of this user profile.
 	 *
 	 * @param lastName the last name of this user profile
@@ -542,16 +439,6 @@ public class UserProfileWrapper
 	@Override
 	public void setMale(boolean male) {
 		model.setMale(male);
-	}
-
-	/**
-	 * Sets whether this user profile is movie interests visible.
-	 *
-	 * @param movieInterestsVisible the movie interests visible of this user profile
-	 */
-	@Override
-	public void setMovieInterestsVisible(boolean movieInterestsVisible) {
-		model.setMovieInterestsVisible(movieInterestsVisible);
 	}
 
 	/**

@@ -1,11 +1,10 @@
 import React, { FC } from "react";
 import ClayDatePicker from "@clayui/date-picker";
 import Label from "./Label";
-import { toCamel } from "../utils/utils";
+import { toCamel, ValueChangeHandler } from "../utils/utils";
 import useErrors from "../hooks/useError";
 import ClayForm from "@clayui/form";
 import { IInputProps } from "./Input";
-import { ValueChangeHandler } from '../utils/utils';
 
 interface IDatePickerTypes extends IInputProps {
   handleValueChange?: (value: string, type?: "input" | "time" | "click" | undefined) => void

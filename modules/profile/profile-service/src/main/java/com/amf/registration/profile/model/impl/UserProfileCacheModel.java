@@ -61,7 +61,7 @@ public class UserProfileCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(35);
+		StringBundler sb = new StringBundler(29);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -79,14 +79,10 @@ public class UserProfileCacheModel
 		sb.append(birthMonth);
 		sb.append(", birthDay=");
 		sb.append(birthDay);
-		sb.append(", basicInfoVisible=");
-		sb.append(basicInfoVisible);
 		sb.append(", aboutMe=");
 		sb.append(aboutMe);
 		sb.append(", favoriteQuotes=");
 		sb.append(favoriteQuotes);
-		sb.append(", generalProfileVisible=");
-		sb.append(generalProfileVisible);
 		sb.append(", favoriteMovie=");
 		sb.append(favoriteMovie);
 		sb.append(", favoriteGenre=");
@@ -95,8 +91,6 @@ public class UserProfileCacheModel
 		sb.append(leastFavMovie);
 		sb.append(", favoriteActor=");
 		sb.append(favoriteActor);
-		sb.append(", movieInterestsVisible=");
-		sb.append(movieInterestsVisible);
 		sb.append("}");
 
 		return sb.toString();
@@ -133,7 +127,6 @@ public class UserProfileCacheModel
 		userProfileImpl.setBirthYear(birthYear);
 		userProfileImpl.setBirthMonth(birthMonth);
 		userProfileImpl.setBirthDay(birthDay);
-		userProfileImpl.setBasicInfoVisible(basicInfoVisible);
 
 		if (aboutMe == null) {
 			userProfileImpl.setAboutMe("");
@@ -148,8 +141,6 @@ public class UserProfileCacheModel
 		else {
 			userProfileImpl.setFavoriteQuotes(favoriteQuotes);
 		}
-
-		userProfileImpl.setGeneralProfileVisible(generalProfileVisible);
 
 		if (favoriteMovie == null) {
 			userProfileImpl.setFavoriteMovie("");
@@ -179,8 +170,6 @@ public class UserProfileCacheModel
 			userProfileImpl.setFavoriteActor(favoriteActor);
 		}
 
-		userProfileImpl.setMovieInterestsVisible(movieInterestsVisible);
-
 		userProfileImpl.resetOriginalValues();
 
 		return userProfileImpl;
@@ -201,18 +190,12 @@ public class UserProfileCacheModel
 		birthMonth = objectInput.readInt();
 
 		birthDay = objectInput.readInt();
-
-		basicInfoVisible = objectInput.readBoolean();
 		aboutMe = objectInput.readUTF();
 		favoriteQuotes = objectInput.readUTF();
-
-		generalProfileVisible = objectInput.readBoolean();
 		favoriteMovie = objectInput.readUTF();
 		favoriteGenre = objectInput.readUTF();
 		leastFavMovie = objectInput.readUTF();
 		favoriteActor = objectInput.readUTF();
-
-		movieInterestsVisible = objectInput.readBoolean();
 	}
 
 	@Override
@@ -248,8 +231,6 @@ public class UserProfileCacheModel
 
 		objectOutput.writeInt(birthDay);
 
-		objectOutput.writeBoolean(basicInfoVisible);
-
 		if (aboutMe == null) {
 			objectOutput.writeUTF("");
 		}
@@ -263,8 +244,6 @@ public class UserProfileCacheModel
 		else {
 			objectOutput.writeUTF(favoriteQuotes);
 		}
-
-		objectOutput.writeBoolean(generalProfileVisible);
 
 		if (favoriteMovie == null) {
 			objectOutput.writeUTF("");
@@ -293,8 +272,6 @@ public class UserProfileCacheModel
 		else {
 			objectOutput.writeUTF(favoriteActor);
 		}
-
-		objectOutput.writeBoolean(movieInterestsVisible);
 	}
 
 	public String uuid;
@@ -305,14 +282,11 @@ public class UserProfileCacheModel
 	public int birthYear;
 	public int birthMonth;
 	public int birthDay;
-	public boolean basicInfoVisible;
 	public String aboutMe;
 	public String favoriteQuotes;
-	public boolean generalProfileVisible;
 	public String favoriteMovie;
 	public String favoriteGenre;
 	public String leastFavMovie;
 	public String favoriteActor;
-	public boolean movieInterestsVisible;
 
 }

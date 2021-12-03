@@ -25,8 +25,6 @@ export const handleClick =
     setErrors: Dispatch<SetStateAction<string[]>>
   ) =>
   () => {
-    console.log("HANDLE CLICK FIRED");
-    console.log("HAND CLICK ZIP", zip);
     const userRequest: RequestObject<GetUsersByZipDTO> = {
       "/registrationsearch.useraddress/get-users-by-zip": {
         zip,

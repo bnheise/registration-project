@@ -145,8 +145,7 @@ public class UserProfileServiceHttp {
 	public static java.util.Map<String, Boolean> getPermissions(
 			HttpPrincipal httpPrincipal, String screenName,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			   com.liferay.portal.kernel.security.auth.PrincipalException {
+		throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
 			MethodKey methodKey = new MethodKey(
@@ -162,14 +161,6 @@ public class UserProfileServiceHttp {
 				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
 			catch (Exception exception) {
-				if (exception instanceof
-						com.liferay.portal.kernel.security.auth.
-							PrincipalException) {
-
-					throw (com.liferay.portal.kernel.security.auth.
-						PrincipalException)exception;
-				}
-
 				if (exception instanceof
 						com.liferay.portal.kernel.exception.PortalException) {
 

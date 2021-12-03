@@ -85,19 +85,16 @@
 		<column name="birthYear" type="int" />
 		<column name="birthMonth" type="int" />
 		<column name="birthDay" type="int" />
-		<column name="basicInfoVisible" type="boolean" />
 		
 		<!-- General Profile -->
 		<column name="aboutMe" type="String" />
 		<column name="favoriteQuotes" type="String" />
-		<column name="generalProfileVisible" type="boolean" />
 
 		<!-- Movie Interests -->
 		<column name="favoriteMovie" type="String" />
 		<column name="favoriteGenre" type="String" />
 		<column name="leastFavMovie" type="String" />
 		<column name="favoriteActor" type="String" />
-		<column name="movieInterestsVisible" type="boolean" />
 
 		<!-- Order -->
 

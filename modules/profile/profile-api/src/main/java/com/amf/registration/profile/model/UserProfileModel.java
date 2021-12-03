@@ -190,27 +190,6 @@ public interface UserProfileModel extends BaseModel<UserProfile> {
 	public void setBirthDay(int birthDay);
 
 	/**
-	 * Returns the basic info visible of this user profile.
-	 *
-	 * @return the basic info visible of this user profile
-	 */
-	public boolean getBasicInfoVisible();
-
-	/**
-	 * Returns <code>true</code> if this user profile is basic info visible.
-	 *
-	 * @return <code>true</code> if this user profile is basic info visible; <code>false</code> otherwise
-	 */
-	public boolean isBasicInfoVisible();
-
-	/**
-	 * Sets whether this user profile is basic info visible.
-	 *
-	 * @param basicInfoVisible the basic info visible of this user profile
-	 */
-	public void setBasicInfoVisible(boolean basicInfoVisible);
-
-	/**
 	 * Returns the about me of this user profile.
 	 *
 	 * @return the about me of this user profile
@@ -239,27 +218,6 @@ public interface UserProfileModel extends BaseModel<UserProfile> {
 	 * @param favoriteQuotes the favorite quotes of this user profile
 	 */
 	public void setFavoriteQuotes(String favoriteQuotes);
-
-	/**
-	 * Returns the general profile visible of this user profile.
-	 *
-	 * @return the general profile visible of this user profile
-	 */
-	public boolean getGeneralProfileVisible();
-
-	/**
-	 * Returns <code>true</code> if this user profile is general profile visible.
-	 *
-	 * @return <code>true</code> if this user profile is general profile visible; <code>false</code> otherwise
-	 */
-	public boolean isGeneralProfileVisible();
-
-	/**
-	 * Sets whether this user profile is general profile visible.
-	 *
-	 * @param generalProfileVisible the general profile visible of this user profile
-	 */
-	public void setGeneralProfileVisible(boolean generalProfileVisible);
 
 	/**
 	 * Returns the favorite movie of this user profile.
@@ -320,26 +278,5 @@ public interface UserProfileModel extends BaseModel<UserProfile> {
 	 * @param favoriteActor the favorite actor of this user profile
 	 */
 	public void setFavoriteActor(String favoriteActor);
-
-	/**
-	 * Returns the movie interests visible of this user profile.
-	 *
-	 * @return the movie interests visible of this user profile
-	 */
-	public boolean getMovieInterestsVisible();
-
-	/**
-	 * Returns <code>true</code> if this user profile is movie interests visible.
-	 *
-	 * @return <code>true</code> if this user profile is movie interests visible; <code>false</code> otherwise
-	 */
-	public boolean isMovieInterestsVisible();
-
-	/**
-	 * Sets whether this user profile is movie interests visible.
-	 *
-	 * @param movieInterestsVisible the movie interests visible of this user profile
-	 */
-	public void setMovieInterestsVisible(boolean movieInterestsVisible);
 
 }

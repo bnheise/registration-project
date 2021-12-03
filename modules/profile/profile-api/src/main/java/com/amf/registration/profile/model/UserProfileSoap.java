@@ -40,15 +40,12 @@ public class UserProfileSoap implements Serializable {
 		soapModel.setBirthYear(model.getBirthYear());
 		soapModel.setBirthMonth(model.getBirthMonth());
 		soapModel.setBirthDay(model.getBirthDay());
-		soapModel.setBasicInfoVisible(model.isBasicInfoVisible());
 		soapModel.setAboutMe(model.getAboutMe());
 		soapModel.setFavoriteQuotes(model.getFavoriteQuotes());
-		soapModel.setGeneralProfileVisible(model.isGeneralProfileVisible());
 		soapModel.setFavoriteMovie(model.getFavoriteMovie());
 		soapModel.setFavoriteGenre(model.getFavoriteGenre());
 		soapModel.setLeastFavMovie(model.getLeastFavMovie());
 		soapModel.setFavoriteActor(model.getFavoriteActor());
-		soapModel.setMovieInterestsVisible(model.isMovieInterestsVisible());
 
 		return soapModel;
 	}
@@ -170,18 +167,6 @@ public class UserProfileSoap implements Serializable {
 		_birthDay = birthDay;
 	}
 
-	public boolean getBasicInfoVisible() {
-		return _basicInfoVisible;
-	}
-
-	public boolean isBasicInfoVisible() {
-		return _basicInfoVisible;
-	}
-
-	public void setBasicInfoVisible(boolean basicInfoVisible) {
-		_basicInfoVisible = basicInfoVisible;
-	}
-
 	public String getAboutMe() {
 		return _aboutMe;
 	}
@@ -196,18 +181,6 @@ public class UserProfileSoap implements Serializable {
 
 	public void setFavoriteQuotes(String favoriteQuotes) {
 		_favoriteQuotes = favoriteQuotes;
-	}
-
-	public boolean getGeneralProfileVisible() {
-		return _generalProfileVisible;
-	}
-
-	public boolean isGeneralProfileVisible() {
-		return _generalProfileVisible;
-	}
-
-	public void setGeneralProfileVisible(boolean generalProfileVisible) {
-		_generalProfileVisible = generalProfileVisible;
 	}
 
 	public String getFavoriteMovie() {
@@ -242,18 +215,6 @@ public class UserProfileSoap implements Serializable {
 		_favoriteActor = favoriteActor;
 	}
 
-	public boolean getMovieInterestsVisible() {
-		return _movieInterestsVisible;
-	}
-
-	public boolean isMovieInterestsVisible() {
-		return _movieInterestsVisible;
-	}
-
-	public void setMovieInterestsVisible(boolean movieInterestsVisible) {
-		_movieInterestsVisible = movieInterestsVisible;
-	}
-
 	private String _uuid;
 	private long _userId;
 	private String _firstName;
@@ -262,14 +223,11 @@ public class UserProfileSoap implements Serializable {
 	private int _birthYear;
 	private int _birthMonth;
 	private int _birthDay;
-	private boolean _basicInfoVisible;
 	private String _aboutMe;
 	private String _favoriteQuotes;
-	private boolean _generalProfileVisible;
 	private String _favoriteMovie;
 	private String _favoriteGenre;
 	private String _leastFavMovie;
 	private String _favoriteActor;
-	private boolean _movieInterestsVisible;
 
 }

@@ -128,7 +128,7 @@ public class UserProfileServiceImpl extends UserProfileServiceBaseImpl {
 		boolean canViewFirstName = UserPermissionUtil.contains(permissionChecker, user.getUserId(), CustomActionKeys.VIEW_FIRST_NAME);
 		viewPermissions.put("firstName", canViewFirstName);
 		boolean canViewLastName = UserPermissionUtil.contains(permissionChecker, user.getUserId(), CustomActionKeys.VIEW_LAST_NAME);
-		viewPermissions.put("firstName", canViewLastName);
+		viewPermissions.put("lastName", canViewLastName);
 		boolean canViewMale = UserPermissionUtil.contains(permissionChecker, user.getUserId(), CustomActionKeys.VIEW_MALE);
 		viewPermissions.put("male", canViewMale);
 		boolean canViewBirthday = UserPermissionUtil.contains(permissionChecker, user.getUserId(), CustomActionKeys.VIEW_BIRTHDAY);
@@ -144,7 +144,7 @@ public class UserProfileServiceImpl extends UserProfileServiceBaseImpl {
 
 		// MOVIE INTEREST
 		boolean canViewMovieInterest = movieInterestModelResourcePermission.contains(permissionChecker, movieInterest.getMovieInterestId(), ActionKeys.VIEW);
-		viewPermissions.put("generalProfile", canViewMovieInterest);
+		viewPermissions.put("movieInterest", canViewMovieInterest);
 		boolean canViewFavMovie = movieInterestModelResourcePermission.contains(permissionChecker, movieInterest.getMovieInterestId(), CustomActionKeys.VIEW_FAVORITE_MOVIE);
 		viewPermissions.put("favoriteMovie", canViewFavMovie);
 		boolean canViewFavGenre = movieInterestModelResourcePermission.contains(permissionChecker, movieInterest.getMovieInterestId(), CustomActionKeys.VIEW_FAVORITE_GENRE);
@@ -155,6 +155,15 @@ public class UserProfileServiceImpl extends UserProfileServiceBaseImpl {
 		viewPermissions.put("favoriteActor", canViewFavActor);
 
 		return viewPermissions;
+	}
+
+	private void genUserResources(User user) {
+		// ModelPermissions
+		// ResourceLocalServiceUtil.getResource(companyId, name, scope, primKey)
+		// ResourceLocalServiceUtil.addResources(companyId, groupId, name, portletActions);
+		// ResourceLocalServiceUtil.hasUserPermissions(userId, resourceId, resources, actionId, roleIds)
+		// ResourceLocalServiceUtil.addModelResources(companyId, groupId, userId, name, primKey, modelPermissions);
+		// ResourceLocalServiceUtil.updateResources(companyId, groupId, name, primKey, modelPermissions);
 	}
 
 	@Reference

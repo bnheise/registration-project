@@ -76,12 +76,9 @@ public class UserProfileModelImpl
 		{"firstName", Types.VARCHAR}, {"lastName", Types.VARCHAR},
 		{"male", Types.BOOLEAN}, {"birthYear", Types.INTEGER},
 		{"birthMonth", Types.INTEGER}, {"birthDay", Types.INTEGER},
-		{"basicInfoVisible", Types.BOOLEAN}, {"aboutMe", Types.VARCHAR},
-		{"favoriteQuotes", Types.VARCHAR},
-		{"generalProfileVisible", Types.BOOLEAN},
+		{"aboutMe", Types.VARCHAR}, {"favoriteQuotes", Types.VARCHAR},
 		{"favoriteMovie", Types.VARCHAR}, {"favoriteGenre", Types.VARCHAR},
-		{"leastFavMovie", Types.VARCHAR}, {"favoriteActor", Types.VARCHAR},
-		{"movieInterestsVisible", Types.BOOLEAN}
+		{"leastFavMovie", Types.VARCHAR}, {"favoriteActor", Types.VARCHAR}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -96,19 +93,16 @@ public class UserProfileModelImpl
 		TABLE_COLUMNS_MAP.put("birthYear", Types.INTEGER);
 		TABLE_COLUMNS_MAP.put("birthMonth", Types.INTEGER);
 		TABLE_COLUMNS_MAP.put("birthDay", Types.INTEGER);
-		TABLE_COLUMNS_MAP.put("basicInfoVisible", Types.BOOLEAN);
 		TABLE_COLUMNS_MAP.put("aboutMe", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("favoriteQuotes", Types.VARCHAR);
-		TABLE_COLUMNS_MAP.put("generalProfileVisible", Types.BOOLEAN);
 		TABLE_COLUMNS_MAP.put("favoriteMovie", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("favoriteGenre", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("leastFavMovie", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("favoriteActor", Types.VARCHAR);
-		TABLE_COLUMNS_MAP.put("movieInterestsVisible", Types.BOOLEAN);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table UserProfile_UserProfile (uuid_ VARCHAR(75) null,userId LONG not null primary key,firstName VARCHAR(75) null,lastName VARCHAR(75) null,male BOOLEAN,birthYear INTEGER,birthMonth INTEGER,birthDay INTEGER,basicInfoVisible BOOLEAN,aboutMe VARCHAR(75) null,favoriteQuotes VARCHAR(75) null,generalProfileVisible BOOLEAN,favoriteMovie VARCHAR(75) null,favoriteGenre VARCHAR(75) null,leastFavMovie VARCHAR(75) null,favoriteActor VARCHAR(75) null,movieInterestsVisible BOOLEAN)";
+		"create table UserProfile_UserProfile (uuid_ VARCHAR(75) null,userId LONG not null primary key,firstName VARCHAR(75) null,lastName VARCHAR(75) null,male BOOLEAN,birthYear INTEGER,birthMonth INTEGER,birthDay INTEGER,aboutMe VARCHAR(75) null,favoriteQuotes VARCHAR(75) null,favoriteMovie VARCHAR(75) null,favoriteGenre VARCHAR(75) null,leastFavMovie VARCHAR(75) null,favoriteActor VARCHAR(75) null)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table UserProfile_UserProfile";
@@ -182,15 +176,12 @@ public class UserProfileModelImpl
 		model.setBirthYear(soapModel.getBirthYear());
 		model.setBirthMonth(soapModel.getBirthMonth());
 		model.setBirthDay(soapModel.getBirthDay());
-		model.setBasicInfoVisible(soapModel.isBasicInfoVisible());
 		model.setAboutMe(soapModel.getAboutMe());
 		model.setFavoriteQuotes(soapModel.getFavoriteQuotes());
-		model.setGeneralProfileVisible(soapModel.isGeneralProfileVisible());
 		model.setFavoriteMovie(soapModel.getFavoriteMovie());
 		model.setFavoriteGenre(soapModel.getFavoriteGenre());
 		model.setLeastFavMovie(soapModel.getLeastFavMovie());
 		model.setFavoriteActor(soapModel.getFavoriteActor());
-		model.setMovieInterestsVisible(soapModel.isMovieInterestsVisible());
 
 		return model;
 	}
@@ -371,11 +362,6 @@ public class UserProfileModelImpl
 		attributeSetterBiConsumers.put(
 			"birthDay",
 			(BiConsumer<UserProfile, Integer>)UserProfile::setBirthDay);
-		attributeGetterFunctions.put(
-			"basicInfoVisible", UserProfile::getBasicInfoVisible);
-		attributeSetterBiConsumers.put(
-			"basicInfoVisible",
-			(BiConsumer<UserProfile, Boolean>)UserProfile::setBasicInfoVisible);
 		attributeGetterFunctions.put("aboutMe", UserProfile::getAboutMe);
 		attributeSetterBiConsumers.put(
 			"aboutMe",
@@ -385,12 +371,6 @@ public class UserProfileModelImpl
 		attributeSetterBiConsumers.put(
 			"favoriteQuotes",
 			(BiConsumer<UserProfile, String>)UserProfile::setFavoriteQuotes);
-		attributeGetterFunctions.put(
-			"generalProfileVisible", UserProfile::getGeneralProfileVisible);
-		attributeSetterBiConsumers.put(
-			"generalProfileVisible",
-			(BiConsumer<UserProfile, Boolean>)
-				UserProfile::setGeneralProfileVisible);
 		attributeGetterFunctions.put(
 			"favoriteMovie", UserProfile::getFavoriteMovie);
 		attributeSetterBiConsumers.put(
@@ -411,12 +391,6 @@ public class UserProfileModelImpl
 		attributeSetterBiConsumers.put(
 			"favoriteActor",
 			(BiConsumer<UserProfile, String>)UserProfile::setFavoriteActor);
-		attributeGetterFunctions.put(
-			"movieInterestsVisible", UserProfile::getMovieInterestsVisible);
-		attributeSetterBiConsumers.put(
-			"movieInterestsVisible",
-			(BiConsumer<UserProfile, Boolean>)
-				UserProfile::setMovieInterestsVisible);
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);
@@ -592,27 +566,6 @@ public class UserProfileModelImpl
 
 	@JSON
 	@Override
-	public boolean getBasicInfoVisible() {
-		return _basicInfoVisible;
-	}
-
-	@JSON
-	@Override
-	public boolean isBasicInfoVisible() {
-		return _basicInfoVisible;
-	}
-
-	@Override
-	public void setBasicInfoVisible(boolean basicInfoVisible) {
-		if (_columnOriginalValues == Collections.EMPTY_MAP) {
-			_setColumnOriginalValues();
-		}
-
-		_basicInfoVisible = basicInfoVisible;
-	}
-
-	@JSON
-	@Override
 	public String getAboutMe() {
 		if (_aboutMe == null) {
 			return "";
@@ -649,27 +602,6 @@ public class UserProfileModelImpl
 		}
 
 		_favoriteQuotes = favoriteQuotes;
-	}
-
-	@JSON
-	@Override
-	public boolean getGeneralProfileVisible() {
-		return _generalProfileVisible;
-	}
-
-	@JSON
-	@Override
-	public boolean isGeneralProfileVisible() {
-		return _generalProfileVisible;
-	}
-
-	@Override
-	public void setGeneralProfileVisible(boolean generalProfileVisible) {
-		if (_columnOriginalValues == Collections.EMPTY_MAP) {
-			_setColumnOriginalValues();
-		}
-
-		_generalProfileVisible = generalProfileVisible;
 	}
 
 	@JSON
@@ -752,27 +684,6 @@ public class UserProfileModelImpl
 		_favoriteActor = favoriteActor;
 	}
 
-	@JSON
-	@Override
-	public boolean getMovieInterestsVisible() {
-		return _movieInterestsVisible;
-	}
-
-	@JSON
-	@Override
-	public boolean isMovieInterestsVisible() {
-		return _movieInterestsVisible;
-	}
-
-	@Override
-	public void setMovieInterestsVisible(boolean movieInterestsVisible) {
-		if (_columnOriginalValues == Collections.EMPTY_MAP) {
-			_setColumnOriginalValues();
-		}
-
-		_movieInterestsVisible = movieInterestsVisible;
-	}
-
 	public long getColumnBitmask() {
 		if (_columnBitmask > 0) {
 			return _columnBitmask;
@@ -837,15 +748,12 @@ public class UserProfileModelImpl
 		userProfileImpl.setBirthYear(getBirthYear());
 		userProfileImpl.setBirthMonth(getBirthMonth());
 		userProfileImpl.setBirthDay(getBirthDay());
-		userProfileImpl.setBasicInfoVisible(isBasicInfoVisible());
 		userProfileImpl.setAboutMe(getAboutMe());
 		userProfileImpl.setFavoriteQuotes(getFavoriteQuotes());
-		userProfileImpl.setGeneralProfileVisible(isGeneralProfileVisible());
 		userProfileImpl.setFavoriteMovie(getFavoriteMovie());
 		userProfileImpl.setFavoriteGenre(getFavoriteGenre());
 		userProfileImpl.setLeastFavMovie(getLeastFavMovie());
 		userProfileImpl.setFavoriteActor(getFavoriteActor());
-		userProfileImpl.setMovieInterestsVisible(isMovieInterestsVisible());
 
 		userProfileImpl.resetOriginalValues();
 
@@ -962,8 +870,6 @@ public class UserProfileModelImpl
 
 		userProfileCacheModel.birthDay = getBirthDay();
 
-		userProfileCacheModel.basicInfoVisible = isBasicInfoVisible();
-
 		userProfileCacheModel.aboutMe = getAboutMe();
 
 		String aboutMe = userProfileCacheModel.aboutMe;
@@ -979,8 +885,6 @@ public class UserProfileModelImpl
 		if ((favoriteQuotes != null) && (favoriteQuotes.length() == 0)) {
 			userProfileCacheModel.favoriteQuotes = null;
 		}
-
-		userProfileCacheModel.generalProfileVisible = isGeneralProfileVisible();
 
 		userProfileCacheModel.favoriteMovie = getFavoriteMovie();
 
@@ -1013,8 +917,6 @@ public class UserProfileModelImpl
 		if ((favoriteActor != null) && (favoriteActor.length() == 0)) {
 			userProfileCacheModel.favoriteActor = null;
 		}
-
-		userProfileCacheModel.movieInterestsVisible = isMovieInterestsVisible();
 
 		return userProfileCacheModel;
 	}
@@ -1097,15 +999,12 @@ public class UserProfileModelImpl
 	private int _birthYear;
 	private int _birthMonth;
 	private int _birthDay;
-	private boolean _basicInfoVisible;
 	private String _aboutMe;
 	private String _favoriteQuotes;
-	private boolean _generalProfileVisible;
 	private String _favoriteMovie;
 	private String _favoriteGenre;
 	private String _leastFavMovie;
 	private String _favoriteActor;
-	private boolean _movieInterestsVisible;
 
 	public <T> T getColumnValue(String columnName) {
 		columnName = _attributeNames.getOrDefault(columnName, columnName);
@@ -1144,17 +1043,12 @@ public class UserProfileModelImpl
 		_columnOriginalValues.put("birthYear", _birthYear);
 		_columnOriginalValues.put("birthMonth", _birthMonth);
 		_columnOriginalValues.put("birthDay", _birthDay);
-		_columnOriginalValues.put("basicInfoVisible", _basicInfoVisible);
 		_columnOriginalValues.put("aboutMe", _aboutMe);
 		_columnOriginalValues.put("favoriteQuotes", _favoriteQuotes);
-		_columnOriginalValues.put(
-			"generalProfileVisible", _generalProfileVisible);
 		_columnOriginalValues.put("favoriteMovie", _favoriteMovie);
 		_columnOriginalValues.put("favoriteGenre", _favoriteGenre);
 		_columnOriginalValues.put("leastFavMovie", _leastFavMovie);
 		_columnOriginalValues.put("favoriteActor", _favoriteActor);
-		_columnOriginalValues.put(
-			"movieInterestsVisible", _movieInterestsVisible);
 	}
 
 	private static final Map<String, String> _attributeNames;
@@ -1194,23 +1088,17 @@ public class UserProfileModelImpl
 
 		columnBitmasks.put("birthDay", 128L);
 
-		columnBitmasks.put("basicInfoVisible", 256L);
+		columnBitmasks.put("aboutMe", 256L);
 
-		columnBitmasks.put("aboutMe", 512L);
+		columnBitmasks.put("favoriteQuotes", 512L);
 
-		columnBitmasks.put("favoriteQuotes", 1024L);
+		columnBitmasks.put("favoriteMovie", 1024L);
 
-		columnBitmasks.put("generalProfileVisible", 2048L);
+		columnBitmasks.put("favoriteGenre", 2048L);
 
-		columnBitmasks.put("favoriteMovie", 4096L);
+		columnBitmasks.put("leastFavMovie", 4096L);
 
-		columnBitmasks.put("favoriteGenre", 8192L);
-
-		columnBitmasks.put("leastFavMovie", 16384L);
-
-		columnBitmasks.put("favoriteActor", 32768L);
-
-		columnBitmasks.put("movieInterestsVisible", 65536L);
+		columnBitmasks.put("favoriteActor", 8192L);
 
 		_columnBitmasks = Collections.unmodifiableMap(columnBitmasks);
 	}

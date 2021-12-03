@@ -36,14 +36,11 @@
 		<field name="birthYear" type="int" />
 		<field name="birthMonth" type="int" />
 		<field name="birthDay" type="int" />
-		<field name="basicInfoVisible" type="boolean" />
 		<field name="aboutMe" type="String" />
 		<field name="favoriteQuotes" type="String" />
-		<field name="generalProfileVisible" type="boolean" />
 		<field name="favoriteMovie" type="String" />
 		<field name="favoriteGenre" type="String" />
 		<field name="leastFavMovie" type="String" />
 		<field name="favoriteActor" type="String" />
-		<field name="movieInterestsVisible" type="boolean" />
 	</model>
 </model-hints>

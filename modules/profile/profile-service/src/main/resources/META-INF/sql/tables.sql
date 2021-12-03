@@ -35,13 +35,10 @@ create table UserProfile_UserProfile (
 	birthYear INTEGER,
 	birthMonth INTEGER,
 	birthDay INTEGER,
-	basicInfoVisible BOOLEAN,
 	aboutMe VARCHAR(75) null,
 	favoriteQuotes VARCHAR(75) null,
-	generalProfileVisible BOOLEAN,
 	favoriteMovie VARCHAR(75) null,
 	favoriteGenre VARCHAR(75) null,
 	leastFavMovie VARCHAR(75) null,
-	favoriteActor VARCHAR(75) null,
-	movieInterestsVisible BOOLEAN
+	favoriteActor VARCHAR(75) null
 );
