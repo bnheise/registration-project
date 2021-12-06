@@ -6,6 +6,7 @@ interface Props {
     isEdit: boolean;
     date: string;
     label: string;
+    changeHandler: (value: any) => void;
 }
 
 const PermissionedDatePicker: FC<Props> = ({
@@ -13,8 +14,10 @@ const PermissionedDatePicker: FC<Props> = ({
     isEdit,
     date,
     label,
+    changeHandler
 }): ReactElement => {
-    const [value, setValue] = useState<string>(date);
+    const endYear = new Date().getFullYear();
+    const startYear = endYear - 123;
     return (
         <>
             {hasPermission ? (
@@ -24,8 +27,12 @@ const PermissionedDatePicker: FC<Props> = ({
                         spritemap={`${Liferay.ThemeDisplay.getCDNBaseURL()}/documents/37341/0/icons.svg`}
                         style={{ flexGrow: 0, width: "auto" }}
                         disabled={!isEdit}
-                        value={value}
-                        onValueChange={setValue}
+                        value={date}
+                        years={{
+                            end: endYear,
+                            start: startYear,
+                        }}
+                        onValueChange={changeHandler}
                     ></ClayDatePicker>
                 </>
             ) : null}

@@ -79,6 +79,18 @@ public class UserProfileServiceImpl extends UserProfileServiceBaseImpl {
 	@Override
 	public UserProfile getUserProfile(String screenName, ServiceContext serviceContext) throws PortalException {
 		User user = UserLocalServiceUtil.getUserByScreenName(serviceContext.getCompanyId(), screenName);
+		
+		return getUserProfile(user, serviceContext);
+	}
+
+	@Override
+	public UserProfile getUserProfileById(long userId, ServiceContext serviceContext) throws PortalException {
+		User user = UserLocalServiceUtil.getUser(userId);
+		
+		return getUserProfile(user, serviceContext);
+	}
+
+	private UserProfile getUserProfile(User user, ServiceContext serviceContext) throws PortalException {
 		UserProfile userProfile = userProfilePersistence.create(user.getUserId());
 		userProfile.setFirstName(user.getFirstName());
 		userProfile.setLastName(user.getLastName());
@@ -117,9 +129,21 @@ public class UserProfileServiceImpl extends UserProfileServiceBaseImpl {
 
 	@Override
 	public Map<String, Boolean> getPermissions(String screenName, ServiceContext serviceContext) throws PortalException {
+		User user = UserLocalServiceUtil.getUserByScreenName(serviceContext.getCompanyId(), screenName);
+
+		return getPermissions(user, serviceContext);
+	}
+
+	@Override
+	public Map<String, Boolean> getPermissionsByUserId(long userId, ServiceContext serviceContext) throws PortalException {
+		User user = UserLocalServiceUtil.getUser(userId);
+
+		return getPermissions(user, serviceContext);
+	}
+
+	private Map<String, Boolean> getPermissions(User user, ServiceContext serviceContext) throws PortalException {
 		HashMap<String, Boolean> viewPermissions = new HashMap<>();
 		PermissionChecker permissionChecker = getPermissionChecker();
-		User user = UserLocalServiceUtil.getUserByScreenName(serviceContext.getCompanyId(), screenName);
 		GeneralProfile generalProfile = generalProfileLocalService.getGeneralProfileByUserId(user.getUserId(), serviceContext);
 		MovieInterest movieInterest = movieInterestLocalService.getMovieInterestByUserId(user.getUserId(), serviceContext);
 

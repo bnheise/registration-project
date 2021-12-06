@@ -94,6 +94,48 @@ public class UserProfileServiceHttp {
 	}
 
 	public static com.amf.registration.profile.model.UserProfile
+			getUserProfileById(
+				HttpPrincipal httpPrincipal, long userId,
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				UserProfileServiceUtil.class, "getUserProfileById",
+				_getUserProfileByIdParameterTypes1);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, userId, serviceContext);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (com.amf.registration.profile.model.UserProfile)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static com.amf.registration.profile.model.UserProfile
 			updateUserProfile(
 				HttpPrincipal httpPrincipal, String screenName,
 				String firstName, String lastName, boolean male, int birthYear,
@@ -107,7 +149,7 @@ public class UserProfileServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				UserProfileServiceUtil.class, "updateUserProfile",
-				_updateUserProfileParameterTypes1);
+				_updateUserProfileParameterTypes3);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, screenName, firstName, lastName, male, birthYear,
@@ -150,10 +192,51 @@ public class UserProfileServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				UserProfileServiceUtil.class, "getPermissions",
-				_getPermissionsParameterTypes2);
+				_getPermissionsParameterTypes4);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, screenName, serviceContext);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (java.util.Map<String, Boolean>)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static java.util.Map<String, Boolean> getPermissionsByUserId(
+			HttpPrincipal httpPrincipal, long userId,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				UserProfileServiceUtil.class, "getPermissionsByUserId",
+				_getPermissionsByUserIdParameterTypes5);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, userId, serviceContext);
 
 			Object returnObj = null;
 
@@ -190,16 +273,24 @@ public class UserProfileServiceHttp {
 		new Class[] {
 			String.class, com.liferay.portal.kernel.service.ServiceContext.class
 		};
-	private static final Class<?>[] _updateUserProfileParameterTypes1 =
+	private static final Class<?>[] _getUserProfileByIdParameterTypes1 =
+		new Class[] {
+			long.class, com.liferay.portal.kernel.service.ServiceContext.class
+		};
+	private static final Class<?>[] _updateUserProfileParameterTypes3 =
 		new Class[] {
 			String.class, String.class, String.class, boolean.class, int.class,
 			int.class, int.class, String.class, String.class, String.class,
 			long.class, String.class, String.class,
 			com.liferay.portal.kernel.service.ServiceContext.class
 		};
-	private static final Class<?>[] _getPermissionsParameterTypes2 =
+	private static final Class<?>[] _getPermissionsParameterTypes4 =
 		new Class[] {
 			String.class, com.liferay.portal.kernel.service.ServiceContext.class
+		};
+	private static final Class<?>[] _getPermissionsByUserIdParameterTypes5 =
+		new Class[] {
+			long.class, com.liferay.portal.kernel.service.ServiceContext.class
 		};
 
 }

@@ -1,3 +1,9 @@
+import {
+  GetAllGenresRequest,
+  GET_ALL_GENRES,
+} from "../api/UserProfile/getAllGenres";
+import { Genre } from "./Genre";
+
 export interface SelectOption {
   label: string;
   value: string | number;

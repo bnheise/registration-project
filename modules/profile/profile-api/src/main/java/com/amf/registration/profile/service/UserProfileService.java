@@ -67,8 +67,18 @@ public interface UserProfileService extends BaseService {
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Map<String, Boolean> getPermissionsByUserId(
+			long userId, ServiceContext serviceContext)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public UserProfile getUserProfile(
 			String screenName, ServiceContext serviceContext)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public UserProfile getUserProfileById(
+			long userId, ServiceContext serviceContext)
 		throws PortalException;
 
 	public UserProfile updateUserProfile(

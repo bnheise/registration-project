@@ -86,6 +86,27 @@ public class UserProfileServiceSoap {
 	}
 
 	public static com.amf.registration.profile.model.UserProfileSoap
+			getUserProfileById(
+				long userId,
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws RemoteException {
+
+		try {
+			com.amf.registration.profile.model.UserProfile returnValue =
+				UserProfileServiceUtil.getUserProfileById(
+					userId, serviceContext);
+
+			return com.amf.registration.profile.model.UserProfileSoap.
+				toSoapModel(returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static com.amf.registration.profile.model.UserProfileSoap
 			updateUserProfile(
 				String screenName, String firstName, String lastName,
 				boolean male, int birthYear, int birthMonth, int birthDay,

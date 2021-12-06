@@ -57,12 +57,28 @@ public class UserProfileServiceUtil {
 		return getService().getPermissions(screenName, serviceContext);
 	}
 
+	public static Map<String, Boolean> getPermissionsByUserId(
+			long userId,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
+
+		return getService().getPermissionsByUserId(userId, serviceContext);
+	}
+
 	public static UserProfile getUserProfile(
 			String screenName,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws PortalException {
 
 		return getService().getUserProfile(screenName, serviceContext);
+	}
+
+	public static UserProfile getUserProfileById(
+			long userId,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
+
+		return getService().getUserProfileById(userId, serviceContext);
 	}
 
 	public static UserProfile updateUserProfile(

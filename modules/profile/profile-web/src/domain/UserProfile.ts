@@ -5,6 +5,7 @@ export interface UserProfile {
   birthYear: number;
   favoriteActor: string;
   favoriteGenre: string;
+  favoriteGenreId: number;
   favoriteMovie: string;
   favoriteQuotes: string;
   firstName: string;

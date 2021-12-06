@@ -50,12 +50,31 @@ public class UserProfileServiceWrapper
 	}
 
 	@Override
+	public java.util.Map<String, Boolean> getPermissionsByUserId(
+			long userId,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _userProfileService.getPermissionsByUserId(
+			userId, serviceContext);
+	}
+
+	@Override
 	public com.amf.registration.profile.model.UserProfile getUserProfile(
 			String screenName,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _userProfileService.getUserProfile(screenName, serviceContext);
+	}
+
+	@Override
+	public com.amf.registration.profile.model.UserProfile getUserProfileById(
+			long userId,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _userProfileService.getUserProfileById(userId, serviceContext);
 	}
 
 	@Override

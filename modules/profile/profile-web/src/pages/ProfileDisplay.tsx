@@ -1,11 +1,10 @@
 import ClayForm, { ClayInput } from "@clayui/form";
-import React, { FC, ReactElement } from "react";
-import { genderOptions } from "../domain/options";
+import React, { Dispatch, FC, ReactElement, SetStateAction } from "react";
+import { genderOptions, SelectOption } from "../domain/options";
 import { ProfileViewPermissions } from "../domain/ProfileViewPermissions";
 import { UserProfile } from "../domain/UserProfile";
 import PermissionedDatePicker from "./profileForm/PermissionedDatePicker";
 import PermissionedInput from "./profileForm/PermissionedInput";
-import PermissionedInputGroup from "./profileForm/PermissionedInputGroup";
 import PermissionedSection from "./profileForm/PermissionedSection";
 import PermissionedSelect from "./profileForm/PermissionedSelect";
 
@@ -14,6 +13,8 @@ interface Props {
     viewPermissions: ProfileViewPermissions;
     isEditContent?: boolean;
     isEditPermissions?: boolean;
+    setProfile: Dispatch<SetStateAction<UserProfile>>;
+    genreOptions: SelectOption[];
 }
 
 const ProfileViewDisplay: FC<Props> = ({
@@ -21,6 +22,8 @@ const ProfileViewDisplay: FC<Props> = ({
     viewPermissions,
     isEditContent = false,
     isEditPermissions = false,
+    setProfile,
+    genreOptions
 }): ReactElement => {
     const {
         basicInfo,
@@ -44,8 +47,23 @@ const ProfileViewDisplay: FC<Props> = ({
         favoriteActor,
         leastFavMovie,
         favoriteMovie,
-        favoriteGenre
+        favoriteGenreId
     } = userProfile;
+
+    const setFirstName = (value: typeof userProfile.firstName) => setProfile((prevState) => ({ ...prevState, firstName: value }));
+    const setLastName = (value: typeof userProfile.lastName) => setProfile((prevState) => ({ ...prevState, lastName: value }));
+    const setMale = (value: string) => setProfile((prevState) => ({ ...prevState, male: value === "male" }));
+    const setBirthDay = (value: string) => setProfile((prevState) => {
+        const asDate = new Date(value);
+        return { ...prevState, birthDay: asDate.getDate(), birthMonth: asDate.getMonth(), birthYear: asDate.getFullYear() }
+    });
+    const setAboutMe = (value: typeof userProfile.aboutMe) => setProfile((prevState) => ({ ...prevState, aboutMe: value }));
+    const setFavoriteQuotes = (value: typeof userProfile.favoriteQuotes) => setProfile((prevState) => ({ ...prevState, favoriteQuotes: value }));
+    const setFavoriteActor = (value: typeof userProfile.favoriteActor) => setProfile((prevState) => ({ ...prevState, favoriteActor: value }));
+    const setLeastFavMovie = (value: typeof userProfile.leastFavMovie) => setProfile((prevState) => ({ ...prevState, leastFavMovie: value }));
+    const setFavoriteMovie = (value: typeof userProfile.favoriteMovie) => setProfile((prevState) => ({ ...prevState, favoriteMovie: value }));
+    const setFavoriteGenre = (value: typeof userProfile.favoriteGenreId) => setProfile((prevState) => ({ ...prevState, favoriteGenreId: value }));
+
     if (isEditContent && isEditPermissions)
         throw new Error(
             "Values for isEditContent and isEditPermissions cannot both be true"
@@ -62,6 +80,7 @@ const ProfileViewDisplay: FC<Props> = ({
                                     isEdit={isEditContent}
                                     hasPermission={viewFirstName}
                                     value={firstName}
+                                    changeHandler={setFirstName}
                                 />
                             </ClayInput.GroupItem>
                             <ClayInput.GroupItem>
@@ -70,6 +89,7 @@ const ProfileViewDisplay: FC<Props> = ({
                                     isEdit={isEditContent}
                                     hasPermission={viewLastName}
                                     value={lastName}
+                                    changeHandler={setLastName}
                                 />
                             </ClayInput.GroupItem>
                             <ClayInput.GroupItem>
@@ -79,6 +99,7 @@ const ProfileViewDisplay: FC<Props> = ({
                                     isEdit={isEditContent}
                                     hasPermission={viewLastName}
                                     value={male ? "male" : "female"}
+                                    changeHandler={setMale}
                                 />
                             </ClayInput.GroupItem>
                         </ClayInput.Group>
@@ -88,6 +109,7 @@ const ProfileViewDisplay: FC<Props> = ({
                             label="Birthday"
                             isEdit={isEditContent}
                             hasPermission={viewBirthday}
+                            changeHandler={setBirthDay}
                             date={new Date(
                                 birthYear,
                                 birthMonth,
@@ -112,6 +134,7 @@ const ProfileViewDisplay: FC<Props> = ({
                     component="textarea"
                     isEdit={isEditContent}
                     value={aboutMe}
+                    changeHandler={setAboutMe}
                 />
             </ClayForm.Group>
             <ClayForm.Group>
@@ -121,6 +144,7 @@ const ProfileViewDisplay: FC<Props> = ({
                     component="textarea"
                     isEdit={isEditContent}
                     value={favoriteQuotes}
+                    changeHandler={setFavoriteQuotes}
                 />
             </ClayForm.Group>
             <PermissionedSection
@@ -133,14 +157,17 @@ const ProfileViewDisplay: FC<Props> = ({
                         hasPermission={viewFavQuotes}
                         isEdit={isEditContent}
                         value={favoriteMovie}
+                        changeHandler={setFavoriteMovie}
                     />
                 </ClayForm.Group>
                 <ClayForm.Group>
-                    <PermissionedInput
+                    <PermissionedSelect
                         label="Favorite Genre"
                         hasPermission={viewFavQuotes}
                         isEdit={isEditContent}
-                        value={favoriteGenre}
+                        value={favoriteGenreId}
+                        options={genreOptions}
+                        changeHandler={setFavoriteGenre}
                     />
                 </ClayForm.Group>
                 <ClayForm.Group>
@@ -149,6 +176,7 @@ const ProfileViewDisplay: FC<Props> = ({
                         hasPermission={viewFavQuotes}
                         isEdit={isEditContent}
                         value={leastFavMovie}
+                        changeHandler={setLeastFavMovie}
                     />
                 </ClayForm.Group>
                 <ClayForm.Group>
@@ -157,6 +185,7 @@ const ProfileViewDisplay: FC<Props> = ({
                         hasPermission={viewFavQuotes}
                         isEdit={isEditContent}
                         value={favoriteActor}
+                        changeHandler={setFavoriteActor}
                     />
                 </ClayForm.Group>
             </PermissionedSection>
