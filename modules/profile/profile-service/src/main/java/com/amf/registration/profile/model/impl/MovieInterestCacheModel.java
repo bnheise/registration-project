@@ -81,8 +81,8 @@ public class MovieInterestCacheModel
 		sb.append(createDate);
 		sb.append(", modifiedDate=");
 		sb.append(modifiedDate);
-		sb.append(", favoriteGenre=");
-		sb.append(favoriteGenre);
+		sb.append(", favoriteGenreId=");
+		sb.append(favoriteGenreId);
 		sb.append(", favoriteMovie=");
 		sb.append(favoriteMovie);
 		sb.append(", leastFavMovie=");
@@ -131,12 +131,7 @@ public class MovieInterestCacheModel
 			movieInterestImpl.setModifiedDate(new Date(modifiedDate));
 		}
 
-		if (favoriteGenre == null) {
-			movieInterestImpl.setFavoriteGenre("");
-		}
-		else {
-			movieInterestImpl.setFavoriteGenre(favoriteGenre);
-		}
+		movieInterestImpl.setFavoriteGenreId(favoriteGenreId);
 
 		if (favoriteMovie == null) {
 			movieInterestImpl.setFavoriteMovie("");
@@ -178,7 +173,8 @@ public class MovieInterestCacheModel
 		userName = objectInput.readUTF();
 		createDate = objectInput.readLong();
 		modifiedDate = objectInput.readLong();
-		favoriteGenre = objectInput.readUTF();
+
+		favoriteGenreId = objectInput.readLong();
 		favoriteMovie = objectInput.readUTF();
 		leastFavMovie = objectInput.readUTF();
 		favoriteActor = objectInput.readUTF();
@@ -211,12 +207,7 @@ public class MovieInterestCacheModel
 		objectOutput.writeLong(createDate);
 		objectOutput.writeLong(modifiedDate);
 
-		if (favoriteGenre == null) {
-			objectOutput.writeUTF("");
-		}
-		else {
-			objectOutput.writeUTF(favoriteGenre);
-		}
+		objectOutput.writeLong(favoriteGenreId);
 
 		if (favoriteMovie == null) {
 			objectOutput.writeUTF("");
@@ -248,7 +239,7 @@ public class MovieInterestCacheModel
 	public String userName;
 	public long createDate;
 	public long modifiedDate;
-	public String favoriteGenre;
+	public long favoriteGenreId;
 	public String favoriteMovie;
 	public String leastFavMovie;
 	public String favoriteActor;

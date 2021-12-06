@@ -44,6 +44,7 @@ public class UserProfileSoap implements Serializable {
 		soapModel.setFavoriteQuotes(model.getFavoriteQuotes());
 		soapModel.setFavoriteMovie(model.getFavoriteMovie());
 		soapModel.setFavoriteGenre(model.getFavoriteGenre());
+		soapModel.setFavoriteGenreId(model.getFavoriteGenreId());
 		soapModel.setLeastFavMovie(model.getLeastFavMovie());
 		soapModel.setFavoriteActor(model.getFavoriteActor());
 
@@ -199,6 +200,14 @@ public class UserProfileSoap implements Serializable {
 		_favoriteGenre = favoriteGenre;
 	}
 
+	public long getFavoriteGenreId() {
+		return _favoriteGenreId;
+	}
+
+	public void setFavoriteGenreId(long favoriteGenreId) {
+		_favoriteGenreId = favoriteGenreId;
+	}
+
 	public String getLeastFavMovie() {
 		return _leastFavMovie;
 	}
@@ -227,6 +236,7 @@ public class UserProfileSoap implements Serializable {
 	private String _favoriteQuotes;
 	private String _favoriteMovie;
 	private String _favoriteGenre;
+	private long _favoriteGenreId;
 	private String _leastFavMovie;
 	private String _favoriteActor;
 

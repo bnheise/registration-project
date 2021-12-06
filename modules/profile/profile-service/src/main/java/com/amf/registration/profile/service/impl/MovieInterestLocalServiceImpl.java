@@ -66,6 +66,10 @@ public class MovieInterestLocalServiceImpl
 			movieInterest.setModifiedDate(new Date());
 			movieInterest.setUserId(user.getUserId());
 			movieInterest.setUserName(user.getScreenName());
+			movieInterest.setFavoriteGenreId(12);
+			movieInterest.setFavoriteActor("");
+			movieInterest.setFavoriteMovie("");
+			movieInterest.setLeastFavMovie("");
 			ResourceLocalServiceUtil.addResources(serviceContext.getCompanyId(), user.getGroupId(), userId,
 				MovieInterest.class.getName(), movieInterest.getMovieInterestId(), true, true, true);
 		}

@@ -13,6 +13,11 @@
 		<field name="aboutMe" type="String" />
 		<field name="favoriteQuotes" type="String" />
 	</model>
+	<model name="com.amf.registration.profile.model.Genre">
+		<field name="uuid" type="String" />
+		<field name="genreId" type="long" />
+		<field name="genreName" type="String" />
+	</model>
 	<model name="com.amf.registration.profile.model.MovieInterest">
 		<field name="uuid" type="String" />
 		<field name="movieInterestId" type="long" />
@@ -22,7 +27,7 @@
 		<field name="userName" type="String" />
 		<field name="createDate" type="Date" />
 		<field name="modifiedDate" type="Date" />
-		<field name="favoriteGenre" type="String" />
+		<field name="favoriteGenreId" type="long" />
 		<field name="favoriteMovie" type="String" />
 		<field name="leastFavMovie" type="String" />
 		<field name="favoriteActor" type="String" />
@@ -40,6 +45,7 @@
 		<field name="favoriteQuotes" type="String" />
 		<field name="favoriteMovie" type="String" />
 		<field name="favoriteGenre" type="String" />
+		<field name="favoriteGenreId" type="long" />
 		<field name="leastFavMovie" type="String" />
 		<field name="favoriteActor" type="String" />
 	</model>

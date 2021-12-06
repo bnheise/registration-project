@@ -25,6 +25,7 @@ import com.amf.registration.profile.model.GeneralProfile;
 import com.amf.registration.profile.model.MovieInterest;
 import com.amf.registration.profile.model.UserProfile;
 import com.amf.registration.profile.service.GeneralProfileLocalService;
+import com.amf.registration.profile.service.GenreLocalService;
 import com.amf.registration.profile.service.MovieInterestLocalService;
 import com.amf.registration.profile.service.base.UserProfileServiceBaseImpl;
 import com.liferay.portal.aop.AopService;
@@ -90,14 +91,15 @@ public class UserProfileServiceImpl extends UserProfileServiceBaseImpl {
 
 		GeneralProfile generalProfile = generalProfileLocalService.getGeneralProfileByUserId(user.getUserId(),
 				serviceContext);
-		System.out.println(generalProfileModelResourcePermission.contains(getPermissionChecker(), generalProfile.getGeneralProfileId(), "VIEW_ABOUT_ME"));
+		
 		userProfile.setAboutMe(generalProfile.getAboutMe());
 		userProfile.setFavoriteQuotes(generalProfile.getFavoriteQuotes());
 
 		MovieInterest movieInterest = movieInterestLocalService.getMovieInterestByUserId(user.getUserId(),
 				serviceContext);
 		userProfile.setFavoriteActor(movieInterest.getFavoriteActor());
-		userProfile.setFavoriteGenre(movieInterest.getFavoriteGenre());
+		userProfile.setFavoriteGenreId(movieInterest.getFavoriteGenreId());
+		userProfile.setFavoriteGenre(genreLocalService.getGenre(movieInterest.getFavoriteGenreId()).getGenreName());
 		userProfile.setFavoriteMovie(movieInterest.getFavoriteMovie());
 		userProfile.setLeastFavMovie(movieInterest.getLeastFavMovie());
 		return userProfile;
@@ -105,12 +107,11 @@ public class UserProfileServiceImpl extends UserProfileServiceBaseImpl {
 
 	@Override
 	public UserProfile updateUserProfile(String screenName, String firstName, String lastName, boolean male,
-			int birthYear, int birthMonth,
-			int birthDay, String aboutMe, String favoriteQuotes, String favoriteMovie, String favoriteGenre,
+			int birthYear, int birthMonth, int birthDay, String aboutMe, String favoriteQuotes, String favoriteMovie, long favoriteGenreId,
 			String leastFavMovie, String favoriteActor, ServiceContext serviceContext) throws PortalException {
 
 		return userProfileLocalService.updateUserProfile(screenName, firstName, lastName, male, birthYear, birthMonth,
-				birthDay, aboutMe, favoriteQuotes, favoriteMovie, favoriteGenre, leastFavMovie, favoriteActor,
+				birthDay, aboutMe, favoriteQuotes, favoriteMovie, favoriteGenreId, leastFavMovie, favoriteActor,
 				serviceContext);
 	}
 
@@ -171,6 +172,9 @@ public class UserProfileServiceImpl extends UserProfileServiceBaseImpl {
 
 	@Reference
 	MovieInterestLocalService movieInterestLocalService;
+
+	@Reference
+	GenreLocalService genreLocalService;
 
 	@Reference(policy = ReferencePolicy.DYNAMIC, policyOption = ReferencePolicyOption.GREEDY, target = "(model.class.name=com.amf.registration.profile.model.GeneralProfile)")
 	private volatile ModelResourcePermission<GeneralProfile> generalProfileModelResourcePermission;

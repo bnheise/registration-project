@@ -99,7 +99,7 @@ public class UserProfileServiceHttp {
 				String firstName, String lastName, boolean male, int birthYear,
 				int birthMonth, int birthDay, String aboutMe,
 				String favoriteQuotes, String favoriteMovie,
-				String favoriteGenre, String leastFavMovie,
+				long favoriteGenreId, String leastFavMovie,
 				String favoriteActor,
 				com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
@@ -112,7 +112,7 @@ public class UserProfileServiceHttp {
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, screenName, firstName, lastName, male, birthYear,
 				birthMonth, birthDay, aboutMe, favoriteQuotes, favoriteMovie,
-				favoriteGenre, leastFavMovie, favoriteActor, serviceContext);
+				favoriteGenreId, leastFavMovie, favoriteActor, serviceContext);
 
 			Object returnObj = null;
 
@@ -194,7 +194,7 @@ public class UserProfileServiceHttp {
 		new Class[] {
 			String.class, String.class, String.class, boolean.class, int.class,
 			int.class, int.class, String.class, String.class, String.class,
-			String.class, String.class, String.class,
+			long.class, String.class, String.class,
 			com.liferay.portal.kernel.service.ServiceContext.class
 		};
 	private static final Class<?>[] _getPermissionsParameterTypes2 =

@@ -61,7 +61,7 @@ public class UserProfileCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(29);
+		StringBundler sb = new StringBundler(31);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -87,6 +87,8 @@ public class UserProfileCacheModel
 		sb.append(favoriteMovie);
 		sb.append(", favoriteGenre=");
 		sb.append(favoriteGenre);
+		sb.append(", favoriteGenreId=");
+		sb.append(favoriteGenreId);
 		sb.append(", leastFavMovie=");
 		sb.append(leastFavMovie);
 		sb.append(", favoriteActor=");
@@ -156,6 +158,8 @@ public class UserProfileCacheModel
 			userProfileImpl.setFavoriteGenre(favoriteGenre);
 		}
 
+		userProfileImpl.setFavoriteGenreId(favoriteGenreId);
+
 		if (leastFavMovie == null) {
 			userProfileImpl.setLeastFavMovie("");
 		}
@@ -194,6 +198,8 @@ public class UserProfileCacheModel
 		favoriteQuotes = objectInput.readUTF();
 		favoriteMovie = objectInput.readUTF();
 		favoriteGenre = objectInput.readUTF();
+
+		favoriteGenreId = objectInput.readLong();
 		leastFavMovie = objectInput.readUTF();
 		favoriteActor = objectInput.readUTF();
 	}
@@ -259,6 +265,8 @@ public class UserProfileCacheModel
 			objectOutput.writeUTF(favoriteGenre);
 		}
 
+		objectOutput.writeLong(favoriteGenreId);
+
 		if (leastFavMovie == null) {
 			objectOutput.writeUTF("");
 		}
@@ -286,6 +294,7 @@ public class UserProfileCacheModel
 	public String favoriteQuotes;
 	public String favoriteMovie;
 	public String favoriteGenre;
+	public long favoriteGenreId;
 	public String leastFavMovie;
 	public String favoriteActor;
 

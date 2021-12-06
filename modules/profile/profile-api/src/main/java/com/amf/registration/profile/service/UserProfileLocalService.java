@@ -255,7 +255,7 @@ public interface UserProfileLocalService
 	public UserProfile updateUserProfile(
 			String screenName, String firstName, String lastName, boolean male,
 			int birthYear, int birthMonth, int birthDay, String aboutMe,
-			String favoriteQuotes, String favoriteMovie, String favoriteGenre,
+			String favoriteQuotes, String favoriteMovie, long favoriteGenreId,
 			String leastFavMovie, String favoriteActor,
 			ServiceContext serviceContext)
 		throws PortalException;

@@ -22,6 +22,7 @@ import com.amf.registration.profile.model.GeneralProfile;
 import com.amf.registration.profile.model.MovieInterest;
 import com.amf.registration.profile.model.UserProfile;
 import com.amf.registration.profile.service.GeneralProfileLocalService;
+import com.amf.registration.profile.service.GenreLocalService;
 import com.amf.registration.profile.service.MovieInterestLocalService;
 import com.amf.registration.profile.service.base.UserProfileLocalServiceBaseImpl;
 import com.liferay.portal.aop.AopService;
@@ -88,7 +89,7 @@ public class UserProfileLocalServiceImpl
 		MovieInterest movieInterest = movieInterestLocalService.getMovieInterestByUserId(user.getUserId(),
 				serviceContext);
 		userProfile.setFavoriteActor(movieInterest.getFavoriteActor());
-		userProfile.setFavoriteGenre(movieInterest.getFavoriteGenre());
+		userProfile.setFavoriteGenre(genreLocalService.getGenre(movieInterest.getFavoriteGenreId()).getGenreName());
 		userProfile.setFavoriteMovie(movieInterest.getFavoriteMovie());
 		userProfile.setLeastFavMovie(movieInterest.getLeastFavMovie());
 		return userProfile;
@@ -96,9 +97,8 @@ public class UserProfileLocalServiceImpl
 
 	@Override
 	public UserProfile updateUserProfile(String screenName, String firstName, String lastName, boolean male,
-			int birthYear,
-			int birthMonth, int birthDay, String aboutMe, String favoriteQuotes, String favoriteMovie,
-			String favoriteGenre, String leastFavMovie, String favoriteActor, ServiceContext serviceContext)
+			int birthYear, int birthMonth, int birthDay, String aboutMe, String favoriteQuotes, String favoriteMovie,
+			long favoriteGenreId, String leastFavMovie, String favoriteActor, ServiceContext serviceContext)
 			throws PortalException {
 
 		User user = UserLocalServiceUtil.getUserByScreenName(serviceContext.getCompanyId(), screenName);
@@ -128,7 +128,7 @@ public class UserProfileLocalServiceImpl
 		MovieInterest movieInterest = movieInterestLocalService.getMovieInterestByUserId(user.getUserId(),
 				serviceContext);
 		movieInterest.setFavoriteMovie(favoriteMovie);
-		movieInterest.setFavoriteGenre(favoriteGenre);
+		movieInterest.setFavoriteGenreId(favoriteGenreId);
 		movieInterest.setFavoriteActor(favoriteActor);
 		movieInterest.setLeastFavMovie(leastFavMovie);
 		movieInterest.setUserId(user.getUserId());
@@ -145,4 +145,7 @@ public class UserProfileLocalServiceImpl
 
 	@Reference
 	MovieInterestLocalService movieInterestLocalService;
+
+	@Reference
+	GenreLocalService genreLocalService;
 }

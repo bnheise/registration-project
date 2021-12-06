@@ -11,6 +11,12 @@ create table UserProfile_GeneralProfile (
 	favoriteQuotes VARCHAR(75) null
 );
 
+create table UserProfile_Genre (
+	uuid_ VARCHAR(75) null,
+	genreId LONG not null primary key,
+	genreName VARCHAR(75) null
+);
+
 create table UserProfile_MovieInterest (
 	uuid_ VARCHAR(75) null,
 	movieInterestId LONG not null primary key,
@@ -20,7 +26,7 @@ create table UserProfile_MovieInterest (
 	userName VARCHAR(75) null,
 	createDate DATE null,
 	modifiedDate DATE null,
-	favoriteGenre VARCHAR(75) null,
+	favoriteGenreId LONG,
 	favoriteMovie VARCHAR(75) null,
 	leastFavMovie VARCHAR(75) null,
 	favoriteActor VARCHAR(75) null
@@ -39,6 +45,7 @@ create table UserProfile_UserProfile (
 	favoriteQuotes VARCHAR(75) null,
 	favoriteMovie VARCHAR(75) null,
 	favoriteGenre VARCHAR(75) null,
+	favoriteGenreId LONG,
 	leastFavMovie VARCHAR(75) null,
 	favoriteActor VARCHAR(75) null
 );

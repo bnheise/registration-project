@@ -250,6 +250,20 @@ public interface UserProfileModel extends BaseModel<UserProfile> {
 	public void setFavoriteGenre(String favoriteGenre);
 
 	/**
+	 * Returns the favorite genre ID of this user profile.
+	 *
+	 * @return the favorite genre ID of this user profile
+	 */
+	public long getFavoriteGenreId();
+
+	/**
+	 * Sets the favorite genre ID of this user profile.
+	 *
+	 * @param favoriteGenreId the favorite genre ID of this user profile
+	 */
+	public void setFavoriteGenreId(long favoriteGenreId);
+
+	/**
 	 * Returns the least fav movie of this user profile.
 	 *
 	 * @return the least fav movie of this user profile

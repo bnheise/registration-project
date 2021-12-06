@@ -18,6 +18,7 @@ import com.amf.registration.profile.model.GeneralProfile;
 import com.amf.registration.profile.service.GeneralProfileLocalService;
 import com.amf.registration.profile.service.GeneralProfileLocalServiceUtil;
 import com.amf.registration.profile.service.persistence.GeneralProfilePersistence;
+import com.amf.registration.profile.service.persistence.GenrePersistence;
 import com.amf.registration.profile.service.persistence.MovieInterestPersistence;
 import com.amf.registration.profile.service.persistence.UserProfilePersistence;
 
@@ -584,6 +585,9 @@ public abstract class GeneralProfileLocalServiceBaseImpl
 
 	@Reference
 	protected GeneralProfilePersistence generalProfilePersistence;
+
+	@Reference
+	protected GenrePersistence genrePersistence;
 
 	@Reference
 	protected MovieInterestPersistence movieInterestPersistence;

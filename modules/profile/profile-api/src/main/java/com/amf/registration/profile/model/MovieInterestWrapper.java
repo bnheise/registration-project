@@ -51,7 +51,7 @@ public class MovieInterestWrapper
 		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
-		attributes.put("favoriteGenre", getFavoriteGenre());
+		attributes.put("favoriteGenreId", getFavoriteGenreId());
 		attributes.put("favoriteMovie", getFavoriteMovie());
 		attributes.put("leastFavMovie", getLeastFavMovie());
 		attributes.put("favoriteActor", getFavoriteActor());
@@ -109,10 +109,10 @@ public class MovieInterestWrapper
 			setModifiedDate(modifiedDate);
 		}
 
-		String favoriteGenre = (String)attributes.get("favoriteGenre");
+		Long favoriteGenreId = (Long)attributes.get("favoriteGenreId");
 
-		if (favoriteGenre != null) {
-			setFavoriteGenre(favoriteGenre);
+		if (favoriteGenreId != null) {
+			setFavoriteGenreId(favoriteGenreId);
 		}
 
 		String favoriteMovie = (String)attributes.get("favoriteMovie");
@@ -165,13 +165,13 @@ public class MovieInterestWrapper
 	}
 
 	/**
-	 * Returns the favorite genre of this movie interest.
+	 * Returns the favorite genre ID of this movie interest.
 	 *
-	 * @return the favorite genre of this movie interest
+	 * @return the favorite genre ID of this movie interest
 	 */
 	@Override
-	public String getFavoriteGenre() {
-		return model.getFavoriteGenre();
+	public long getFavoriteGenreId() {
+		return model.getFavoriteGenreId();
 	}
 
 	/**
@@ -310,13 +310,13 @@ public class MovieInterestWrapper
 	}
 
 	/**
-	 * Sets the favorite genre of this movie interest.
+	 * Sets the favorite genre ID of this movie interest.
 	 *
-	 * @param favoriteGenre the favorite genre of this movie interest
+	 * @param favoriteGenreId the favorite genre ID of this movie interest
 	 */
 	@Override
-	public void setFavoriteGenre(String favoriteGenre) {
-		model.setFavoriteGenre(favoriteGenre);
+	public void setFavoriteGenreId(long favoriteGenreId) {
+		model.setFavoriteGenreId(favoriteGenreId);
 	}
 
 	/**

@@ -41,6 +41,10 @@ const ProfileViewDisplay: FC<Props> = ({
         birthDay,
         aboutMe,
         favoriteQuotes,
+        favoriteActor,
+        leastFavMovie,
+        favoriteMovie,
+        favoriteGenre
     } = userProfile;
     if (isEditContent && isEditPermissions)
         throw new Error(
@@ -128,7 +132,7 @@ const ProfileViewDisplay: FC<Props> = ({
                         label="Favorite Movie"
                         hasPermission={viewFavQuotes}
                         isEdit={isEditContent}
-                        value={favoriteQuotes}
+                        value={favoriteMovie}
                     />
                 </ClayForm.Group>
                 <ClayForm.Group>
@@ -136,7 +140,7 @@ const ProfileViewDisplay: FC<Props> = ({
                         label="Favorite Genre"
                         hasPermission={viewFavQuotes}
                         isEdit={isEditContent}
-                        value={favoriteQuotes}
+                        value={favoriteGenre}
                     />
                 </ClayForm.Group>
                 <ClayForm.Group>
@@ -144,7 +148,7 @@ const ProfileViewDisplay: FC<Props> = ({
                         label="Least Favorite Movie"
                         hasPermission={viewFavQuotes}
                         isEdit={isEditContent}
-                        value={favoriteQuotes}
+                        value={leastFavMovie}
                     />
                 </ClayForm.Group>
                 <ClayForm.Group>
@@ -152,7 +156,7 @@ const ProfileViewDisplay: FC<Props> = ({
                         label="Favorite Actor/Actress"
                         hasPermission={viewFavQuotes}
                         isEdit={isEditContent}
-                        value={favoriteQuotes}
+                        value={favoriteActor}
                     />
                 </ClayForm.Group>
             </PermissionedSection>

@@ -14,29 +14,28 @@
 
 package com.amf.registration.profile.service;
 
-import com.amf.registration.profile.model.UserProfile;
+import com.amf.registration.profile.model.Genre;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.jsonwebservice.JSONWebService;
 import com.liferay.portal.kernel.security.access.control.AccessControlled;
 import com.liferay.portal.kernel.service.BaseService;
-import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 
-import java.util.Map;
+import java.util.List;
 
 import org.osgi.annotation.versioning.ProviderType;
 
 /**
- * Provides the remote service interface for UserProfile. Methods of this
+ * Provides the remote service interface for Genre. Methods of this
  * service are expected to have security checks based on the propagated JAAS
  * credentials because this service can be accessed remotely.
  *
  * @author Brian Heise
- * @see UserProfileServiceUtil
+ * @see GenreServiceUtil
  * @generated
  */
 @AccessControlled
@@ -46,13 +45,15 @@ import org.osgi.annotation.versioning.ProviderType;
 	isolation = Isolation.PORTAL,
 	rollbackFor = {PortalException.class, SystemException.class}
 )
-public interface UserProfileService extends BaseService {
+public interface GenreService extends BaseService {
 
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify this interface directly. Add custom service methods to <code>com.amf.registration.profile.service.impl.UserProfileServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the user profile remote service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link UserProfileServiceUtil} if injection and service tracking are not available.
+	 * Never modify this interface directly. Add custom service methods to <code>com.amf.registration.profile.service.impl.GenreServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the genre remote service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link GenreServiceUtil} if injection and service tracking are not available.
 	 */
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Genre> getAllGenres();
 
 	/**
 	 * Returns the OSGi service identifier.
@@ -60,23 +61,5 @@ public interface UserProfileService extends BaseService {
 	 * @return the OSGi service identifier
 	 */
 	public String getOSGiServiceIdentifier();
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public Map<String, Boolean> getPermissions(
-			String screenName, ServiceContext serviceContext)
-		throws PortalException;
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public UserProfile getUserProfile(
-			String screenName, ServiceContext serviceContext)
-		throws PortalException;
-
-	public UserProfile updateUserProfile(
-			String screenName, String firstName, String lastName, boolean male,
-			int birthYear, int birthMonth, int birthDay, String aboutMe,
-			String favoriteQuotes, String favoriteMovie, long favoriteGenreId,
-			String leastFavMovie, String favoriteActor,
-			ServiceContext serviceContext)
-		throws PortalException;
 
 }

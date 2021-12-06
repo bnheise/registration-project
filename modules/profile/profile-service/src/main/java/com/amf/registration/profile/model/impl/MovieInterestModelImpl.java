@@ -75,7 +75,7 @@ public class MovieInterestModelImpl
 		{"groupId", Types.BIGINT}, {"companyId", Types.BIGINT},
 		{"userId", Types.BIGINT}, {"userName", Types.VARCHAR},
 		{"createDate", Types.TIMESTAMP}, {"modifiedDate", Types.TIMESTAMP},
-		{"favoriteGenre", Types.VARCHAR}, {"favoriteMovie", Types.VARCHAR},
+		{"favoriteGenreId", Types.BIGINT}, {"favoriteMovie", Types.VARCHAR},
 		{"leastFavMovie", Types.VARCHAR}, {"favoriteActor", Types.VARCHAR}
 	};
 
@@ -91,14 +91,14 @@ public class MovieInterestModelImpl
 		TABLE_COLUMNS_MAP.put("userName", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("createDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("modifiedDate", Types.TIMESTAMP);
-		TABLE_COLUMNS_MAP.put("favoriteGenre", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("favoriteGenreId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("favoriteMovie", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("leastFavMovie", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("favoriteActor", Types.VARCHAR);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table UserProfile_MovieInterest (uuid_ VARCHAR(75) null,movieInterestId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,favoriteGenre VARCHAR(75) null,favoriteMovie VARCHAR(75) null,leastFavMovie VARCHAR(75) null,favoriteActor VARCHAR(75) null)";
+		"create table UserProfile_MovieInterest (uuid_ VARCHAR(75) null,movieInterestId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,favoriteGenreId LONG,favoriteMovie VARCHAR(75) null,leastFavMovie VARCHAR(75) null,favoriteActor VARCHAR(75) null)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table UserProfile_MovieInterest";
@@ -319,10 +319,10 @@ public class MovieInterestModelImpl
 			"modifiedDate",
 			(BiConsumer<MovieInterest, Date>)MovieInterest::setModifiedDate);
 		attributeGetterFunctions.put(
-			"favoriteGenre", MovieInterest::getFavoriteGenre);
+			"favoriteGenreId", MovieInterest::getFavoriteGenreId);
 		attributeSetterBiConsumers.put(
-			"favoriteGenre",
-			(BiConsumer<MovieInterest, String>)MovieInterest::setFavoriteGenre);
+			"favoriteGenreId",
+			(BiConsumer<MovieInterest, Long>)MovieInterest::setFavoriteGenreId);
 		attributeGetterFunctions.put(
 			"favoriteMovie", MovieInterest::getFavoriteMovie);
 		attributeSetterBiConsumers.put(
@@ -527,22 +527,17 @@ public class MovieInterestModelImpl
 	}
 
 	@Override
-	public String getFavoriteGenre() {
-		if (_favoriteGenre == null) {
-			return "";
-		}
-		else {
-			return _favoriteGenre;
-		}
+	public long getFavoriteGenreId() {
+		return _favoriteGenreId;
 	}
 
 	@Override
-	public void setFavoriteGenre(String favoriteGenre) {
+	public void setFavoriteGenreId(long favoriteGenreId) {
 		if (_columnOriginalValues == Collections.EMPTY_MAP) {
 			_setColumnOriginalValues();
 		}
 
-		_favoriteGenre = favoriteGenre;
+		_favoriteGenreId = favoriteGenreId;
 	}
 
 	@Override
@@ -672,7 +667,7 @@ public class MovieInterestModelImpl
 		movieInterestImpl.setUserName(getUserName());
 		movieInterestImpl.setCreateDate(getCreateDate());
 		movieInterestImpl.setModifiedDate(getModifiedDate());
-		movieInterestImpl.setFavoriteGenre(getFavoriteGenre());
+		movieInterestImpl.setFavoriteGenreId(getFavoriteGenreId());
 		movieInterestImpl.setFavoriteMovie(getFavoriteMovie());
 		movieInterestImpl.setLeastFavMovie(getLeastFavMovie());
 		movieInterestImpl.setFavoriteActor(getFavoriteActor());
@@ -796,13 +791,7 @@ public class MovieInterestModelImpl
 			movieInterestCacheModel.modifiedDate = Long.MIN_VALUE;
 		}
 
-		movieInterestCacheModel.favoriteGenre = getFavoriteGenre();
-
-		String favoriteGenre = movieInterestCacheModel.favoriteGenre;
-
-		if ((favoriteGenre != null) && (favoriteGenre.length() == 0)) {
-			movieInterestCacheModel.favoriteGenre = null;
-		}
+		movieInterestCacheModel.favoriteGenreId = getFavoriteGenreId();
 
 		movieInterestCacheModel.favoriteMovie = getFavoriteMovie();
 
@@ -910,7 +899,7 @@ public class MovieInterestModelImpl
 	private Date _createDate;
 	private Date _modifiedDate;
 	private boolean _setModifiedDate;
-	private String _favoriteGenre;
+	private long _favoriteGenreId;
 	private String _favoriteMovie;
 	private String _leastFavMovie;
 	private String _favoriteActor;
@@ -952,7 +941,7 @@ public class MovieInterestModelImpl
 		_columnOriginalValues.put("userName", _userName);
 		_columnOriginalValues.put("createDate", _createDate);
 		_columnOriginalValues.put("modifiedDate", _modifiedDate);
-		_columnOriginalValues.put("favoriteGenre", _favoriteGenre);
+		_columnOriginalValues.put("favoriteGenreId", _favoriteGenreId);
 		_columnOriginalValues.put("favoriteMovie", _favoriteMovie);
 		_columnOriginalValues.put("leastFavMovie", _leastFavMovie);
 		_columnOriginalValues.put("favoriteActor", _favoriteActor);
@@ -995,7 +984,7 @@ public class MovieInterestModelImpl
 
 		columnBitmasks.put("modifiedDate", 128L);
 
-		columnBitmasks.put("favoriteGenre", 256L);
+		columnBitmasks.put("favoriteGenreId", 256L);
 
 		columnBitmasks.put("favoriteMovie", 512L);
 

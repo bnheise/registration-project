@@ -58,7 +58,7 @@
 
 		<!-- Other fields -->
 
-		<column name="favoriteGenre" type="String" />
+		<column name="favoriteGenreId" type="long" />
 		<column name="favoriteMovie" type="String" />
 		<column name="leastFavMovie" type="String" />
 		<column name="favoriteActor" type="String" />
@@ -93,6 +93,7 @@
 		<!-- Movie Interests -->
 		<column name="favoriteMovie" type="String" />
 		<column name="favoriteGenre" type="String" />
+		<column name="favoriteGenreId" type="long" />
 		<column name="leastFavMovie" type="String" />
 		<column name="favoriteActor" type="String" />
 
@@ -101,6 +102,16 @@
 		<order by="asc">
 			<order-column name="lastName" />
 			<order-column name="firstName" />
+		</order>
+
+	</entity>
+
+	<entity local-service="true" name="Genre" remote-service="true" uuid="true">
+		<column name="genreId" primary="true" type="long" />
+		<column name="genreName" type="String" />
+
+		<order by="asc">
+			<order-column name="genreName" />
 		</order>
 
 	</entity>

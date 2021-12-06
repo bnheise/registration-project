@@ -53,6 +53,7 @@ public class UserProfileWrapper
 		attributes.put("favoriteQuotes", getFavoriteQuotes());
 		attributes.put("favoriteMovie", getFavoriteMovie());
 		attributes.put("favoriteGenre", getFavoriteGenre());
+		attributes.put("favoriteGenreId", getFavoriteGenreId());
 		attributes.put("leastFavMovie", getLeastFavMovie());
 		attributes.put("favoriteActor", getFavoriteActor());
 
@@ -133,6 +134,12 @@ public class UserProfileWrapper
 			setFavoriteGenre(favoriteGenre);
 		}
 
+		Long favoriteGenreId = (Long)attributes.get("favoriteGenreId");
+
+		if (favoriteGenreId != null) {
+			setFavoriteGenreId(favoriteGenreId);
+		}
+
 		String leastFavMovie = (String)attributes.get("leastFavMovie");
 
 		if (leastFavMovie != null) {
@@ -204,6 +211,16 @@ public class UserProfileWrapper
 	@Override
 	public String getFavoriteGenre() {
 		return model.getFavoriteGenre();
+	}
+
+	/**
+	 * Returns the favorite genre ID of this user profile.
+	 *
+	 * @return the favorite genre ID of this user profile
+	 */
+	@Override
+	public long getFavoriteGenreId() {
+		return model.getFavoriteGenreId();
 	}
 
 	/**
@@ -379,6 +396,16 @@ public class UserProfileWrapper
 	@Override
 	public void setFavoriteGenre(String favoriteGenre) {
 		model.setFavoriteGenre(favoriteGenre);
+	}
+
+	/**
+	 * Sets the favorite genre ID of this user profile.
+	 *
+	 * @param favoriteGenreId the favorite genre ID of this user profile
+	 */
+	@Override
+	public void setFavoriteGenreId(long favoriteGenreId) {
+		model.setFavoriteGenreId(favoriteGenreId);
 	}
 
 	/**

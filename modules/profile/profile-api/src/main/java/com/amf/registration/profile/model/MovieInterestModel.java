@@ -205,19 +205,18 @@ public interface MovieInterestModel
 	public void setModifiedDate(Date modifiedDate);
 
 	/**
-	 * Returns the favorite genre of this movie interest.
+	 * Returns the favorite genre ID of this movie interest.
 	 *
-	 * @return the favorite genre of this movie interest
+	 * @return the favorite genre ID of this movie interest
 	 */
-	@AutoEscape
-	public String getFavoriteGenre();
+	public long getFavoriteGenreId();
 
 	/**
-	 * Sets the favorite genre of this movie interest.
+	 * Sets the favorite genre ID of this movie interest.
 	 *
-	 * @param favoriteGenre the favorite genre of this movie interest
+	 * @param favoriteGenreId the favorite genre ID of this movie interest
 	 */
-	public void setFavoriteGenre(String favoriteGenre);
+	public void setFavoriteGenreId(long favoriteGenreId);
 
 	/**
 	 * Returns the favorite movie of this movie interest.

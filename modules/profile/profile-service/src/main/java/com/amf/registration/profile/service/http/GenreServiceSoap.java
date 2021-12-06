@@ -14,7 +14,7 @@
 
 package com.amf.registration.profile.service.http;
 
-import com.amf.registration.profile.service.UserProfileServiceUtil;
+import com.amf.registration.profile.service.GenreServiceUtil;
 
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -23,7 +23,7 @@ import java.rmi.RemoteException;
 
 /**
  * Provides the SOAP utility for the
- * <code>UserProfileServiceUtil</code> service
+ * <code>GenreServiceUtil</code> service
  * utility. The static methods of this class call the same methods of the
  * service utility. However, the signatures are different because it is
  * difficult for SOAP to support certain types.
@@ -32,10 +32,10 @@ import java.rmi.RemoteException;
  * ServiceBuilder follows certain rules in translating the methods. For example,
  * if the method in the service utility returns a <code>java.util.List</code>,
  * that is translated to an array of
- * <code>com.amf.registration.profile.model.UserProfileSoap</code>. If the method in the
+ * <code>com.amf.registration.profile.model.GenreSoap</code>. If the method in the
  * service utility returns a
- * <code>com.amf.registration.profile.model.UserProfile</code>, that is translated to a
- * <code>com.amf.registration.profile.model.UserProfileSoap</code>. Methods that SOAP
+ * <code>com.amf.registration.profile.model.Genre</code>, that is translated to a
+ * <code>com.amf.registration.profile.model.GenreSoap</code>. Methods that SOAP
  * cannot safely wire are skipped.
  * </p>
  *
@@ -57,26 +57,22 @@ import java.rmi.RemoteException;
  * </p>
  *
  * @author Brian Heise
- * @see UserProfileServiceHttp
+ * @see GenreServiceHttp
  * @deprecated As of Athanasius (7.3.x), with no direct replacement
  * @generated
  */
 @Deprecated
-public class UserProfileServiceSoap {
+public class GenreServiceSoap {
 
-	public static com.amf.registration.profile.model.UserProfileSoap
-			getUserProfile(
-				String screenName,
-				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+	public static com.amf.registration.profile.model.GenreSoap[] getAllGenres()
 		throws RemoteException {
 
 		try {
-			com.amf.registration.profile.model.UserProfile returnValue =
-				UserProfileServiceUtil.getUserProfile(
-					screenName, serviceContext);
+			java.util.List<com.amf.registration.profile.model.Genre>
+				returnValue = GenreServiceUtil.getAllGenres();
 
-			return com.amf.registration.profile.model.UserProfileSoap.
-				toSoapModel(returnValue);
+			return com.amf.registration.profile.model.GenreSoap.toSoapModels(
+				returnValue);
 		}
 		catch (Exception exception) {
 			_log.error(exception, exception);
@@ -85,35 +81,6 @@ public class UserProfileServiceSoap {
 		}
 	}
 
-	public static com.amf.registration.profile.model.UserProfileSoap
-			updateUserProfile(
-				String screenName, String firstName, String lastName,
-				boolean male, int birthYear, int birthMonth, int birthDay,
-				String aboutMe, String favoriteQuotes, String favoriteMovie,
-				long favoriteGenreId, String leastFavMovie,
-				String favoriteActor,
-				com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws RemoteException {
-
-		try {
-			com.amf.registration.profile.model.UserProfile returnValue =
-				UserProfileServiceUtil.updateUserProfile(
-					screenName, firstName, lastName, male, birthYear,
-					birthMonth, birthDay, aboutMe, favoriteQuotes,
-					favoriteMovie, favoriteGenreId, leastFavMovie,
-					favoriteActor, serviceContext);
-
-			return com.amf.registration.profile.model.UserProfileSoap.
-				toSoapModel(returnValue);
-		}
-		catch (Exception exception) {
-			_log.error(exception, exception);
-
-			throw new RemoteException(exception.getMessage());
-		}
-	}
-
-	private static Log _log = LogFactoryUtil.getLog(
-		UserProfileServiceSoap.class);
+	private static Log _log = LogFactoryUtil.getLog(GenreServiceSoap.class);
 
 }

@@ -78,7 +78,8 @@ public class UserProfileModelImpl
 		{"birthMonth", Types.INTEGER}, {"birthDay", Types.INTEGER},
 		{"aboutMe", Types.VARCHAR}, {"favoriteQuotes", Types.VARCHAR},
 		{"favoriteMovie", Types.VARCHAR}, {"favoriteGenre", Types.VARCHAR},
-		{"leastFavMovie", Types.VARCHAR}, {"favoriteActor", Types.VARCHAR}
+		{"favoriteGenreId", Types.BIGINT}, {"leastFavMovie", Types.VARCHAR},
+		{"favoriteActor", Types.VARCHAR}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -97,12 +98,13 @@ public class UserProfileModelImpl
 		TABLE_COLUMNS_MAP.put("favoriteQuotes", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("favoriteMovie", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("favoriteGenre", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("favoriteGenreId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("leastFavMovie", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("favoriteActor", Types.VARCHAR);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table UserProfile_UserProfile (uuid_ VARCHAR(75) null,userId LONG not null primary key,firstName VARCHAR(75) null,lastName VARCHAR(75) null,male BOOLEAN,birthYear INTEGER,birthMonth INTEGER,birthDay INTEGER,aboutMe VARCHAR(75) null,favoriteQuotes VARCHAR(75) null,favoriteMovie VARCHAR(75) null,favoriteGenre VARCHAR(75) null,leastFavMovie VARCHAR(75) null,favoriteActor VARCHAR(75) null)";
+		"create table UserProfile_UserProfile (uuid_ VARCHAR(75) null,userId LONG not null primary key,firstName VARCHAR(75) null,lastName VARCHAR(75) null,male BOOLEAN,birthYear INTEGER,birthMonth INTEGER,birthDay INTEGER,aboutMe VARCHAR(75) null,favoriteQuotes VARCHAR(75) null,favoriteMovie VARCHAR(75) null,favoriteGenre VARCHAR(75) null,favoriteGenreId LONG,leastFavMovie VARCHAR(75) null,favoriteActor VARCHAR(75) null)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table UserProfile_UserProfile";
@@ -180,6 +182,7 @@ public class UserProfileModelImpl
 		model.setFavoriteQuotes(soapModel.getFavoriteQuotes());
 		model.setFavoriteMovie(soapModel.getFavoriteMovie());
 		model.setFavoriteGenre(soapModel.getFavoriteGenre());
+		model.setFavoriteGenreId(soapModel.getFavoriteGenreId());
 		model.setLeastFavMovie(soapModel.getLeastFavMovie());
 		model.setFavoriteActor(soapModel.getFavoriteActor());
 
@@ -381,6 +384,11 @@ public class UserProfileModelImpl
 		attributeSetterBiConsumers.put(
 			"favoriteGenre",
 			(BiConsumer<UserProfile, String>)UserProfile::setFavoriteGenre);
+		attributeGetterFunctions.put(
+			"favoriteGenreId", UserProfile::getFavoriteGenreId);
+		attributeSetterBiConsumers.put(
+			"favoriteGenreId",
+			(BiConsumer<UserProfile, Long>)UserProfile::setFavoriteGenreId);
 		attributeGetterFunctions.put(
 			"leastFavMovie", UserProfile::getLeastFavMovie);
 		attributeSetterBiConsumers.put(
@@ -646,6 +654,21 @@ public class UserProfileModelImpl
 
 	@JSON
 	@Override
+	public long getFavoriteGenreId() {
+		return _favoriteGenreId;
+	}
+
+	@Override
+	public void setFavoriteGenreId(long favoriteGenreId) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_favoriteGenreId = favoriteGenreId;
+	}
+
+	@JSON
+	@Override
 	public String getLeastFavMovie() {
 		if (_leastFavMovie == null) {
 			return "";
@@ -752,6 +775,7 @@ public class UserProfileModelImpl
 		userProfileImpl.setFavoriteQuotes(getFavoriteQuotes());
 		userProfileImpl.setFavoriteMovie(getFavoriteMovie());
 		userProfileImpl.setFavoriteGenre(getFavoriteGenre());
+		userProfileImpl.setFavoriteGenreId(getFavoriteGenreId());
 		userProfileImpl.setLeastFavMovie(getLeastFavMovie());
 		userProfileImpl.setFavoriteActor(getFavoriteActor());
 
@@ -902,6 +926,8 @@ public class UserProfileModelImpl
 			userProfileCacheModel.favoriteGenre = null;
 		}
 
+		userProfileCacheModel.favoriteGenreId = getFavoriteGenreId();
+
 		userProfileCacheModel.leastFavMovie = getLeastFavMovie();
 
 		String leastFavMovie = userProfileCacheModel.leastFavMovie;
@@ -1003,6 +1029,7 @@ public class UserProfileModelImpl
 	private String _favoriteQuotes;
 	private String _favoriteMovie;
 	private String _favoriteGenre;
+	private long _favoriteGenreId;
 	private String _leastFavMovie;
 	private String _favoriteActor;
 
@@ -1047,6 +1074,7 @@ public class UserProfileModelImpl
 		_columnOriginalValues.put("favoriteQuotes", _favoriteQuotes);
 		_columnOriginalValues.put("favoriteMovie", _favoriteMovie);
 		_columnOriginalValues.put("favoriteGenre", _favoriteGenre);
+		_columnOriginalValues.put("favoriteGenreId", _favoriteGenreId);
 		_columnOriginalValues.put("leastFavMovie", _leastFavMovie);
 		_columnOriginalValues.put("favoriteActor", _favoriteActor);
 	}
@@ -1096,9 +1124,11 @@ public class UserProfileModelImpl
 
 		columnBitmasks.put("favoriteGenre", 2048L);
 
-		columnBitmasks.put("leastFavMovie", 4096L);
+		columnBitmasks.put("favoriteGenreId", 4096L);
 
-		columnBitmasks.put("favoriteActor", 8192L);
+		columnBitmasks.put("leastFavMovie", 8192L);
+
+		columnBitmasks.put("favoriteActor", 16384L);
 
 		_columnBitmasks = Collections.unmodifiableMap(columnBitmasks);
 	}

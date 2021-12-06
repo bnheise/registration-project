@@ -41,7 +41,7 @@ public class MovieInterestSoap implements Serializable {
 		soapModel.setUserName(model.getUserName());
 		soapModel.setCreateDate(model.getCreateDate());
 		soapModel.setModifiedDate(model.getModifiedDate());
-		soapModel.setFavoriteGenre(model.getFavoriteGenre());
+		soapModel.setFavoriteGenreId(model.getFavoriteGenreId());
 		soapModel.setFavoriteMovie(model.getFavoriteMovie());
 		soapModel.setLeastFavMovie(model.getLeastFavMovie());
 		soapModel.setFavoriteActor(model.getFavoriteActor());
@@ -162,12 +162,12 @@ public class MovieInterestSoap implements Serializable {
 		_modifiedDate = modifiedDate;
 	}
 
-	public String getFavoriteGenre() {
-		return _favoriteGenre;
+	public long getFavoriteGenreId() {
+		return _favoriteGenreId;
 	}
 
-	public void setFavoriteGenre(String favoriteGenre) {
-		_favoriteGenre = favoriteGenre;
+	public void setFavoriteGenreId(long favoriteGenreId) {
+		_favoriteGenreId = favoriteGenreId;
 	}
 
 	public String getFavoriteMovie() {
@@ -202,7 +202,7 @@ public class MovieInterestSoap implements Serializable {
 	private String _userName;
 	private Date _createDate;
 	private Date _modifiedDate;
-	private String _favoriteGenre;
+	private long _favoriteGenreId;
 	private String _favoriteMovie;
 	private String _leastFavMovie;
 	private String _favoriteActor;

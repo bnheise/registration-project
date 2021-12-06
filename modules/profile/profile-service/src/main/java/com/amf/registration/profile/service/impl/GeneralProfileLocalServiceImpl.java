@@ -64,8 +64,8 @@ public class GeneralProfileLocalServiceImpl
 	public GeneralProfile getGeneralProfileByUserId(long userId, ServiceContext serviceContext) throws PortalException {
 		GeneralProfile generalProfile = generalProfilePersistence.fetchByUserId(userId);
 		if (generalProfile == null) {
-			generalProfile = addGeneralProfile(generalProfilePersistence
-					.create(CounterLocalServiceUtil.increment(GeneralProfile.class.getName())));
+			generalProfile = generalProfilePersistence
+					.create(CounterLocalServiceUtil.increment(GeneralProfile.class.getName()));
 			User user = UserLocalServiceUtil.getUser(userId);
 			generalProfile.setCompanyId(user.getCompanyId());
 			generalProfile.setCreateDate(new Date());
@@ -73,6 +73,10 @@ public class GeneralProfileLocalServiceImpl
 			generalProfile.setModifiedDate(new Date());
 			generalProfile.setUserId(user.getUserId());
 			generalProfile.setUserName(user.getScreenName());
+			generalProfile.setAboutMe("");
+			generalProfile.setFavoriteQuotes("");
+			addGeneralProfile(generalProfile);
+			long groupId = user.getGroupId();
 			ResourceLocalServiceUtil.addResources(serviceContext.getCompanyId(), user.getGroupId(),
 					userId, GeneralProfile.class.getName(), generalProfile.getGeneralProfileId(), true, true, true);
 		}
