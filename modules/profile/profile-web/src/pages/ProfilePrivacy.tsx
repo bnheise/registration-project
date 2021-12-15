@@ -1,18 +1,41 @@
-import React from 'react'
+import ClayLoadingIndicator from "@clayui/loading-indicator";
+import React, {
+    Dispatch,
+    FC,
+    SetStateAction,
+    useEffect,
+    useState,
+} from "react";
+import { PermissionSettings } from "../domain/PermissionSettings";
+import { getPermissionSettings } from "./effects";
+import ProfilePrivacyDisplay from "./ProfilePrivacyDisplay";
 
-interface Props {
+interface Props { }
 
-}
+const ProfilePrivacy: FC<Props> = ({ }) => {
+    const [permissionSettings, setPermissionSettings] =
+        useState<PermissionSettings>();
+    const userId = Liferay.ThemeDisplay.getUserId();
+    useEffect(getPermissionSettings(userId, setPermissionSettings), []);
+    const handleSubmit = () => { };
 
-const ProfilePrivacy = (props: Props) => {
-    // TODO: create an endpoint that loads current privacy settings;
-    // TODO: display data in UI;
-    // TODO: learn how to update permissions --> set role to guest/user/none?
     return (
         <div>
-            <h1>Edit Profile Privacy</h1>
+            <h1>Edit Profile Privacy Settings</h1>
+            {permissionSettings ? (
+                <ProfilePrivacyDisplay
+                    permissionSettings={permissionSettings}
+                    setPermissionSettings={
+                        setPermissionSettings as Dispatch<
+                            SetStateAction<PermissionSettings>
+                        >
+                    }
+                />
+            ) : (
+                <ClayLoadingIndicator />
+            )}
         </div>
-    )
-}
+    );
+};
 
-export default ProfilePrivacy
+export default ProfilePrivacy;

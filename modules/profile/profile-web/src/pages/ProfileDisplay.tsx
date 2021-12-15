@@ -55,7 +55,7 @@ const ProfileViewDisplay: FC<Props> = ({
     const setMale = (value: string) => setProfile((prevState) => ({ ...prevState, male: value === "male" }));
     const setBirthDay = (value: string) => setProfile((prevState) => {
         const asDate = new Date(value);
-        return { ...prevState, birthDay: asDate.getDate(), birthMonth: asDate.getMonth(), birthYear: asDate.getFullYear() }
+        return { ...prevState, birthDay: asDate.getDate(), birthMonth: asDate.getMonth() + 1, birthYear: asDate.getFullYear() }
     });
     const setAboutMe = (value: typeof userProfile.aboutMe) => setProfile((prevState) => ({ ...prevState, aboutMe: value }));
     const setFavoriteQuotes = (value: typeof userProfile.favoriteQuotes) => setProfile((prevState) => ({ ...prevState, favoriteQuotes: value }));

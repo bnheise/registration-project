@@ -4,6 +4,10 @@ import {
   GET_ALL_GENRES,
 } from "../api/UserProfile/getAllGenres";
 import {
+  GetPermissionSettingsRequest,
+  GET_PERMISSION_SETTINGS,
+} from "../api/UserProfile/getPermissionSettings";
+import {
   GetProfileRequest,
   GET_USER_PROFILE,
 } from "../api/UserProfile/getUserProfile";
@@ -21,6 +25,7 @@ import {
 } from "../api/UserProfile/getViewPermissionsByUserId";
 import { Genre } from "../domain/Genre";
 import { SelectOption } from "../domain/options";
+import { PermissionSettings } from "../domain/PermissionSettings";
 import { ProfileViewPermissions } from "../domain/ProfileViewPermissions";
 import { UserProfile } from "../domain/UserProfile";
 
@@ -29,6 +34,9 @@ type ViewPermissionsSetter = Dispatch<
   SetStateAction<ProfileViewPermissions | undefined>
 >;
 type GenreOptionsSetter = Dispatch<SetStateAction<SelectOption[] | undefined>>;
+type PermissionSettingsSetter = Dispatch<
+  SetStateAction<PermissionSettings | undefined>
+>;
 
 export const getProfileAndPermissions =
   (
@@ -99,6 +107,23 @@ export const getOwnProfile =
             label: genreName,
           }))
         );
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+  };
+
+export const getPermissionSettings =
+  (userId: string, setPermissionSettings: PermissionSettingsSetter) => () => {
+    const getPermissionSettingsReq: GetPermissionSettingsRequest = {
+      [GET_PERMISSION_SETTINGS]: { userId },
+    };
+
+    Liferay.Service(
+      [getPermissionSettingsReq],
+      ([permissionSettings]: [PermissionSettings]) => {
+        setPermissionSettings(permissionSettings);
       },
       (error) => {
         console.error(error);

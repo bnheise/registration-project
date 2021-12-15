@@ -14,4 +14,5 @@ export interface UserProfile {
   male: boolean;
   userId: string;
   uuid: string;
+  screenName: string;
 }
