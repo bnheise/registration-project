@@ -246,11 +246,11 @@ public class UserProfileLocalServiceUtil {
 	}
 
 	public static UserProfile getUserProfile(
-			String screenName,
+			com.liferay.portal.kernel.model.User user,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws PortalException {
 
-		return getService().getUserProfile(screenName, serviceContext);
+		return getService().getUserProfile(user, serviceContext);
 	}
 
 	/**

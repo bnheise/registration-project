@@ -270,12 +270,11 @@ public class UserProfileLocalServiceWrapper
 
 	@Override
 	public com.amf.registration.profile.model.UserProfile getUserProfile(
-			String screenName,
+			com.liferay.portal.kernel.model.User user,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
-		return _userProfileLocalService.getUserProfile(
-			screenName, serviceContext);
+		return _userProfileLocalService.getUserProfile(user, serviceContext);
 	}
 
 	/**

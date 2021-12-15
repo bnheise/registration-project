@@ -60,6 +60,16 @@ public class UserProfileServiceWrapper
 	}
 
 	@Override
+	public java.util.Map<String, String> getPermissionSettings(
+			long userId,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _userProfileService.getPermissionSettings(
+			userId, serviceContext);
+	}
+
+	@Override
 	public com.amf.registration.profile.model.UserProfile getUserProfile(
 			String screenName,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
