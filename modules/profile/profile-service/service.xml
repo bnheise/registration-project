@@ -81,6 +81,7 @@
 		<!-- Basic Info -->
 		<column name="firstName" type="String" />
 		<column name="lastName" type="String" />
+		<column name="screenName" type="String" />
 		<column name="male" type="boolean" />
 		<column name="birthYear" type="int" />
 		<column name="birthMonth" type="int" />

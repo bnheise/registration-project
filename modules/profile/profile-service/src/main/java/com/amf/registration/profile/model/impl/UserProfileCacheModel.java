@@ -61,7 +61,7 @@ public class UserProfileCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(31);
+		StringBundler sb = new StringBundler(33);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -71,6 +71,8 @@ public class UserProfileCacheModel
 		sb.append(firstName);
 		sb.append(", lastName=");
 		sb.append(lastName);
+		sb.append(", screenName=");
+		sb.append(screenName);
 		sb.append(", male=");
 		sb.append(male);
 		sb.append(", birthYear=");
@@ -123,6 +125,13 @@ public class UserProfileCacheModel
 		}
 		else {
 			userProfileImpl.setLastName(lastName);
+		}
+
+		if (screenName == null) {
+			userProfileImpl.setScreenName("");
+		}
+		else {
+			userProfileImpl.setScreenName(screenName);
 		}
 
 		userProfileImpl.setMale(male);
@@ -186,6 +195,7 @@ public class UserProfileCacheModel
 		userId = objectInput.readLong();
 		firstName = objectInput.readUTF();
 		lastName = objectInput.readUTF();
+		screenName = objectInput.readUTF();
 
 		male = objectInput.readBoolean();
 
@@ -227,6 +237,13 @@ public class UserProfileCacheModel
 		}
 		else {
 			objectOutput.writeUTF(lastName);
+		}
+
+		if (screenName == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(screenName);
 		}
 
 		objectOutput.writeBoolean(male);
@@ -286,6 +303,7 @@ public class UserProfileCacheModel
 	public long userId;
 	public String firstName;
 	public String lastName;
+	public String screenName;
 	public boolean male;
 	public int birthYear;
 	public int birthMonth;

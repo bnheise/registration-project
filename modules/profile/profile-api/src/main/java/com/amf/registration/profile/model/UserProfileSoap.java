@@ -36,6 +36,7 @@ public class UserProfileSoap implements Serializable {
 		soapModel.setUserId(model.getUserId());
 		soapModel.setFirstName(model.getFirstName());
 		soapModel.setLastName(model.getLastName());
+		soapModel.setScreenName(model.getScreenName());
 		soapModel.setMale(model.isMale());
 		soapModel.setBirthYear(model.getBirthYear());
 		soapModel.setBirthMonth(model.getBirthMonth());
@@ -130,6 +131,14 @@ public class UserProfileSoap implements Serializable {
 
 	public void setLastName(String lastName) {
 		_lastName = lastName;
+	}
+
+	public String getScreenName() {
+		return _screenName;
+	}
+
+	public void setScreenName(String screenName) {
+		_screenName = screenName;
 	}
 
 	public boolean getMale() {
@@ -228,6 +237,7 @@ public class UserProfileSoap implements Serializable {
 	private long _userId;
 	private String _firstName;
 	private String _lastName;
+	private String _screenName;
 	private boolean _male;
 	private int _birthYear;
 	private int _birthMonth;

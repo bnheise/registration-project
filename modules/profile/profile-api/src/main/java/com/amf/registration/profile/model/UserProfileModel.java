@@ -127,6 +127,21 @@ public interface UserProfileModel extends BaseModel<UserProfile> {
 	public void setLastName(String lastName);
 
 	/**
+	 * Returns the screen name of this user profile.
+	 *
+	 * @return the screen name of this user profile
+	 */
+	@AutoEscape
+	public String getScreenName();
+
+	/**
+	 * Sets the screen name of this user profile.
+	 *
+	 * @param screenName the screen name of this user profile
+	 */
+	public void setScreenName(String screenName);
+
+	/**
 	 * Returns the male of this user profile.
 	 *
 	 * @return the male of this user profile

@@ -74,12 +74,12 @@ public class UserProfileModelImpl
 	public static final Object[][] TABLE_COLUMNS = {
 		{"uuid_", Types.VARCHAR}, {"userId", Types.BIGINT},
 		{"firstName", Types.VARCHAR}, {"lastName", Types.VARCHAR},
-		{"male", Types.BOOLEAN}, {"birthYear", Types.INTEGER},
-		{"birthMonth", Types.INTEGER}, {"birthDay", Types.INTEGER},
-		{"aboutMe", Types.VARCHAR}, {"favoriteQuotes", Types.VARCHAR},
-		{"favoriteMovie", Types.VARCHAR}, {"favoriteGenre", Types.VARCHAR},
-		{"favoriteGenreId", Types.BIGINT}, {"leastFavMovie", Types.VARCHAR},
-		{"favoriteActor", Types.VARCHAR}
+		{"screenName", Types.VARCHAR}, {"male", Types.BOOLEAN},
+		{"birthYear", Types.INTEGER}, {"birthMonth", Types.INTEGER},
+		{"birthDay", Types.INTEGER}, {"aboutMe", Types.VARCHAR},
+		{"favoriteQuotes", Types.VARCHAR}, {"favoriteMovie", Types.VARCHAR},
+		{"favoriteGenre", Types.VARCHAR}, {"favoriteGenreId", Types.BIGINT},
+		{"leastFavMovie", Types.VARCHAR}, {"favoriteActor", Types.VARCHAR}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -90,6 +90,7 @@ public class UserProfileModelImpl
 		TABLE_COLUMNS_MAP.put("userId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("firstName", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("lastName", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("screenName", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("male", Types.BOOLEAN);
 		TABLE_COLUMNS_MAP.put("birthYear", Types.INTEGER);
 		TABLE_COLUMNS_MAP.put("birthMonth", Types.INTEGER);
@@ -104,7 +105,7 @@ public class UserProfileModelImpl
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table UserProfile_UserProfile (uuid_ VARCHAR(75) null,userId LONG not null primary key,firstName VARCHAR(75) null,lastName VARCHAR(75) null,male BOOLEAN,birthYear INTEGER,birthMonth INTEGER,birthDay INTEGER,aboutMe VARCHAR(75) null,favoriteQuotes VARCHAR(75) null,favoriteMovie VARCHAR(75) null,favoriteGenre VARCHAR(75) null,favoriteGenreId LONG,leastFavMovie VARCHAR(75) null,favoriteActor VARCHAR(75) null)";
+		"create table UserProfile_UserProfile (uuid_ VARCHAR(75) null,userId LONG not null primary key,firstName VARCHAR(75) null,lastName VARCHAR(75) null,screenName VARCHAR(75) null,male BOOLEAN,birthYear INTEGER,birthMonth INTEGER,birthDay INTEGER,aboutMe VARCHAR(75) null,favoriteQuotes VARCHAR(75) null,favoriteMovie VARCHAR(75) null,favoriteGenre VARCHAR(75) null,favoriteGenreId LONG,leastFavMovie VARCHAR(75) null,favoriteActor VARCHAR(75) null)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table UserProfile_UserProfile";
@@ -174,6 +175,7 @@ public class UserProfileModelImpl
 		model.setUserId(soapModel.getUserId());
 		model.setFirstName(soapModel.getFirstName());
 		model.setLastName(soapModel.getLastName());
+		model.setScreenName(soapModel.getScreenName());
 		model.setMale(soapModel.isMale());
 		model.setBirthYear(soapModel.getBirthYear());
 		model.setBirthMonth(soapModel.getBirthMonth());
@@ -350,6 +352,10 @@ public class UserProfileModelImpl
 		attributeSetterBiConsumers.put(
 			"lastName",
 			(BiConsumer<UserProfile, String>)UserProfile::setLastName);
+		attributeGetterFunctions.put("screenName", UserProfile::getScreenName);
+		attributeSetterBiConsumers.put(
+			"screenName",
+			(BiConsumer<UserProfile, String>)UserProfile::setScreenName);
 		attributeGetterFunctions.put("male", UserProfile::getMale);
 		attributeSetterBiConsumers.put(
 			"male", (BiConsumer<UserProfile, Boolean>)UserProfile::setMale);
@@ -504,6 +510,26 @@ public class UserProfileModelImpl
 		}
 
 		_lastName = lastName;
+	}
+
+	@JSON
+	@Override
+	public String getScreenName() {
+		if (_screenName == null) {
+			return "";
+		}
+		else {
+			return _screenName;
+		}
+	}
+
+	@Override
+	public void setScreenName(String screenName) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_screenName = screenName;
 	}
 
 	@JSON
@@ -767,6 +793,7 @@ public class UserProfileModelImpl
 		userProfileImpl.setUserId(getUserId());
 		userProfileImpl.setFirstName(getFirstName());
 		userProfileImpl.setLastName(getLastName());
+		userProfileImpl.setScreenName(getScreenName());
 		userProfileImpl.setMale(isMale());
 		userProfileImpl.setBirthYear(getBirthYear());
 		userProfileImpl.setBirthMonth(getBirthMonth());
@@ -884,6 +911,14 @@ public class UserProfileModelImpl
 
 		if ((lastName != null) && (lastName.length() == 0)) {
 			userProfileCacheModel.lastName = null;
+		}
+
+		userProfileCacheModel.screenName = getScreenName();
+
+		String screenName = userProfileCacheModel.screenName;
+
+		if ((screenName != null) && (screenName.length() == 0)) {
+			userProfileCacheModel.screenName = null;
 		}
 
 		userProfileCacheModel.male = isMale();
@@ -1021,6 +1056,7 @@ public class UserProfileModelImpl
 	private long _userId;
 	private String _firstName;
 	private String _lastName;
+	private String _screenName;
 	private boolean _male;
 	private int _birthYear;
 	private int _birthMonth;
@@ -1066,6 +1102,7 @@ public class UserProfileModelImpl
 		_columnOriginalValues.put("userId", _userId);
 		_columnOriginalValues.put("firstName", _firstName);
 		_columnOriginalValues.put("lastName", _lastName);
+		_columnOriginalValues.put("screenName", _screenName);
 		_columnOriginalValues.put("male", _male);
 		_columnOriginalValues.put("birthYear", _birthYear);
 		_columnOriginalValues.put("birthMonth", _birthMonth);
@@ -1108,27 +1145,29 @@ public class UserProfileModelImpl
 
 		columnBitmasks.put("lastName", 8L);
 
-		columnBitmasks.put("male", 16L);
+		columnBitmasks.put("screenName", 16L);
 
-		columnBitmasks.put("birthYear", 32L);
+		columnBitmasks.put("male", 32L);
 
-		columnBitmasks.put("birthMonth", 64L);
+		columnBitmasks.put("birthYear", 64L);
 
-		columnBitmasks.put("birthDay", 128L);
+		columnBitmasks.put("birthMonth", 128L);
 
-		columnBitmasks.put("aboutMe", 256L);
+		columnBitmasks.put("birthDay", 256L);
 
-		columnBitmasks.put("favoriteQuotes", 512L);
+		columnBitmasks.put("aboutMe", 512L);
 
-		columnBitmasks.put("favoriteMovie", 1024L);
+		columnBitmasks.put("favoriteQuotes", 1024L);
 
-		columnBitmasks.put("favoriteGenre", 2048L);
+		columnBitmasks.put("favoriteMovie", 2048L);
 
-		columnBitmasks.put("favoriteGenreId", 4096L);
+		columnBitmasks.put("favoriteGenre", 4096L);
 
-		columnBitmasks.put("leastFavMovie", 8192L);
+		columnBitmasks.put("favoriteGenreId", 8192L);
 
-		columnBitmasks.put("favoriteActor", 16384L);
+		columnBitmasks.put("leastFavMovie", 16384L);
+
+		columnBitmasks.put("favoriteActor", 32768L);
 
 		_columnBitmasks = Collections.unmodifiableMap(columnBitmasks);
 	}

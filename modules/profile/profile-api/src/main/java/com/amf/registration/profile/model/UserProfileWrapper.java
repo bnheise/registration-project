@@ -45,6 +45,7 @@ public class UserProfileWrapper
 		attributes.put("userId", getUserId());
 		attributes.put("firstName", getFirstName());
 		attributes.put("lastName", getLastName());
+		attributes.put("screenName", getScreenName());
 		attributes.put("male", isMale());
 		attributes.put("birthYear", getBirthYear());
 		attributes.put("birthMonth", getBirthMonth());
@@ -84,6 +85,12 @@ public class UserProfileWrapper
 
 		if (lastName != null) {
 			setLastName(lastName);
+		}
+
+		String screenName = (String)attributes.get("screenName");
+
+		if (screenName != null) {
+			setScreenName(screenName);
 		}
 
 		Boolean male = (Boolean)attributes.get("male");
@@ -294,6 +301,16 @@ public class UserProfileWrapper
 	}
 
 	/**
+	 * Returns the screen name of this user profile.
+	 *
+	 * @return the screen name of this user profile
+	 */
+	@Override
+	public String getScreenName() {
+		return model.getScreenName();
+	}
+
+	/**
 	 * Returns the user ID of this user profile.
 	 *
 	 * @return the user ID of this user profile
@@ -476,6 +493,16 @@ public class UserProfileWrapper
 	@Override
 	public void setPrimaryKey(long primaryKey) {
 		model.setPrimaryKey(primaryKey);
+	}
+
+	/**
+	 * Sets the screen name of this user profile.
+	 *
+	 * @param screenName the screen name of this user profile
+	 */
+	@Override
+	public void setScreenName(String screenName) {
+		model.setScreenName(screenName);
 	}
 
 	/**

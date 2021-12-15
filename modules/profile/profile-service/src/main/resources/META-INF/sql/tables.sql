@@ -37,6 +37,7 @@ create table UserProfile_UserProfile (
 	userId LONG not null primary key,
 	firstName VARCHAR(75) null,
 	lastName VARCHAR(75) null,
+	screenName VARCHAR(75) null,
 	male BOOLEAN,
 	birthYear INTEGER,
 	birthMonth INTEGER,
