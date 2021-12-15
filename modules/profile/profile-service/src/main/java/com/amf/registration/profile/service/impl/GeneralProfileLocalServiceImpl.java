@@ -15,7 +15,10 @@
 package com.amf.registration.profile.service.impl;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
+import com.amf.registration.profile.internal.security.permission.resource.CustomActionKeys;
 import com.amf.registration.profile.model.GeneralProfile;
 import com.amf.registration.profile.service.base.GeneralProfileLocalServiceBaseImpl;
 import com.liferay.counter.kernel.service.CounterLocalServiceUtil;
@@ -23,6 +26,8 @@ import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.service.ResourceLocalServiceUtil;
+import com.liferay.portal.kernel.service.ResourcePermissionLocalServiceUtil;
+import com.liferay.portal.kernel.service.RoleLocalServiceUtil;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 
@@ -69,18 +74,25 @@ public class GeneralProfileLocalServiceImpl
 			User user = UserLocalServiceUtil.getUser(userId);
 			generalProfile.setCompanyId(user.getCompanyId());
 			generalProfile.setCreateDate(new Date());
-			generalProfile.setGroupId(user.getGroupId());
+			generalProfile.setGroupId(serviceContext.getScopeGroupId());
 			generalProfile.setModifiedDate(new Date());
 			generalProfile.setUserId(user.getUserId());
 			generalProfile.setUserName(user.getScreenName());
 			generalProfile.setAboutMe("");
 			generalProfile.setFavoriteQuotes("");
 			addGeneralProfile(generalProfile);
-			long groupId = user.getGroupId();
 			ResourceLocalServiceUtil.addResources(serviceContext.getCompanyId(), user.getGroupId(),
 					userId, GeneralProfile.class.getName(), generalProfile.getGeneralProfileId(), true, true, true);
-		}
+			
+			Map<Long, String[]> roleIdsToActionIds = new HashMap<>();
+			long guestRoleId = RoleLocalServiceUtil.getRole(serviceContext.getCompanyId(), "Guest").getRoleId();
+			long userRoleId = RoleLocalServiceUtil.getRole(serviceContext.getCompanyId(), "User").getRoleId();
+			String[] actionKeys = new String[] {CustomActionKeys.VIEW_BASIC_INFO, CustomActionKeys.VIEW_FIRST_NAME, CustomActionKeys.VIEW_LAST_NAME, CustomActionKeys.VIEW_MALE, CustomActionKeys.VIEW_BIRTHDAY};
+			roleIdsToActionIds.put(guestRoleId, actionKeys);
+			roleIdsToActionIds.put(userRoleId, actionKeys);
 
+			ResourcePermissionLocalServiceUtil.setResourcePermissions(serviceContext.getCompanyId(), User.class.getName(), 4, String.valueOf(userId), roleIdsToActionIds);
+		}
 		return generalProfile;
 	}
 }

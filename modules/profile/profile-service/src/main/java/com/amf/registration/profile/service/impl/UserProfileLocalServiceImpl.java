@@ -70,28 +70,33 @@ public class UserProfileLocalServiceImpl
 	 */
 
 	@Override
-	public UserProfile getUserProfile(String screenName, ServiceContext serviceContext) throws PortalException {
-		User user = UserLocalServiceUtil.getUserByScreenName(serviceContext.getCompanyId(), screenName);
+	public UserProfile getUserProfile(User user, ServiceContext serviceContext) throws PortalException {
 		UserProfile userProfile = userProfilePersistence.create(user.getUserId());
 		userProfile.setFirstName(user.getFirstName());
 		userProfile.setLastName(user.getLastName());
 		userProfile.setMale(user.getMale());
+		userProfile.setScreenName(user.getScreenName());
 		LocalDate birthdate = user.getBirthday().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
 		userProfile.setBirthYear(birthdate.getYear());
 		userProfile.setBirthMonth(birthdate.getMonthValue());
 		userProfile.setBirthDay(birthdate.getDayOfMonth());
 
 		GeneralProfile generalProfile = generalProfileLocalService.getGeneralProfileByUserId(user.getUserId(),
 				serviceContext);
+		
 		userProfile.setAboutMe(generalProfile.getAboutMe());
 		userProfile.setFavoriteQuotes(generalProfile.getFavoriteQuotes());
 
 		MovieInterest movieInterest = movieInterestLocalService.getMovieInterestByUserId(user.getUserId(),
 				serviceContext);
 		userProfile.setFavoriteActor(movieInterest.getFavoriteActor());
+		userProfile.setFavoriteGenreId(movieInterest.getFavoriteGenreId());
 		userProfile.setFavoriteGenre(genreLocalService.getGenre(movieInterest.getFavoriteGenreId()).getGenreName());
 		userProfile.setFavoriteMovie(movieInterest.getFavoriteMovie());
 		userProfile.setLeastFavMovie(movieInterest.getLeastFavMovie());
+
+
 		return userProfile;
 	}
 
@@ -124,7 +129,7 @@ public class UserProfileLocalServiceImpl
 		ResourceLocalServiceUtil.updateResources(serviceContext.getCompanyId(), serviceContext.getScopeGroupId(),
 				GeneralProfile.class.getName(), generalProfile.getGeneralProfileId(),
 				serviceContext.getModelPermissions());
-
+				
 		MovieInterest movieInterest = movieInterestLocalService.getMovieInterestByUserId(user.getUserId(),
 				serviceContext);
 		movieInterest.setFavoriteMovie(favoriteMovie);
@@ -137,7 +142,7 @@ public class UserProfileLocalServiceImpl
 				MovieInterest.class.getName(), generalProfile.getGeneralProfileId(),
 				serviceContext.getModelPermissions());
 
-		return getUserProfile(screenName, serviceContext);
+		return getUserProfile(user, serviceContext);
 	}
 
 	@Reference

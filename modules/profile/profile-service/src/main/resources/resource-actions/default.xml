@@ -10,18 +10,21 @@
         <weight>3</weight>
         <permissions>
             <supports>
+                <action-key>VIEW_BASIC_INFO</action-key>
                 <action-key>VIEW_FIRST_NAME</action-key>
                 <action-key>VIEW_LAST_NAME</action-key>
                 <action-key>VIEW_MALE</action-key>
                 <action-key>VIEW_BIRTHDAY</action-key>
             </supports>
             <site-member-defaults>
+                <action-key>VIEW_BASIC_INFO</action-key>
                 <action-key>VIEW_FIRST_NAME</action-key>
                 <action-key>VIEW_LAST_NAME</action-key>
                 <action-key>VIEW_MALE</action-key>
                 <action-key>VIEW_BIRTHDAY</action-key>
             </site-member-defaults>
             <guest-defaults>
+                <action-key>VIEW_BASIC_INFO</action-key>
                 <action-key>VIEW_FIRST_NAME</action-key>
                 <action-key>VIEW_LAST_NAME</action-key>
                 <action-key>VIEW_MALE</action-key>
@@ -38,18 +41,18 @@
         <weight>2</weight>
         <permissions>
             <supports>
-                <action-key>VIEW</action-key>
+                <action-key>VIEW_GENERAL_PROFILE</action-key>
                 <action-key>VIEW_ABOUT_ME</action-key>
                 <action-key>VIEW_FAVORITE_QUOTES</action-key>
                 <action-key>UPDATE</action-key>
             </supports>
             <site-member-defaults>
-                <action-key>VIEW</action-key>
+                <action-key>VIEW_GENERAL_PROFILE</action-key>
                 <action-key>VIEW_ABOUT_ME</action-key>
                 <action-key>VIEW_FAVORITE_QUOTES</action-key>
             </site-member-defaults>
             <guest-defaults>
-                <action-key>VIEW</action-key>
+                <action-key>VIEW_GENERAL_PROFILE</action-key>
                 <action-key>VIEW_ABOUT_ME</action-key>
                 <action-key>VIEW_FAVORITE_QUOTES</action-key>
             </guest-defaults>
@@ -67,7 +70,7 @@
         <weight>2</weight>
         <permissions>
             <supports>
-                <action-key>VIEW</action-key>
+                <action-key>VIEW_MOVIE_INTEREST</action-key>
                 <action-key>VIEW_FAVORITE_MOVIE</action-key>
                 <action-key>VIEW_FAVORITE_GENRE</action-key>
                 <action-key>VIEW_LEAST_FAV_MOVIE</action-key>
@@ -75,14 +78,14 @@
                 <action-key>UPDATE</action-key>
             </supports>
             <site-member-defaults>
-                <action-key>VIEW</action-key>
+                <action-key>VIEW_MOVIE_INTEREST</action-key>
                 <action-key>VIEW_FAVORITE_MOVIE</action-key>
                 <action-key>VIEW_FAVORITE_GENRE</action-key>
                 <action-key>VIEW_LEAST_FAV_MOVIE</action-key>
                 <action-key>VIEW_FAVORITE_ACTOR</action-key>
             </site-member-defaults>
             <guest-defaults>
-                <action-key>VIEW</action-key>
+                <action-key>VIEW_MOVIE_INTEREST</action-key>
                 <action-key>VIEW_FAVORITE_MOVIE</action-key>
                 <action-key>VIEW_FAVORITE_GENRE</action-key>
                 <action-key>VIEW_LEAST_FAV_MOVIE</action-key>

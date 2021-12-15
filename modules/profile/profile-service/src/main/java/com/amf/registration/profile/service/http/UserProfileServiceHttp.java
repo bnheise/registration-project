@@ -149,7 +149,7 @@ public class UserProfileServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				UserProfileServiceUtil.class, "updateUserProfile",
-				_updateUserProfileParameterTypes3);
+				_updateUserProfileParameterTypes2);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, screenName, firstName, lastName, male, birthYear,
@@ -192,7 +192,7 @@ public class UserProfileServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				UserProfileServiceUtil.class, "getPermissions",
-				_getPermissionsParameterTypes4);
+				_getPermissionsParameterTypes3);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, screenName, serviceContext);
@@ -233,7 +233,7 @@ public class UserProfileServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				UserProfileServiceUtil.class, "getPermissionsByUserId",
-				_getPermissionsByUserIdParameterTypes5);
+				_getPermissionsByUserIdParameterTypes4);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, userId, serviceContext);
@@ -266,6 +266,47 @@ public class UserProfileServiceHttp {
 		}
 	}
 
+	public static java.util.Map<String, String> getPermissionSettings(
+			HttpPrincipal httpPrincipal, long userId,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				UserProfileServiceUtil.class, "getPermissionSettings",
+				_getPermissionSettingsParameterTypes5);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, userId, serviceContext);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (java.util.Map<String, String>)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
 	private static Log _log = LogFactoryUtil.getLog(
 		UserProfileServiceHttp.class);
 
@@ -277,18 +318,22 @@ public class UserProfileServiceHttp {
 		new Class[] {
 			long.class, com.liferay.portal.kernel.service.ServiceContext.class
 		};
-	private static final Class<?>[] _updateUserProfileParameterTypes3 =
+	private static final Class<?>[] _updateUserProfileParameterTypes2 =
 		new Class[] {
 			String.class, String.class, String.class, boolean.class, int.class,
 			int.class, int.class, String.class, String.class, String.class,
 			long.class, String.class, String.class,
 			com.liferay.portal.kernel.service.ServiceContext.class
 		};
-	private static final Class<?>[] _getPermissionsParameterTypes4 =
+	private static final Class<?>[] _getPermissionsParameterTypes3 =
 		new Class[] {
 			String.class, com.liferay.portal.kernel.service.ServiceContext.class
 		};
-	private static final Class<?>[] _getPermissionsByUserIdParameterTypes5 =
+	private static final Class<?>[] _getPermissionsByUserIdParameterTypes4 =
+		new Class[] {
+			long.class, com.liferay.portal.kernel.service.ServiceContext.class
+		};
+	private static final Class<?>[] _getPermissionSettingsParameterTypes5 =
 		new Class[] {
 			long.class, com.liferay.portal.kernel.service.ServiceContext.class
 		};

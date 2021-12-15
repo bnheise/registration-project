@@ -62,7 +62,7 @@ public class MovieInterestLocalServiceImpl
 			User user = UserLocalServiceUtil.getUser(userId);
 			movieInterest.setCompanyId(user.getCompanyId());
 			movieInterest.setCreateDate(new Date());
-			movieInterest.setGroupId(user.getGroupId());
+			movieInterest.setGroupId(serviceContext.getScopeGroupId());
 			movieInterest.setModifiedDate(new Date());
 			movieInterest.setUserId(user.getUserId());
 			movieInterest.setUserName(user.getScreenName());

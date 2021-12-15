@@ -4,12 +4,17 @@ public class CustomActionKeys {
 
     private CustomActionKeys() {}
 
+    public static final String VIEW_BASIC_INFO = "VIEW_BASIC_INFO";
     public static final String VIEW_FIRST_NAME = "VIEW_FIRST_NAME";
     public static final String VIEW_LAST_NAME = "VIEW_LAST_NAME";
     public static final String VIEW_MALE = "VIEW_MALE";
     public static final String VIEW_BIRTHDAY = "VIEW_BIRTHDAY";
+
+    public static final String VIEW_GENERAL_PROFILE = "VIEW_GENERAL_PROFILE";
     public static final String VIEW_ABOUT_ME = "VIEW_ABOUT_ME";
     public static final String VIEW_FAVORITE_QUOTES = "VIEW_FAVORITE_QUOTES";
+
+    public static final String VIEW_MOVIE_INTEREST = "VIEW_MOVIE_INTEREST";
     public static final String VIEW_FAVORITE_MOVIE = "VIEW_FAVORITE_MOVIE";
     public static final String VIEW_FAVORITE_GENRE = "VIEW_FAVORITE_GENRE";
     public static final String VIEW_LEAST_FAV_MOVIE = "VIEW_LEAST_FAV_MOVIE";
