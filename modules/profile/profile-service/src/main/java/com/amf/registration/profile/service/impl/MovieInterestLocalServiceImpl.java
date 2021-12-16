@@ -70,6 +70,7 @@ public class MovieInterestLocalServiceImpl
 			movieInterest.setFavoriteActor("");
 			movieInterest.setFavoriteMovie("");
 			movieInterest.setLeastFavMovie("");
+			
 			ResourceLocalServiceUtil.addResources(serviceContext.getCompanyId(), user.getGroupId(), userId,
 				MovieInterest.class.getName(), movieInterest.getMovieInterestId(), true, true, true);
 		}

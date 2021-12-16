@@ -1,0 +1,10 @@
+Bundle-Name: newsletter-api
+Bundle-SymbolicName: com.amf.registration.newsletter.api
+Bundle-Version: 1.0.0
+Export-Package:\
+	com.amf.registration.newsletter.exception,\
+	com.amf.registration.newsletter.model,\
+	com.amf.registration.newsletter.service,\
+	com.amf.registration.newsletter.service.persistence
+-check: EXPORTS
+-includeresource: META-INF/service.xml=../newsletter-service/service.xml
