@@ -3,7 +3,6 @@
 
 <service-builder dependency-injector="ds" package-path="com.amf.registration.newsletter">
 	<namespace>Newsletter</namespace>
-	<!--<entity data-source="sampleDataSource" local-service="true" name="Foo" remote-service="false" session-factory="sampleSessionFactory" table="foo" tx-manager="sampleTransactionManager uuid="true"">-->
 		<entity local-service="true" name="Issue" remote-service="true">
 
 		<column name="issueNumber" primary="true" type="long" />
