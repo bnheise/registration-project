@@ -19,3 +19,19 @@ export interface PermissionSettings {
   VIEW_FAVORITE_QUOTES: PermissionSettingOption;
   VIEW_FAVORITE_ACTOR: PermissionSettingOption;
 }
+
+export interface SubmitPermissionSettings {
+  viewFirstName: PermissionSettingOption;
+  viewFavoriteMovie: PermissionSettingOption;
+  viewLastName: PermissionSettingOption;
+  viewGeneralProfile: PermissionSettingOption;
+  viewMovieInterest: PermissionSettingOption;
+  viewMale: PermissionSettingOption;
+  viewFavoriteGenre: PermissionSettingOption;
+  viewLeastFavMovie: PermissionSettingOption;
+  viewAboutMe: PermissionSettingOption;
+  viewBasicInfo: PermissionSettingOption;
+  viewBirthday: PermissionSettingOption;
+  viewFavoriteQuotes: PermissionSettingOption;
+  viewFavoriteActor: PermissionSettingOption;
+}

@@ -6,18 +6,31 @@ import React, {
     useEffect,
     useState,
 } from "react";
+import { UpdatePermissionSettingsRequest, UPDATE_PERMISSION_SETTINGS } from "../api/UserProfile/updatePermissionSettings";
 import { PermissionSettings } from "../domain/PermissionSettings";
+import { convertObjKeysToCamel } from "../util/utils";
 import { getPermissionSettings } from "./effects";
 import ProfilePrivacyDisplay from "./ProfilePrivacyDisplay";
 
-interface Props { }
-
-const ProfilePrivacy: FC<Props> = ({ }) => {
+const ProfilePrivacy: FC = () => {
     const [permissionSettings, setPermissionSettings] =
         useState<PermissionSettings>();
     const userId = Liferay.ThemeDisplay.getUserId();
     useEffect(getPermissionSettings(userId, setPermissionSettings), []);
-    const handleSubmit = () => { };
+    const submitHandler = () => {
+        if (permissionSettings) {
+            const updatePermissionSettings: UpdatePermissionSettingsRequest = {
+                [UPDATE_PERMISSION_SETTINGS]: convertObjKeysToCamel(permissionSettings),
+            };
+            Liferay.Service(
+                [updatePermissionSettings],
+                ([updatedPermissions]: [PermissionSettings]) => setPermissionSettings(updatedPermissions),
+                (error) => {
+                    console.error(error);
+                }
+            );
+        }
+    };
 
     return (
         <div>
@@ -25,6 +38,7 @@ const ProfilePrivacy: FC<Props> = ({ }) => {
             {permissionSettings ? (
                 <ProfilePrivacyDisplay
                     permissionSettings={permissionSettings}
+                    submitHandler={submitHandler}
                     setPermissionSettings={
                         setPermissionSettings as Dispatch<
                             SetStateAction<PermissionSettings>

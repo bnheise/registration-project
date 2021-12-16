@@ -1,4 +1,5 @@
 import ClayForm, { ClayRadio, ClayRadioGroup } from "@clayui/form";
+import ClayButton from '@clayui/button';
 import React, { Dispatch, FC, SetStateAction } from "react";
 import {
     PermissionSettingOption,
@@ -9,11 +10,13 @@ import { visbiltyWeights } from "../domain/permissionWeights";
 interface Props {
     permissionSettings: PermissionSettings;
     setPermissionSettings: Dispatch<SetStateAction<PermissionSettings>>;
+    submitHandler: () => void;
 }
 
 const ProfilePrivacyDisplay: FC<Props> = ({
     permissionSettings,
     setPermissionSettings,
+    submitHandler
 }) => {
     const {
         VIEW_BASIC_INFO,
@@ -32,7 +35,7 @@ const ProfilePrivacyDisplay: FC<Props> = ({
     } = permissionSettings;
 
     return (
-        <div>
+        <ClayForm>
             <h2>Basic Info</h2>
             <ClayRadioGroup
                 inline
@@ -423,7 +426,8 @@ const ProfilePrivacyDisplay: FC<Props> = ({
                     <ClayRadio label="Private" value={PermissionSettingOption.private} />
                 </ClayRadioGroup>
             </ClayForm.Group>
-        </div>
+            <ClayButton displayType="primary" onClick={submitHandler}>Submit</ClayButton>
+        </ClayForm>
     );
 };
 

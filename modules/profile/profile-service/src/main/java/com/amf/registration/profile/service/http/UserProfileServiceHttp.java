@@ -266,6 +266,56 @@ public class UserProfileServiceHttp {
 		}
 	}
 
+	public static java.util.Map<String, String> updatePermissionSettings(
+			HttpPrincipal httpPrincipal, String viewBasicInfo,
+			String viewFirstName, String viewLastName, String viewMale,
+			String viewBirthday, String viewGeneralProfile, String viewAboutMe,
+			String viewFavoriteQuotes, String viewMovieInterest,
+			String viewFavoriteMovie, String viewFavoriteActor,
+			String viewFavoriteGenre, String viewLeastFavMovie,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				UserProfileServiceUtil.class, "updatePermissionSettings",
+				_updatePermissionSettingsParameterTypes5);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, viewBasicInfo, viewFirstName, viewLastName, viewMale,
+				viewBirthday, viewGeneralProfile, viewAboutMe,
+				viewFavoriteQuotes, viewMovieInterest, viewFavoriteMovie,
+				viewFavoriteActor, viewFavoriteGenre, viewLeastFavMovie,
+				serviceContext);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (java.util.Map<String, String>)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
 	public static java.util.Map<String, String> getPermissionSettings(
 			HttpPrincipal httpPrincipal, long userId,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
@@ -274,7 +324,7 @@ public class UserProfileServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				UserProfileServiceUtil.class, "getPermissionSettings",
-				_getPermissionSettingsParameterTypes5);
+				_getPermissionSettingsParameterTypes10);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, userId, serviceContext);
@@ -333,7 +383,14 @@ public class UserProfileServiceHttp {
 		new Class[] {
 			long.class, com.liferay.portal.kernel.service.ServiceContext.class
 		};
-	private static final Class<?>[] _getPermissionSettingsParameterTypes5 =
+	private static final Class<?>[] _updatePermissionSettingsParameterTypes5 =
+		new Class[] {
+			String.class, String.class, String.class, String.class,
+			String.class, String.class, String.class, String.class,
+			String.class, String.class, String.class, String.class,
+			String.class, com.liferay.portal.kernel.service.ServiceContext.class
+		};
+	private static final Class<?>[] _getPermissionSettingsParameterTypes10 =
 		new Class[] {
 			long.class, com.liferay.portal.kernel.service.ServiceContext.class
 		};

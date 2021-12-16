@@ -16,7 +16,6 @@ package com.amf.registration.profile.service.impl;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 import com.amf.registration.profile.constants.ProfileConstants;
 import com.amf.registration.profile.internal.security.permission.resource.CustomActionKeys;
@@ -30,9 +29,11 @@ import com.amf.registration.profile.service.base.UserProfileServiceBaseImpl;
 import com.amf.registration.profile.util.ProfileViewPermissionConstants;
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.ResourceConstants;
 import com.liferay.portal.kernel.model.ResourcePermission;
 import com.liferay.portal.kernel.model.Role;
 import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.model.role.RoleConstants;
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.security.permission.resource.PortletResourcePermission;
@@ -121,6 +122,117 @@ public class UserProfileServiceImpl extends UserProfileServiceBaseImpl {
 	}
 
 	@Override
+	public Map<String, String> updatePermissionSettings(String viewBasicInfo, String viewFirstName, String viewLastName,
+			String viewMale, String viewBirthday, String viewGeneralProfile, String viewAboutMe,
+			String viewFavoriteQuotes, String viewMovieInterest, String viewFavoriteMovie, String viewFavoriteActor,
+			String viewFavoriteGenre, String viewLeastFavMovie, ServiceContext serviceContext) throws PortalException {
+
+		long userId = serviceContext.getUserId();
+		long companyId = serviceContext.getCompanyId();
+		long guestRoleId = RoleLocalServiceUtil.getRole(companyId, RoleConstants.GUEST).getRoleId();
+		long userRoleId = RoleLocalServiceUtil.getRole(companyId, RoleConstants.USER).getRoleId();
+		long generalProfileId = generalProfileLocalService.getGeneralProfileByUserId(userId, serviceContext)
+				.getGeneralProfileId();
+		long movieInterestId = movieInterestLocalService.getMovieInterestByUserId(userId, serviceContext)
+				.getMovieInterestId();
+
+		updateUserPermission(viewBasicInfo, userId, companyId, CustomActionKeys.VIEW_BASIC_INFO, guestRoleId,
+				userRoleId);
+		updateUserPermission(viewFirstName, userId, companyId, CustomActionKeys.VIEW_FIRST_NAME, guestRoleId,
+				userRoleId);
+		updateUserPermission(viewLastName, userId, companyId, CustomActionKeys.VIEW_LAST_NAME, guestRoleId, userRoleId);
+		updateUserPermission(viewMale, userId, companyId, CustomActionKeys.VIEW_MALE, guestRoleId, userRoleId);
+		updateUserPermission(viewBirthday, userId, companyId, CustomActionKeys.VIEW_BIRTHDAY, guestRoleId, userRoleId);
+
+		updateGeneralProfilePermission(viewGeneralProfile, generalProfileId, companyId,
+				CustomActionKeys.VIEW_GENERAL_PROFILE, guestRoleId, userRoleId);
+		updateGeneralProfilePermission(viewAboutMe, generalProfileId, companyId, CustomActionKeys.VIEW_ABOUT_ME,
+				guestRoleId, userRoleId);
+		updateGeneralProfilePermission(viewFavoriteQuotes, generalProfileId, companyId,
+				CustomActionKeys.VIEW_FAVORITE_QUOTES, guestRoleId, userRoleId);
+
+		updateMovieInterestPermission(viewMovieInterest, movieInterestId, companyId,
+				CustomActionKeys.VIEW_MOVIE_INTEREST, guestRoleId, userRoleId);
+		updateMovieInterestPermission(viewFavoriteMovie, movieInterestId, companyId,
+				CustomActionKeys.VIEW_FAVORITE_MOVIE, guestRoleId, userRoleId);
+		updateMovieInterestPermission(viewFavoriteActor, movieInterestId, companyId,
+				CustomActionKeys.VIEW_FAVORITE_ACTOR, guestRoleId, userRoleId);
+		updateMovieInterestPermission(viewFavoriteGenre, movieInterestId, companyId,
+				CustomActionKeys.VIEW_FAVORITE_GENRE, guestRoleId, userRoleId);
+		updateMovieInterestPermission(viewLeastFavMovie, movieInterestId, companyId,
+				CustomActionKeys.VIEW_LEAST_FAV_MOVIE, guestRoleId, userRoleId);
+
+		return getPermissionSettings(serviceContext.getUserId(), serviceContext);
+	}
+
+	private void updateUserPermission(String permissionSetting, long userId, long companyId, String actionId,
+			long guestRoleId, long userRoleId) throws PortalException {
+
+		updatePermission(permissionSetting, companyId, User.class.getName(), ResourceConstants.SCOPE_GROUP_TEMPLATE,
+				String.valueOf(userId), actionId, guestRoleId, userRoleId);
+	}
+
+	private void updateGeneralProfilePermission(String permissionSetting, long generalProfileId, long companyId,
+			String actionId,
+			long guestRoleId, long userRoleId) throws PortalException {
+
+		updatePermission(permissionSetting, companyId, GeneralProfile.class.getName(),
+				ResourceConstants.SCOPE_INDIVIDUAL,
+				String.valueOf(generalProfileId), actionId, guestRoleId, userRoleId);
+	}
+
+	private void updateMovieInterestPermission(String permissionSetting, long movieInterestId, long companyId,
+			String actionId,
+			long guestRoleId, long userRoleId) throws PortalException {
+
+		updatePermission(permissionSetting, companyId, MovieInterest.class.getName(),
+				ResourceConstants.SCOPE_INDIVIDUAL,
+				String.valueOf(movieInterestId), actionId, guestRoleId, userRoleId);
+	}
+
+	private void updatePermission(String permissionSetting, long companyId, String className, int scopeId,
+			String primKey, String actionId, long guestRoleId, long userRoleId) throws PortalException {
+		
+		ResourcePermission guestPermission = ResourcePermissionLocalServiceUtil
+				.fetchResourcePermission(companyId, className, scopeId, primKey, guestRoleId);
+		ResourcePermission guestPermission2 = ResourcePermissionLocalServiceUtil
+				.fetchResourcePermission(companyId, className, ResourceConstants.SCOPE_INDIVIDUAL, primKey, guestRoleId);
+		ResourcePermission userPermission = ResourcePermissionLocalServiceUtil
+				.fetchResourcePermission(companyId, className, scopeId, primKey, userRoleId);
+
+		switch (permissionSetting) {
+			case ProfileViewPermissionConstants.ANYONE:
+				guestPermission.addResourceAction(actionId);
+				guestPermission2.addResourceAction(actionId);
+				userPermission.addResourceAction(actionId);
+				ResourcePermissionLocalServiceUtil.updateResourcePermission(guestPermission);
+				ResourcePermissionLocalServiceUtil.updateResourcePermission(guestPermission2);
+				ResourcePermissionLocalServiceUtil.updateResourcePermission(userPermission);
+				break;
+			case ProfileViewPermissionConstants.MEMBERS:
+				guestPermission.removeResourceAction(actionId);
+				guestPermission2.removeResourceAction(actionId);
+				userPermission.addResourceAction(actionId);
+				ResourcePermissionLocalServiceUtil.updateResourcePermission(userPermission);
+				ResourcePermissionLocalServiceUtil.updateResourcePermission(guestPermission);
+				ResourcePermissionLocalServiceUtil.updateResourcePermission(guestPermission2);
+				break;
+			case ProfileViewPermissionConstants.PRIVATE:
+				guestPermission.removeResourceAction(actionId);
+				guestPermission2.removeResourceAction(actionId);
+				userPermission.removeResourceAction(actionId);
+				ResourcePermissionLocalServiceUtil.updateResourcePermission(userPermission);
+				ResourcePermissionLocalServiceUtil.updateResourcePermission(guestPermission);
+				ResourcePermissionLocalServiceUtil.updateResourcePermission(guestPermission2);
+				break;
+			default:
+				throw new IllegalArgumentException("Invalid permission setting: " + permissionSetting);
+		}
+
+		
+	}
+
+	@Override
 	public Map<String, String> getPermissionSettings(long userId, ServiceContext serviceContext)
 			throws PortalException {
 		User user = UserLocalServiceUtil.getUser(userId);
@@ -128,15 +240,15 @@ public class UserProfileServiceImpl extends UserProfileServiceBaseImpl {
 		GeneralProfile generalProfile = generalProfileLocalService.getGeneralProfileByUserId(userId, serviceContext);
 		Map<String, String> permissionSettings = new HashMap<>();
 
-		Role guestRole = RoleLocalServiceUtil.getRole(user.getCompanyId(), "Guest");
-		Role userRole = RoleLocalServiceUtil.getRole(user.getCompanyId(), "User");
+		Role guestRole = RoleLocalServiceUtil.getRole(user.getCompanyId(), RoleConstants.GUEST);
+		Role userRole = RoleLocalServiceUtil.getRole(user.getCompanyId(), RoleConstants.USER);
 
 		// Basic Info
 		ResourcePermission basicInfoGuestPermissions = ResourcePermissionLocalServiceUtil.fetchResourcePermission(
-				user.getCompanyId(), User.class.getName(), 3, String.valueOf(user.getUserId()), guestRole.getRoleId());
+				user.getCompanyId(), User.class.getName(), ResourceConstants.SCOPE_GROUP_TEMPLATE, String.valueOf(user.getUserId()), guestRole.getRoleId());
 
 		ResourcePermission basicInfoUserPermissions = ResourcePermissionLocalServiceUtil.fetchResourcePermission(
-				user.getCompanyId(), User.class.getName(), 3, String.valueOf(user.getUserId()), userRole.getRoleId());
+				user.getCompanyId(), User.class.getName(), ResourceConstants.SCOPE_GROUP_TEMPLATE, String.valueOf(user.getUserId()), userRole.getRoleId());
 
 		if (basicInfoGuestPermissions != null
 				&& basicInfoGuestPermissions.hasActionId(CustomActionKeys.VIEW_BASIC_INFO)) {
@@ -191,11 +303,11 @@ public class UserProfileServiceImpl extends UserProfileServiceBaseImpl {
 		// Movie General Info
 
 		ResourcePermission generalInfoGuestPermissions = ResourcePermissionLocalServiceUtil.fetchResourcePermission(
-				user.getCompanyId(), GeneralProfile.class.getName(), 4,
+				user.getCompanyId(), GeneralProfile.class.getName(), ResourceConstants.SCOPE_INDIVIDUAL,
 				String.valueOf(generalProfile.getGeneralProfileId()), guestRole.getRoleId());
 
 		ResourcePermission generalInfoUserPermissions = ResourcePermissionLocalServiceUtil.fetchResourcePermission(
-				user.getCompanyId(), GeneralProfile.class.getName(), 4,
+				user.getCompanyId(), GeneralProfile.class.getName(), ResourceConstants.SCOPE_INDIVIDUAL,
 				String.valueOf(generalProfile.getGeneralProfileId()), userRole.getRoleId());
 
 		if (generalInfoGuestPermissions.hasActionId(CustomActionKeys.VIEW_GENERAL_PROFILE)) {
@@ -229,11 +341,11 @@ public class UserProfileServiceImpl extends UserProfileServiceBaseImpl {
 		// Movie Interest
 
 		ResourcePermission movieInterestGuestPermissions = ResourcePermissionLocalServiceUtil.fetchResourcePermission(
-				user.getCompanyId(), MovieInterest.class.getName(), 4,
+				user.getCompanyId(), MovieInterest.class.getName(), ResourceConstants.SCOPE_INDIVIDUAL,
 				String.valueOf(movieInterest.getMovieInterestId()), guestRole.getRoleId());
 
 		ResourcePermission movieInterestUserPermissions = ResourcePermissionLocalServiceUtil.fetchResourcePermission(
-				user.getCompanyId(), MovieInterest.class.getName(), 4,
+				user.getCompanyId(), MovieInterest.class.getName(), ResourceConstants.SCOPE_INDIVIDUAL,
 				String.valueOf(movieInterest.getMovieInterestId()), userRole.getRoleId());
 
 		if (movieInterestGuestPermissions != null
@@ -289,18 +401,6 @@ public class UserProfileServiceImpl extends UserProfileServiceBaseImpl {
 		return permissionSettings;
 	}
 
-	private ResourcePermission getBasicInfoResourcePermission(User user, ServiceContext serviceContext) throws PortalException {
-		User currentUser = UserLocalServiceUtil.getUser(serviceContext.getUserId());
-		Optional<Role> maybeUserRole = currentUser.getRoles().stream().filter(role -> role.getName().equals("User")).findAny();
-		long roleId = maybeUserRole.isPresent() ? maybeUserRole.get().getRoleId() : RoleLocalServiceUtil.getRole(serviceContext.getCompanyId(), "Guest").getRoleId();
-		if (user.getUserId() == currentUser.getUserId()) {
-			roleId = RoleLocalServiceUtil.getRole(serviceContext.getCompanyId(), "Owner").getRoleId();
-		}
-		return ResourcePermissionLocalServiceUtil.fetchResourcePermission(
-			serviceContext.getCompanyId(), User.class.getName(), 4, String.valueOf(user.getUserId()),
-			roleId);
-	}
-
 	private Map<String, Boolean> getPermissions(User user, ServiceContext serviceContext) throws PortalException {
 		HashMap<String, Boolean> viewPermissions = new HashMap<>();
 		PermissionChecker permissionChecker = getPermissionChecker();
@@ -310,19 +410,24 @@ public class UserProfileServiceImpl extends UserProfileServiceBaseImpl {
 				serviceContext);
 
 		// BASIC INFO
-		// ResourcePermission basicInfoResourcePerm = getBasicInfoResourcePermission(user, serviceContext);
-		// ResourcePermissionLocalServiceUtil.setResourcePermissions(companyId, name, scope, primKey, roleIdsToActionIds);;
-		boolean canViewBasicInfo = UserPermissionUtil.contains(permissionChecker, user.getUserId(), CustomActionKeys.VIEW_BASIC_INFO); //basicInfoResourcePerm.hasActionId(CustomActionKeys.VIEW_BASIC_INFO);
+
+		boolean canViewBasicInfo = UserPermissionUtil.contains(permissionChecker, serviceContext.getGuestOrUserId(),
+				CustomActionKeys.VIEW_BASIC_INFO); 
 
 		viewPermissions.put("basicInfo", canViewBasicInfo);
-		boolean canViewFirstName = UserPermissionUtil.contains(permissionChecker, user.getUserId(), CustomActionKeys.VIEW_FIRST_NAME);
+		boolean canViewFirstName = UserPermissionUtil.contains(permissionChecker, serviceContext.getGuestOrUserId(),
+				CustomActionKeys.VIEW_FIRST_NAME);
+		
 		viewPermissions.put("firstName", canViewFirstName);
 
-		boolean canViewLastName = UserPermissionUtil.contains(permissionChecker, user.getUserId(), CustomActionKeys.VIEW_LAST_NAME);
+		boolean canViewLastName = UserPermissionUtil.contains(permissionChecker, serviceContext.getGuestOrUserId(),
+				CustomActionKeys.VIEW_LAST_NAME);
 		viewPermissions.put("lastName", canViewLastName);
-		boolean canViewMale = UserPermissionUtil.contains(permissionChecker, user.getUserId(), CustomActionKeys.VIEW_MALE);
+		boolean canViewMale = UserPermissionUtil.contains(permissionChecker, serviceContext.getGuestOrUserId(),
+				CustomActionKeys.VIEW_MALE);
 		viewPermissions.put("male", canViewMale);
-		boolean canViewBirthday = UserPermissionUtil.contains(permissionChecker, user.getUserId(), CustomActionKeys.VIEW_BIRTHDAY);
+		boolean canViewBirthday = UserPermissionUtil.contains(permissionChecker, serviceContext.getGuestOrUserId(),
+				CustomActionKeys.VIEW_BIRTHDAY);
 		viewPermissions.put("birthday", canViewBirthday);
 
 		// GENERAL PROFILE

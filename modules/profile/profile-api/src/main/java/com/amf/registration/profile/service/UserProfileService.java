@@ -86,6 +86,15 @@ public interface UserProfileService extends BaseService {
 			long userId, ServiceContext serviceContext)
 		throws PortalException;
 
+	public Map<String, String> updatePermissionSettings(
+			String viewBasicInfo, String viewFirstName, String viewLastName,
+			String viewMale, String viewBirthday, String viewGeneralProfile,
+			String viewAboutMe, String viewFavoriteQuotes,
+			String viewMovieInterest, String viewFavoriteMovie,
+			String viewFavoriteActor, String viewFavoriteGenre,
+			String viewLeastFavMovie, ServiceContext serviceContext)
+		throws PortalException;
+
 	public UserProfile updateUserProfile(
 			String screenName, String firstName, String lastName, boolean male,
 			int birthYear, int birthMonth, int birthDay, String aboutMe,

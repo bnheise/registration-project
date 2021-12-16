@@ -88,6 +88,24 @@ public class UserProfileServiceWrapper
 	}
 
 	@Override
+	public java.util.Map<String, String> updatePermissionSettings(
+			String viewBasicInfo, String viewFirstName, String viewLastName,
+			String viewMale, String viewBirthday, String viewGeneralProfile,
+			String viewAboutMe, String viewFavoriteQuotes,
+			String viewMovieInterest, String viewFavoriteMovie,
+			String viewFavoriteActor, String viewFavoriteGenre,
+			String viewLeastFavMovie,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _userProfileService.updatePermissionSettings(
+			viewBasicInfo, viewFirstName, viewLastName, viewMale, viewBirthday,
+			viewGeneralProfile, viewAboutMe, viewFavoriteQuotes,
+			viewMovieInterest, viewFavoriteMovie, viewFavoriteActor,
+			viewFavoriteGenre, viewLeastFavMovie, serviceContext);
+	}
+
+	@Override
 	public com.amf.registration.profile.model.UserProfile updateUserProfile(
 			String screenName, String firstName, String lastName, boolean male,
 			int birthYear, int birthMonth, int birthDay, String aboutMe,

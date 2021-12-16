@@ -7,7 +7,7 @@ public class ProfileViewPermissionConstants {
     }
 
     public static final String ANYONE = "anyone";
-    public static final String MEMBERS = "memers";
+    public static final String MEMBERS = "members";
     public static final String PRIVATE = "private";
 
 }
