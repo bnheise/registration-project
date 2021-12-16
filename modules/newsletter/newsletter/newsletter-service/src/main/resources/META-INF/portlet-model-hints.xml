@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+
+<model-hints>
+	<model name="com.amf.registration.newsletter.model.Article">
+		<field name="issueNumber" type="long" />
+		<field name="title" type="String" />
+		<field name="author" type="String" />
+		<field name="order" type="int" />
+		<field name="content" type="String" />
+	</model>
+	<model name="com.amf.registration.newsletter.model.Issue">
+		<field name="issueNumber" type="long" />
+		<field name="title" type="String" />
+		<field name="description" type="String" />
+		<field name="issueDate" type="Date" />
+		<field name="byline" type="String" />
+	</model>
+</model-hints>
